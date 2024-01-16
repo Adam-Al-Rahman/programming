@@ -1,0 +1,192 @@
+graph.cc:25:67: error: no matching function for call to 'to_string'
+   25 |   return hash<string>()(std::to_string(unit.from_vertex) + "=>" + std::to_string(&unit.to_vertices));
+      |                                                                   ^~~~~~~~~~~~~~
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/hashtable_policy.h:1219:9: note: in instantiation of member function 'std::hash<Link<char, char>>::operator()' requested here
+ 1219 |         return _M_hash()(__k);
+      |                ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/hashtable_policy.h:729:33: note: in instantiation of member function 'std::__detail::_Hash_code_base<Link<char, char>, std::pair<const Link<char, char>, std::vector<int>>, std::__detail::_Select1st, std::hash<Link<char, char>>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, true>::_M_hash_code' requested here
+  729 |       __hash_code __code = __h->_M_hash_code(__k);
+      |                                 ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/unordered_map.h:984:16: note: in instantiation of member function 'std::__detail::_Map_base<Link<char, char>, std::pair<const Link<char, char>, std::vector<int>>, std::allocator<std::pair<const Link<char, char>, std::vector<int>>>, std::__detail::_Select1st, std::equal_to<Link<char, char>>, std::hash<Link<char, char>>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true>>::operator[]' requested here
+  984 |       { return _M_h[std::move(__k)]; }
+      |                ^
+graph.cc:52:10: note: in instantiation of member function 'std::unordered_map<Link<char, char>, std::vector<int>>::operator[]' requested here
+   52 |   weights[Link<char, char>(vertices[0], graph[vertices[0]])] = {5};
+      |          ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/basic_string.h:6660:3: note: candidate function not viable: no known conversion from 'const std::vector<char> *' to 'int' for 1st argument
+ 6660 |   to_string(int __val)
+      |   ^         ~~~~~~~~~
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/basic_string.h:6671:3: note: candidate function not viable: no known conversion from 'const std::vector<char> *' to 'unsigned int' for 1st argument
+ 6671 |   to_string(unsigned __val)
+      |   ^         ~~~~~~~~~~~~~~
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/basic_string.h:6679:3: note: candidate function not viable: no known conversion from 'const std::vector<char> *' to 'long' for 1st argument
+ 6679 |   to_string(long __val)
+      |   ^         ~~~~~~~~~~
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/basic_string.h:6690:3: note: candidate function not viable: no known conversion from 'const std::vector<char> *' to 'unsigned long' for 1st argument
+ 6690 |   to_string(unsigned long __val)
+      |   ^         ~~~~~~~~~~~~~~~~~~~
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/basic_string.h:6698:3: note: candidate function not viable: no known conversion from 'const std::vector<char> *' to 'long long' for 1st argument
+ 6698 |   to_string(long long __val)
+      |   ^         ~~~~~~~~~~~~~~~
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/basic_string.h:6710:3: note: candidate function not viable: no known conversion from 'const std::vector<char> *' to 'unsigned long long' for 1st argument
+ 6710 |   to_string(unsigned long long __val)
+      |   ^         ~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/basic_string.h:6721:3: note: candidate function not viable: no known conversion from 'const std::vector<char> *' to 'float' for 1st argument
+ 6721 |   to_string(float __val)
+      |   ^         ~~~~~~~~~~~
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/basic_string.h:6730:3: note: candidate function not viable: no known conversion from 'const std::vector<char> *' to 'double' for 1st argument
+ 6730 |   to_string(double __val)
+      |   ^         ~~~~~~~~~~~~
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/basic_string.h:6739:3: note: candidate function not viable: no known conversion from 'const std::vector<char> *' to 'long double' for 1st argument
+ 6739 |   to_string(long double __val)
+      |   ^         ~~~~~~~~~~~~~~~~~
+In file included from graph.cc:5:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/iostream:39:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/ostream:38:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/ios:42:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/ios_base.h:41:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/locale_classes.h:40:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/string:48:
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_function.h:370:20: error: invalid operands to binary expression ('const Link<char, char>' and 'const Link<char, char>')
+  370 |       { return __x == __y; }
+      |                ~~~ ^  ~~~
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/hashtable_policy.h:1617:32: note: in instantiation of member function 'std::equal_to<Link<char, char>>::operator()' requested here
+ 1617 |         return _S_equals(__c, __n) && _M_eq()(__k, _ExtractKey{}(__n._M_v()));
+      |                                       ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/hashtable.h:1840:14: note: in instantiation of member function 'std::__detail::_Hashtable_base<Link<char, char>, std::pair<const Link<char, char>, std::vector<int>>, std::__detail::_Select1st, std::equal_to<Link<char, char>>, std::hash<Link<char, char>>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Hashtable_traits<true, false, true>>::_M_equals' requested here
+ 1840 |           if (this->_M_equals(__k, __code, *__p))
+      |                     ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/hashtable.h:810:31: note: in instantiation of member function 'std::_Hashtable<Link<char, char>, std::pair<const Link<char, char>, std::vector<int>>, std::allocator<std::pair<const Link<char, char>, std::vector<int>>>, std::__detail::_Select1st, std::equal_to<Link<char, char>>, std::hash<Link<char, char>>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true>>::_M_find_before_node' requested here
+  810 |         __node_base_ptr __before_n = _M_find_before_node(__bkt, __key, __c);
+      |                                      ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/hashtable_policy.h:731:30: note: in instantiation of member function 'std::_Hashtable<Link<char, char>, std::pair<const Link<char, char>, std::vector<int>>, std::allocator<std::pair<const Link<char, char>, std::vector<int>>>, std::__detail::_Select1st, std::equal_to<Link<char, char>>, std::hash<Link<char, char>>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true>>::_M_find_node' requested here
+  731 |       if (auto __node = __h->_M_find_node(__bkt, __k, __code))
+      |                              ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/unordered_map.h:984:16: note: in instantiation of member function 'std::__detail::_Map_base<Link<char, char>, std::pair<const Link<char, char>, std::vector<int>>, std::allocator<std::pair<const Link<char, char>, std::vector<int>>>, std::__detail::_Select1st, std::equal_to<Link<char, char>>, std::hash<Link<char, char>>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true>>::operator[]' requested here
+  984 |       { return _M_h[std::move(__k)]; }
+      |                ^
+graph.cc:52:10: note: in instantiation of member function 'std::unordered_map<Link<char, char>, std::vector<int>>::operator[]' requested here
+   52 |   weights[Link<char, char>(vertices[0], graph[vertices[0]])] = {5};
+      |          ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/postypes.h:222:5: note: candidate template ignored: could not match 'fpos' against 'Link'
+  222 |     operator==(const fpos<_StateT>& __lhs, const fpos<_StateT>& __rhs)
+      |     ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_pair.h:466:5: note: candidate template ignored: could not match 'pair' against 'Link'
+  466 |     operator==(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
+      |     ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_iterator.h:420:5: note: candidate template ignored: could not match 'reverse_iterator' against 'Link'
+  420 |     operator==(const reverse_iterator<_Iterator>& __x,
+      |     ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_iterator.h:459:5: note: candidate template ignored: could not match 'reverse_iterator' against 'Link'
+  459 |     operator==(const reverse_iterator<_IteratorL>& __x,
+      |     ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_iterator.h:1585:5: note: candidate template ignored: could not match 'move_iterator' against 'Link'
+ 1585 |     operator==(const move_iterator<_IteratorL>& __x,
+      |     ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_iterator.h:1648:5: note: candidate template ignored: could not match 'move_iterator' against 'Link'
+ 1648 |     operator==(const move_iterator<_Iterator>& __x,
+      |     ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/allocator.h:218:5: note: candidate template ignored: could not match 'allocator' against 'Link'
+  218 |     operator==(const allocator<_T1>&, const allocator<_T2>&)
+      |     ^
+2 errors generated.
+In file included from graph.cc:5:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/iostream:39:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/ostream:38:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/ios:42:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/ios_base.h:41:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/locale_classes.h:40:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/string:48:
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_function.h:370:20: error: invalid operands to binary expression ('const Link<char, char>' and 'const Link<char, char>')
+  370 |       { return __x == __y; }
+      |                ~~~ ^  ~~~
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/hashtable_policy.h:1617:32: note: in instantiation of member function 'std::equal_to<Link<char, char>>::operator()' requested here
+ 1617 |         return _S_equals(__c, __n) && _M_eq()(__k, _ExtractKey{}(__n._M_v()));
+      |                                       ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/hashtable.h:1840:14: note: in instantiation of member function 'std::__detail::_Hashtable_base<Link<char, char>, std::pair<const Link<char, char>, std::vector<int>>, std::__detail::_Select1st, std::equal_to<Link<char, char>>, std::hash<Link<char, char>>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Hashtable_traits<true, false, true>>::_M_equals' requested here
+ 1840 |           if (this->_M_equals(__k, __code, *__p))
+      |                     ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/hashtable.h:810:31: note: in instantiation of member function 'std::_Hashtable<Link<char, char>, std::pair<const Link<char, char>, std::vector<int>>, std::allocator<std::pair<const Link<char, char>, std::vector<int>>>, std::__detail::_Select1st, std::equal_to<Link<char, char>>, std::hash<Link<char, char>>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true>>::_M_find_before_node' requested here
+  810 |         __node_base_ptr __before_n = _M_find_before_node(__bkt, __key, __c);
+      |                                      ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/hashtable_policy.h:731:30: note: in instantiation of member function 'std::_Hashtable<Link<char, char>, std::pair<const Link<char, char>, std::vector<int>>, std::allocator<std::pair<const Link<char, char>, std::vector<int>>>, std::__detail::_Select1st, std::equal_to<Link<char, char>>, std::hash<Link<char, char>>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true>>::_M_find_node' requested here
+  731 |       if (auto __node = __h->_M_find_node(__bkt, __k, __code))
+      |                              ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/unordered_map.h:984:16: note: in instantiation of member function 'std::__detail::_Map_base<Link<char, char>, std::pair<const Link<char, char>, std::vector<int>>, std::allocator<std::pair<const Link<char, char>, std::vector<int>>>, std::__detail::_Select1st, std::equal_to<Link<char, char>>, std::hash<Link<char, char>>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true>>::operator[]' requested here
+  984 |       { return _M_h[std::move(__k)]; }
+      |                ^
+graph.cc:55:10: note: in instantiation of member function 'std::unordered_map<Link<char, char>, std::vector<int>>::operator[]' requested here
+   55 |   weights[Link<char, char>(vertices[0], graph[vertices[0]])] = {5};
+      |          ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/postypes.h:222:5: note: candidate template ignored: could not match 'fpos' against 'Link'
+  222 |     operator==(const fpos<_StateT>& __lhs, const fpos<_StateT>& __rhs)
+      |     ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_pair.h:466:5: note: candidate template ignored: could not match 'pair' against 'Link'
+  466 |     operator==(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
+      |     ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_iterator.h:420:5: note: candidate template ignored: could not match 'reverse_iterator' against 'Link'
+  420 |     operator==(const reverse_iterator<_Iterator>& __x,
+      |     ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_iterator.h:459:5: note: candidate template ignored: could not match 'reverse_iterator' against 'Link'
+  459 |     operator==(const reverse_iterator<_IteratorL>& __x,
+      |     ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_iterator.h:1585:5: note: candidate template ignored: could not match 'move_iterator' against 'Link'
+ 1585 |     operator==(const move_iterator<_IteratorL>& __x,
+      |     ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_iterator.h:1648:5: note: candidate template ignored: could not match 'move_iterator' against 'Link'
+ 1648 |     operator==(const move_iterator<_Iterator>& __x,
+      |     ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/allocator.h:218:5: note: candidate template ignored: could not match 'allocator' against 'Link'
+  218 |     operator==(const allocator<_T1>&, const allocator<_T2>&)
+      |     ^
+1 error generated.
+In file included from graph.cc:5:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/iostream:39:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/ostream:38:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/ios:42:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/ios_base.h:41:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/locale_classes.h:40:
+In file included from /usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/string:48:
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_function.h:370:20: error: invalid operands to binary expression ('const Link<char, char>' and 'const Link<char, char>')
+  370 |       { return __x == __y; }
+      |                ~~~ ^  ~~~
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/hashtable_policy.h:1617:32: note: in instantiation of member function 'std::equal_to<Link<char, char>>::operator()' requested here
+ 1617 |         return _S_equals(__c, __n) && _M_eq()(__k, _ExtractKey{}(__n._M_v()));
+      |                                       ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/hashtable.h:1840:14: note: in instantiation of member function 'std::__detail::_Hashtable_base<Link<char, char>, std::pair<const Link<char, char>, std::vector<int>>, std::__detail::_Select1st, std::equal_to<Link<char, char>>, std::hash<Link<char, char>>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Hashtable_traits<true, false, true>>::_M_equals' requested here
+ 1840 |           if (this->_M_equals(__k, __code, *__p))
+      |                     ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/hashtable.h:810:31: note: in instantiation of member function 'std::_Hashtable<Link<char, char>, std::pair<const Link<char, char>, std::vector<int>>, std::allocator<std::pair<const Link<char, char>, std::vector<int>>>, std::__detail::_Select1st, std::equal_to<Link<char, char>>, std::hash<Link<char, char>>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true>>::_M_find_before_node' requested here
+  810 |         __node_base_ptr __before_n = _M_find_before_node(__bkt, __key, __c);
+      |                                      ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/hashtable_policy.h:731:30: note: in instantiation of member function 'std::_Hashtable<Link<char, char>, std::pair<const Link<char, char>, std::vector<int>>, std::allocator<std::pair<const Link<char, char>, std::vector<int>>>, std::__detail::_Select1st, std::equal_to<Link<char, char>>, std::hash<Link<char, char>>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true>>::_M_find_node' requested here
+  731 |       if (auto __node = __h->_M_find_node(__bkt, __k, __code))
+      |                              ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/unordered_map.h:984:16: note: in instantiation of member function 'std::__detail::_Map_base<Link<char, char>, std::pair<const Link<char, char>, std::vector<int>>, std::allocator<std::pair<const Link<char, char>, std::vector<int>>>, std::__detail::_Select1st, std::equal_to<Link<char, char>>, std::hash<Link<char, char>>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, false, true>>::operator[]' requested here
+  984 |       { return _M_h[std::move(__k)]; }
+      |                ^
+graph.cc:60:10: note: in instantiation of member function 'std::unordered_map<Link<char, char>, std::vector<int>>::operator[]' requested here
+   60 |   weights[Link<char, char>(vertices[0], graph[vertices[0]])] = {5};
+      |          ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/postypes.h:222:5: note: candidate template ignored: could not match 'fpos' against 'Link'
+  222 |     operator==(const fpos<_StateT>& __lhs, const fpos<_StateT>& __rhs)
+      |     ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_pair.h:466:5: note: candidate template ignored: could not match 'pair' against 'Link'
+  466 |     operator==(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
+      |     ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_iterator.h:420:5: note: candidate template ignored: could not match 'reverse_iterator' against 'Link'
+  420 |     operator==(const reverse_iterator<_Iterator>& __x,
+      |     ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_iterator.h:459:5: note: candidate template ignored: could not match 'reverse_iterator' against 'Link'
+  459 |     operator==(const reverse_iterator<_IteratorL>& __x,
+      |     ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_iterator.h:1585:5: note: candidate template ignored: could not match 'move_iterator' against 'Link'
+ 1585 |     operator==(const move_iterator<_IteratorL>& __x,
+      |     ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/stl_iterator.h:1648:5: note: candidate template ignored: could not match 'move_iterator' against 'Link'
+ 1648 |     operator==(const move_iterator<_Iterator>& __x,
+      |     ^
+/usr/lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/allocator.h:218:5: note: candidate template ignored: could not match 'allocator' against 'Link'
+  218 |     operator==(const allocator<_T1>&, const allocator<_T2>&)
+      |     ^
+1 error generated.
