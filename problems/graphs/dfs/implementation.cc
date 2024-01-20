@@ -1,4 +1,7 @@
 
+#include <iostream>
+
+#include <memory>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -74,7 +77,7 @@ public:
 };
 
 int main() {
-  Node *graph = new Node(MetaData("introduction.md"));
-  int a = 5;
-  std::nullptr_t empty = nullptr;
+  std::shared_ptr<Node> graph =
+      std::make_shared<Node>(Node(MetaData("introduction.md")));
+  std::cout << graph->data.filename << std::endl;
 }
