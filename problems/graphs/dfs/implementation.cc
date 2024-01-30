@@ -1,14 +1,12 @@
 
 #include <iostream>
-
 #include <memory>
 #include <string>
 #include <unordered_map>
 #include <vector>
 
 class MetaData {
-
-public:
+ public:
   std::string filename;
   std::string title;
   std::vector<std::string> tags;
@@ -20,11 +18,13 @@ public:
            std::vector<std::string> tags = {},
            std::vector<std::string> aliases = {}, std::string description = "",
            std::unordered_map<std::string, std::string> custom_metadata = {})
-      : filename(filename), tags(tags), description(description),
+      : filename(filename),
+        tags(tags),
+        description(description),
         custom_metadata(custom_metadata){};
 
   bool operator==(const MetaData &to_compare_data)
-      const { // use const because not to change member(class) data
+      const {  // use const because not to change member(class) data
     // i.e we cannot to
     // this->filename = filename + "habibi";
     return this->filename == to_compare_data.filename;
@@ -32,7 +32,7 @@ public:
 };
 
 class Node {
-public:
+ public:
   MetaData data;
   std::vector<Node *> children;
 
@@ -41,7 +41,6 @@ public:
    * @param input: The input list that need to fill the node name
    */
   std::vector<MetaData> pre_order(std::vector<MetaData> &input) {
-
     input.push_back(data);
 
     if (!children.empty()) {

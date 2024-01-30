@@ -3,32 +3,21 @@
  * @brief: Generate list of possible words from a character matrix
  * @source:
  * https://www.techiedelight.com/generate-list-of-possible-words-from-a-character-matrix
- * @tags: ["depth_first_search", "dfs", "matrix"]
+ * @tags: ["depth_first_search", "dfs", "matrix", "trie" ]
  * @status: unsolved
  */
 
-#include <memory>
 #include <string>
+#include <unordered_set>
 #include <vector>
 
-class Node {
-public:
-  char letter;
-  std::vector<std::shared_ptr<Node>> adjacent_letters;
+class TriesNode {};
 
-  Node(char letter) : letter(letter){};
+int main() {
+  std::vector<std::vector<char>> board = {
+      {'M', 'S', 'E'}, {'R', 'A', 'T'}, {'L', 'O', 'N'}};
 
-  Node *add_node(char letter) {
+  std::unordered_set<std::string> words = {"STAR", "NOTE", "SAND", "STONE"};
 
-    std::shared_ptr<Node> character = std::make_shared<Node>(letter);
-    adjacent_letters.push_back(character);
-
-    return this;
-  };
-
-  std::vector<std::string> pre_order(std::vector<std::string> &words) {
-    return words;
-  }
-};
-
-int main() {}
+  std::unordered_set<std::string> output = boggle_search(board, words);
+}
