@@ -6,9 +6,11 @@
  */
 
 #include <iostream>
+#include <memory>
 #include <optional>
 #include <queue>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 // Data structure to store a graph edge
@@ -20,35 +22,37 @@ struct Edge {
 class Graph {
  public:
   std::optional<std::string> graph_data;
-  std::vector<std::vector<std::int16_t>> children;
+  std::unordered_map<std::int16_t, std::vector<std::int16_t>> adjacency_list;
 
-  Graph(std::vector<Edge> &edges) {
-    // Initialize children vector with the maximum possible size
-    // This should be based on the maximum vertex index in your graph
-    children.resize(edges.size() + 1);
-
+  explicit Graph(const std::vector<Edge> &edges) {
     // add edges to the undirected graph
-    for (Edge &edge : edges) {
-      children[edge.src].push_back(edge.dest);
-      children[edge.dest].push_back(edge.src);
+    for (const Edge &edge : edges) {
+      adjacency_list[edge.src].push_back(edge.dest);
+      adjacency_list[edge.dest].push_back(edge.src);
     }
   }
 
-  void breadth_first_search(std::queue<std::int16_t> &to_process,
-                            std::vector<bool> &discovered) {
-    if (to_process.empty()) return;
+  void add_edge(Edge edge) {
+    adjacency_list[edge.src].push_back(edge.dest);
+    adjacency_list[edge.dest].push_back(edge.src);
+  }
+
+  void breadth_first_search(
+      std::shared_ptr<std::queue<std::int16_t>> to_process,
+      std::shared_ptr<std::vector<bool>> discovered) {
+    if (to_process->empty()) return;
 
     // dequeue front node and print it
-    std::int16_t v = to_process.front();
+    std::int16_t v = to_process->front();
     std::cout << "Node value: " << v << std::endl;
-    to_process.pop();  // pop remove front element
+    to_process->pop();  // pop remove front element
 
     // recursively process each unvisited neighbour
-    for (std::int16_t u : children[v]) {
-      if (!discovered[u]) {
+    for (std::int16_t u : adjacency_list[v]) {
+      if (!discovered->at(u)) {
         // mark it as discovered and enqueue it
-        discovered[u] = true;
-        to_process.push(u);
+        discovered->at(u) = true;
+        to_process->push(u);
       }
     }
 
@@ -58,19 +62,35 @@ class Graph {
 };
 
 int main() {
-  std::vector<Edge> edges = {
-      {1, 2},  {1, 3}, {1, 4}, {2, 5},  {2, 6}, {5, 9},
-      {5, 10}, {4, 7}, {4, 8}, {7, 11}, {7, 12}
-      // vertex 0, 13, and 14 are single nodes
-  };
+  // Example edges
+  std::vector<Edge> edges = {{0, 1}, {0, 2}, {1, 3}, {1, 4},
+                             {2, 5}, {2, 6}, {3, 7}, {4, 8}};
 
+  // Create a graph
   Graph graph(edges);
 
-  std::vector<bool> discovered(false);
+  // Add another edge
+  graph.add_edge({5, 9});
 
-  std::queue<std::int16_t> to_process;
+  // Print graph using adjacency list
+  std::cout << "Graph using adjacency list:\n";
+  for (const auto &pair : graph.adjacency_list) {
+    std::cout << pair.first << " -> ";
+    for (std::int16_t neighbor : pair.second) {
+      std::cout << neighbor << " ";
+    }
+    std::cout << "\n";
+  }
 
-  // perform BFS for undiscovered nodes
-  for (int i = 0; i < edges.size() + 1; i++) {
-  };
+  // Perform Breadth-First Search starting from node 0
+  std::cout << "\nBreadth-First Search starting from node 0:\n";
+  std::shared_ptr<std::queue<std::int16_t>> to_process =
+      std::make_shared<std::queue<std::int16_t>>();
+  std::shared_ptr<std::vector<bool>> discovered =
+      std::make_shared<std::vector<bool>>(10, false);
+
+  to_process->push(0);       // start from node 0
+  discovered->at(0) = true;  // mark it as discovered
+
+  graph.breadth_first_search(to_process, discovered);
 }

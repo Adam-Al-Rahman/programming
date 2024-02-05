@@ -49,14 +49,12 @@ class Node {
       }
     }
     return input;
-  };
+  }
 
   std::vector<MetaData> post_order(std::vector<MetaData> &input) {
     return input;
-  };
-  std::vector<MetaData> in_order(std::vector<MetaData> &input) {
-    return input;
-  };
+  }
+  std::vector<MetaData> in_order(std::vector<MetaData> &input) { return input; }
 
   /*
    * @param input: The input list that need to fill the node name

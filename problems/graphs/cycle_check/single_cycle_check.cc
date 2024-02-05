@@ -43,10 +43,8 @@ bool has_single_cycle(const std::vector<std::int16_t> &list) {
     current_index = get_next_index(current_index, list);
   }
 
-  std::cout << "\nvisited: " << num_element_visited << std::endl;
-  std::cout << "\ncurrent index: " << current_index << std::endl;
-
-  return current_index == 0;
+  // Check for disconnected cycles
+  return num_element_visited == list.size() && current_index == 0;
 }
 
 int main() {
