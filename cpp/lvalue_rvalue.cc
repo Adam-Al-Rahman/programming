@@ -1,4 +1,7 @@
-
+/**
+ * @copyright
+ * Copyright 2024 Adam-Al-Rahman
+ */
 #include <iostream>
 #include <string>
 
@@ -10,10 +13,9 @@
 // something that has a name and occupies storage.
 
 // A function can return an lvalue by returning a reference to an object.
-int &return_lvalue() { // or &return_ref
-
-  static int data = 7; // Creating a static object to ensure it persists beyond
-                       // the function scope
+int &return_lvalue() {  // or &return_ref
+  static int data = 7;  // Creating a static object to ensure it persists beyond
+                        // the function scope
   // `data variable` In terms of scope:
 
   // Lifetime: The data variable has static lifetime, meaning it exists
@@ -26,7 +28,7 @@ int &return_lvalue() { // or &return_ref
 }
 
 // lvalue parameter (use &)
-void print_name(std::string &name) { std::cout << name << std::endl; }
+void print_name(const std::string &name) { std::cout << name << std::endl; }
 
 // rvalue parameter (use &&)
 void print_age(std::string &&name) { std::cout << name << std::endl; }
@@ -49,8 +51,8 @@ int main() {
   // initial value of reference to non-const must be an lvalue
   // this not possible but when we make is a constant it works
   // int &value = 10;
-  const int &value = 10; // after making it const the lvalue ref can be assigned
-                         // a rvalue;
+  const int &value = 10;  // after making it const the lvalue ref can be
+                          // assigned a rvalue;
 
   std::string first_name = "Guido";
   std::string last_name = "Rossum";

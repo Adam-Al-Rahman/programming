@@ -5,6 +5,8 @@
  * https://www.techiedelight.com/generate-list-of-possible-words-from-a-character-matrix
  * @tags: ["depth_first_search", "dfs", "matrix" ]
  * @status: unsolved
+ * @copyright
+ * Copyright 2024 Adam-Al-Rahman
  */
 
 #include <string>

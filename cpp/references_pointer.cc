@@ -1,3 +1,13 @@
+/*
+ * @question: Reference
+ * @brief: How reference works
+ * @source:
+ * @tags: ["cpp/pointer", "cpp/reference"]
+ * @status: solved
+ * @copyright
+ * Copyright 2024 Adam-Al-Rahman
+ */
+
 #include <iostream>
 
 /*
