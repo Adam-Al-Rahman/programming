@@ -21,6 +21,7 @@
  * 1} ... c_{r_{i}} is good
  */
 
+/** using recursion
 #include <algorithm>
 #include <cstdint>
 #include <iostream>
@@ -31,26 +32,24 @@
 std::vector<std::vector<std::uint64_t>> permutation(
     std::shared_ptr<std::vector<std::uint64_t>> list,
     std::vector<std::uint64_t> result = {}) {
-  if (list->size() == 1) {
-    result.push_back(list->at(0));
-    return {result};
-  }
-
   std::vector<std::vector<std::uint64_t>> permutes;
 
+  if (list->empty()) {
+    permutes.push_back(result);
+    return permutes;
+  }
+
   for (std::size_t i = 0; i < list->size(); ++i) {
-    std::uint64_t element = list->at(i);
-    result.push_back(element);
-    list->erase(list->begin() + i);
+    std::vector<std::uint64_t> current_list = *list;
+    std::vector<std::uint64_t> current_result = result;
 
-    std::vector<std::vector<std::uint64_t>> left = permutation(list, result);
-    permutes.insert(permutes.end(), left.begin(), left.end());
+    current_result.push_back(current_list[i]);
+    current_list.erase(current_list.begin() + i);
 
-    list->insert(list->begin() + i, element);
-
-    std::vector<std::vector<std::uint64_t>> right = permutation(list, result);
-    permutes.insert(permutes.end(), right.begin(), right.end());
-    result.pop_back();
+    std::vector<std::vector<std::uint64_t>> subPerms =
+        permutation(std::make_shared<std::vector<std::uint64_t>>(current_list),
+                    current_result);
+    permutes.insert(permutes.end(), subPerms.begin(), subPerms.end());
   }
 
   return permutes;
@@ -66,13 +65,56 @@ std::string find_b(std::vector<std::uint64_t> ci,
   std::vector<std::vector<std::uint64_t>> possibility =
       permutation(std::make_shared<std::vector<std::uint64_t>>(subarray));
 
-  std::vector<std::vector<std::uint64_t>>::const_iterator it =
-      std::find(possibility.begin(), possibility.end(), subarray);
-  if (it != possibility.end()) {
-    return "YES";
+  for (std::vector<std::uint64_t> &element : possibility) {
+    if (std::equal(element.begin(), element.end(), subarray.begin(),
+                   subarray.end(),
+                   [](const std::uint64_t &a, const std::uint64_t &b) {
+                     return a != b;
+                   }))
+      return "YES";
   }
 
   return "NO";
+}
+
+int main() {
+  std::uint16_t tests;
+  std::cin >> tests;
+
+  while (tests--) {
+    std::uint32_t n;
+    std::cin >> n;
+
+    std::uint32_t q;
+    std::cin >> q;
+
+    std::vector<std::uint64_t> ci(n, 0);
+    for (std::uint64_t &element : ci) {
+      std::cin >> element;
+    }
+
+    std::vector<std::vector<std::uint32_t>> qi(
+        q, std::vector<std::uint32_t>(2, 0));
+    for (std::vector<std::uint32_t> &element : qi) {
+      std::cin >> element[0];
+      std::cin >> element[1];
+    }
+
+    for (std::vector<std::uint32_t> &element : qi) {
+      std::cout << find_b(ci, element) << '\n' << std::flush;
+    }
+  }
+}
+
+*/
+
+#include <cstdint>
+#include <iostream>
+#include <vector>
+
+std::string find_b(std::vector<std::uint64_t> ci,
+                   std::vector<std::uint32_t> qi) {
+  return "";
 }
 
 int main() {

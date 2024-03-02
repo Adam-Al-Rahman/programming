@@ -3,19 +3,12 @@
  * Copyright 2024 Adam-Al-Rahman
  *
  * @question: Heap
- *
- *
-
- * *
  * @brief:
  * @source:
  * @tags: ["topics/", "algorithms/", "methods/"]
- *
-
- * *
- *
  * @status: unsolved
  */
+
 #include <algorithm>
 #include <iostream>
 #include <vector>
