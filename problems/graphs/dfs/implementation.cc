@@ -1,3 +1,13 @@
+/*
+ * @copyright
+ * Copyright 2024 Adam-Al-Rahman
+ *
+ * @question: Depth First Search Implementation
+ * @brief:
+ * @source:
+ * @tags: ["topics/graph", "algorithms/dfs", "methods/dfs"]
+ * @status: unsolved
+ */
 
 #include <iostream>
 #include <memory>
@@ -54,11 +64,12 @@ class Node {
   std::vector<MetaData> post_order(std::vector<MetaData> &input) {
     return input;
   }
+
   std::vector<MetaData> in_order(std::vector<MetaData> &input) { return input; }
 
   /*
    * @param input: The input list that need to fill the node name
-   * @param order: In which order to traverse,
+   * @param order: In which order to current,
    *               options: {"pre", "post", "in"}
    */
   std::vector<MetaData> depth_first_search(std::vector<MetaData> &input,
@@ -70,7 +81,7 @@ class Node {
     return this->pre_order(input);
   }
 
-  Node(MetaData data) : data(data){};
+  explicit Node(MetaData data) : data(data) {}
 };
 
 int main() {
