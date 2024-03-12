@@ -1,18 +1,28 @@
+/*
+ * @copyright
+ * Copyright 2024 Adam-Al-Rahman
+ *
+ * @question:
+ * @brief:
+ * @source:
+ * @tags: ["topics/graph", "algorithms/dfs", "methods/"]
+ * @status: unsolved
+ */
+
 #include <iostream>
 #include <vector>
 
 class Node {
-public:
+ public:
   char name;
   std::vector<Node *> children;
 
-  Node(char name) : name(name){};
+  explicit Node(char name) : name(name) {}
 
   // Time: O(v + e)
   // Space: O(v)
   // Call Stack (Frame): O(v)
   std::vector<char> depth_first_search(std::vector<char> &output) {
-
     output.push_back(name);
 
     if (!children.empty()) {
@@ -42,15 +52,15 @@ int main() {
 
   for (Node *child : graph->children) {
     if (child->name == 'B')
-      child->add_child('E')->add_child('F'); // B -> E, B -> F
+      child->add_child('E')->add_child('F');  // B -> E, B -> F
     if (child->name == 'D')
-      child->add_child('G')->add_child('H'); // D -> G, D -> H
+      child->add_child('G')->add_child('H');  // D -> G, D -> H
 
     for (Node *sub_child : child->children) {
       if (sub_child->name == 'F')
-        sub_child->add_child('I')->add_child('J'); // F -> I, F -> J
+        sub_child->add_child('I')->add_child('J');  // F -> I, F -> J
       if (sub_child->name == 'F')
-        sub_child->add_child('I')->add_child('J'); // F -> I, F -> J
+        sub_child->add_child('I')->add_child('J');  // F -> I, F -> J
     }
   }
   /* graph->children[0]->add_child('E')->add_child('F');
