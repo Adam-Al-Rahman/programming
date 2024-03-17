@@ -13,60 +13,61 @@
 // std::vector<std::uint16_t> positions_array[n + 1];
 // or use std::vector<std::vector<std::uint16_t>> positions(n + 1);
 
+#include <algorithm>
 #include <cstdint>
 #include <iostream>
-#include <unordered_map>
 #include <vector>
+
+// sort duplicate elements first
+std::vector<std::uint16_t> special_sort(
+    const std::vector<std::uint16_t> &input) {
+  std::vector<std::uint16_t> duplicates, non_duplicates;
+
+  // Separate duplicates and non-duplicates
+  for (std::uint16_t num : input) {
+    if (std::count(input.begin(), input.end(), num) > 1) {
+      duplicates.push_back(num);
+    } else {
+      non_duplicates.push_back(num);
+    }
+  }
+
+  // Sort duplicates in ascending order
+  std::sort(duplicates.begin(), duplicates.end());
+
+  // Sort non-duplicates in ascending order
+  std::sort(non_duplicates.begin(), non_duplicates.end());
+
+  // Merge duplicates and sorted non-duplicates
+  std::vector<std::uint16_t> sorted_vec;
+  sorted_vec.reserve(duplicates.size() + non_duplicates.size());
+  sorted_vec.insert(sorted_vec.end(), duplicates.begin(), duplicates.end());
+  sorted_vec.insert(sorted_vec.end(), non_duplicates.begin(),
+                    non_duplicates.end());
+
+  return sorted_vec;
+}
 
 void equal_xor(const std::vector<std::uint16_t> &a, std::uint16_t n,
                std::uint16_t k) {
-  std::unordered_map<std::uint16_t, std::vector<std::uint16_t>> positions;
-
-  // element: {all indices where it occurred}
-  for (std::int32_t i = 0; i < (2 * n); ++i) {
-    positions[a[i]].push_back(i);
-  }
-
   std::vector<std::uint16_t> llist;
   std::vector<std::uint16_t> rlist;
 
-  // add same element in same range in llist and rlist
-  // because, x ^ x = 0
-  // why 1 to n to search, because this way each half part of a[] will be
-  // inserted by sorted in llist and rlist
-  for (std::int32_t i = 1; i <= n; ++i) {
-    if (positions[i].front() < n && positions[i].back() < n &&
-        llist.size() < (2 * k)) {
-      llist.push_back(i);
-      llist.push_back(i);
-    } else if (positions[i].front() >= n && positions[i].back() >= n &&
-               rlist.size() < (2 * k)) {
-      rlist.push_back(i);
-      rlist.push_back(i);
-    }
+  for (int i = 0; i < n; i++) {
+    llist.push_back(a[i]);
+    rlist.push_back(a[n + i]);
   }
 
-  for (std::int32_t i = 1; i <= n; ++i) {
-    // if same elements in same range in llist or rlist
-    // skip because we add it before in above loop
-    if ((positions[i].front() < n && positions[i].back() < n) ||
-        (positions[i].front() >= n && positions[i].back() >= n)) {
-      continue;
-    }
-
-    // add the remaining to cover the llist and rlist size
-    if (llist.size() < (2 * k)) {
-      llist.push_back(i);
-      rlist.push_back(i);
-    }
-  }
+  // special_sort
+  llist = special_sort(llist);
+  rlist = special_sort(rlist);
 
   // print llist elements
-  for (std::uint16_t &element : llist) std::cout << element << ' ';
+  for (int i = 0; i < 2 * k; i++) std::cout << llist[i] << ' ';
   std::cout << '\n';
 
   // print rlist elements
-  for (std::uint16_t &element : rlist) std::cout << element << ' ';
+  for (int i = 0; i < 2 * k; i++) std::cout << rlist[i] << ' ';
   std::cout << std::flush;
 }
 
