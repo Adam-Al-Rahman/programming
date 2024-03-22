@@ -3,87 +3,91 @@
  * Copyright 2024 Adam-Al-Rahman
  *
  * @question: Equal Xor
+ *
  * @brief:
  * @source: https://codeforces.com/contest/1944/problem/B
- * @tags: ["topics/constructive_algorithms", "algorithms/", "methods/"]
+ * @tags:
+ * ["topics/constructive_algorithms", "algorithms/", "methods/"]
  * @status: solved
  */
 
 // if we don't know n value @compile-time
-// std::vector<std::uint16_t> positions_array[n + 1];
+// std::vector<int> positions_array[n + 1];
 // or use std::vector<std::vector<std::uint16_t>> positions(n + 1);
 
-#include <algorithm>
-#include <cstdint>
 #include <iostream>
 #include <vector>
 
-// sort duplicate elements first
-std::vector<std::uint16_t> special_sort(
-    const std::vector<std::uint16_t> &input) {
-  std::vector<std::uint16_t> duplicates, non_duplicates;
+void equal_xor(const std::vector<int> &a, const int &n, const int &k) {
+  std::vector<int> element_occurrences(n + 1, 0);
 
-  // Separate duplicates and non-duplicates
-  for (std::uint16_t num : input) {
-    if (std::count(input.begin(), input.end(), num) > 1) {
-      duplicates.push_back(num);
-    } else {
-      non_duplicates.push_back(num);
+  // Count occurrences of each element
+  for (int i = 0; i < n; i++) {
+    element_occurrences[a[i]]++;
+  }
+
+  // Separate elements based on occurrences
+  std::vector<int> zero_occurrences;
+  std::vector<int> single_occurrences;
+  std::vector<int> double_occurrences;
+
+  for (int i = 1; i <= n; i++) {
+    if (element_occurrences[i] == 0)
+      zero_occurrences.push_back(i);
+    else if (element_occurrences[i] == 1)
+      single_occurrences.push_back(i);
+    else  // value == 2
+      double_occurrences.push_back(i);
+  }
+
+  int num_elements = 0;
+
+  // Print l-subset
+  for (int &element : double_occurrences) {
+    if (num_elements < (2 * k)) {
+      num_elements += 2;
+      std::cout << element << ' ' << element << ' ';
     }
   }
 
-  // Sort duplicates in ascending order
-  std::sort(duplicates.begin(), duplicates.end());
-
-  // Sort non-duplicates in ascending order
-  std::sort(non_duplicates.begin(), non_duplicates.end());
-
-  // Merge duplicates and sorted non-duplicates
-  std::vector<std::uint16_t> sorted_vec;
-  sorted_vec.reserve(duplicates.size() + non_duplicates.size());
-  sorted_vec.insert(sorted_vec.end(), duplicates.begin(), duplicates.end());
-  sorted_vec.insert(sorted_vec.end(), non_duplicates.begin(),
-                    non_duplicates.end());
-
-  return sorted_vec;
-}
-
-void equal_xor(const std::vector<std::uint16_t> &a, std::uint16_t n,
-               std::uint16_t k) {
-  std::vector<std::uint16_t> llist;
-  std::vector<std::uint16_t> rlist;
-
-  for (int i = 0; i < n; i++) {
-    llist.push_back(a[i]);
-    rlist.push_back(a[n + i]);
+  for (int &element : single_occurrences) {
+    if (num_elements < (2 * k)) {
+      num_elements++;
+      std::cout << element << ' ' << std::flush;
+    }
   }
 
-  // special_sort
-  llist = special_sort(llist);
-  rlist = special_sort(rlist);
-
-  // print llist elements
-  for (int i = 0; i < 2 * k; i++) std::cout << llist[i] << ' ';
   std::cout << '\n';
 
-  // print rlist elements
-  for (int i = 0; i < 2 * k; i++) std::cout << rlist[i] << ' ';
-  std::cout << std::flush;
+  // Print r-subset
+  num_elements = 0;
+  for (int &element : zero_occurrences) {
+    if (num_elements < (2 * k)) {
+      num_elements += 2;
+      std::cout << element << ' ' << element << ' ';
+    }
+  }
+
+  for (int &element : single_occurrences) {
+    if (num_elements < (2 * k)) {
+      num_elements++;
+      std::cout << element << ' ';
+    }
+  }
+
+  std::cout << '\n' << std::flush;
 }
 
 int main() {
-  std::uint16_t tests;
+  int tests;
   std::cin >> tests;
 
   while (tests--) {
-    std::uint16_t n;
-    std::cin >> n;
+    int n, k;
+    std::cin >> n >> k;
 
-    std::uint16_t k;
-    std::cin >> k;
-
-    std::vector<std::uint16_t> a(2 * n);
-    for (std::uint16_t &element : a) {
+    std::vector<int> a(2 * n);
+    for (int &element : a) {
       std::cin >> element;
     }
 
