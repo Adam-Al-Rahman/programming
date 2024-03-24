@@ -2,36 +2,22 @@
 #include <algorithm>
 #include <cstdint>
 #include <iostream>
-#include <numeric>
 #include <vector>
 
-#define MODULO 1e9 + 7
+constexpr int md = int(1e9) + 7;
 
-int max_sum_subarray(const std::vector<int>& arr) {
-  std::vector<int> subarrays;
-  int max_sum_subarrays = 0;
+// kadane's algorithm
+int max_sum_subarray(const std::vector<int>& list) {
+  int current_sum = 0;
+  int max_sum = 0;
+  for (const int& element : list) {
+    current_sum = (current_sum + element) % md;
+    max_sum = std::max(max_sum, current_sum) % md;
 
-  // Iterate through all possible subarray lengths
-  for (size_t len = 1; len <= arr.size(); len++) {
-    // Iterate through all starting positions for the current length
-    for (size_t start = 0; start <= arr.size() - len; start++) {
-      // Create a subarray using iterators and std::copy
-      std::vector<int> subarray(len);
-      std::copy(arr.begin() + start, arr.begin() + start + len,
-                subarray.begin());
-      int current_sum_subarrays =
-          std::accumulate(subarray.begin(), subarray.end(), 0);
-
-      if (max_sum_subarrays < current_sum_subarrays) {
-        max_sum_subarrays = current_sum_subarrays;
-        subarrays = subarray;
-      }
-    }
+    if (current_sum < 0) current_sum = 0;
   }
 
-  return (max_sum_subarrays % static_cast<int>(MODULO)) >= 0
-             ? (max_sum_subarrays % static_cast<int>(MODULO))
-             : 0;
+  return max_sum;
 }
 
 int main() {
@@ -47,12 +33,13 @@ int main() {
       std::cin >> a[i];
     }
 
-    int max_sum = max_sum_subarray(a);
+    int max_sum_sa = max_sum_subarray(a);
+    int max_sum = max_sum_sa;
 
     for (int i = 0; i < k; i++) {
-      max_sum = ((2 * max_sum) % static_cast<int>(MODULO));
+      max_sum = (max_sum + max_sum_sa) % md;
     }
 
-    std::cout << (max_sum % static_cast<int>(MODULO)) << std::endl;
+    std::cout << max_sum << std::endl;
   }
 }
