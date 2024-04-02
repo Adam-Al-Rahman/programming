@@ -10,8 +10,10 @@
 author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 */
 
+// ONLINE_JUDGE
+// #define ONLINE_JUDGE
+
 // HEADERS
-#include <algorithm>
 #include <cstdint>
 #include <cstdio>  // freopen
 #include <ctime>   // std::clock
@@ -29,36 +31,16 @@ constexpr std::int32_t LARGE_NUM = 200005;
 
 // PROBLEM SOLUTION
 void solution() {
-  std::int64_t n, k;
+  std::uint32_t n, k;
   std::cin >> n >> k;
 
-  std::vector<std::int64_t> a(n);
-  for (int i = 0; i < n; i++) std::cin >> a[i];
+  std::vector<std::uint32_t> ai(n);
+  for (std::uint32_t &element : ai) std::cin >> element;
 
-  // --- Kadane's Algorithm
-  std::int64_t max_sum = 0;
-  std::int64_t total_sum = 0;
-  std::int64_t current_sum = 0;
-
-  for (int i = 0; i < n; i++) {
-    total_sum += a[i];
-
-    current_sum += a[i];
-    current_sum = std::max(current_sum, std::int64_t(0));
-    max_sum = std::max(max_sum, current_sum);
+  if (ai.size() == 1) {
+    std::cout << 0 << '\n';
+    return;
   }
-  // ---
-
-  total_sum = (total_sum % MODULU + MODULU) % MODULU;
-  max_sum = max_sum % MODULU;
-
-  std::int64_t t = 1;
-  for (int i = 0; i < k; i++) {
-    t = t * 2 % MODULU;
-  }
-
-  std::int64_t ans = (total_sum + max_sum * t - max_sum + MODULU) % MODULU;
-  std::cout << ans << '\n';
 }
 
 int main() {

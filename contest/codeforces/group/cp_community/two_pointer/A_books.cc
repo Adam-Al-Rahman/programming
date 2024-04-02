@@ -24,41 +24,55 @@ constexpr std::int32_t MODULU = std::int32_t(1e9) + 7;  // Modulus
 constexpr std::int32_t LARGE_NUM = 200005;
 
 // PROBLEM KEYPOINTS
+// -----------------
+// * Valera reads each book up to the end, that is, he doesn't start reading the
+// book if he doesn't have enough free time to finish reading it. (current_sum >
+// time then continue)
+// * i, then book number i + 1, then book number i + 2 and so on (continuous sub
+// array)
+// * the maximum number of books Valera can read.
+// Try: Kadane's Algorithm (greedy approach) [**failed]
+// Try: Two pointers
 
 // HELPER FUNCTIONS
 
 // PROBLEM SOLUTION
 void solution() {
-  std::int64_t n, k;
-  std::cin >> n >> k;
+  std::uint32_t num_books;
+  std::cin >> num_books;
 
-  std::vector<std::int64_t> a(n);
-  for (int i = 0; i < n; i++) std::cin >> a[i];
+  std::uint32_t time;
+  std::cin >> time;
 
-  // --- Kadane's Algorithm
-  std::int64_t max_sum = 0;
-  std::int64_t total_sum = 0;
-  std::int64_t current_sum = 0;
-
-  for (int i = 0; i < n; i++) {
-    total_sum += a[i];
-
-    current_sum += a[i];
-    current_sum = std::max(current_sum, std::int64_t(0));
-    max_sum = std::max(max_sum, current_sum);
-  }
-  // ---
-
-  total_sum = (total_sum % MODULU + MODULU) % MODULU;
-  max_sum = max_sum % MODULU;
-
-  std::int64_t t = 1;
-  for (int i = 0; i < k; i++) {
-    t = t * 2 % MODULU;
+  std::vector<std::uint16_t> a(num_books);
+  for (std::int32_t i = 0; i < num_books; i++) {
+    std::cin >> a[i];
   }
 
-  std::int64_t ans = (total_sum + max_sum * t - max_sum + MODULU) % MODULU;
-  std::cout << ans << '\n';
+  std::uint32_t time_sum = 0;
+  std::uint32_t max_counts = 0;
+
+  for (std::int32_t i = 0; i < num_books; i++) {
+    std::uint32_t current_count = 0;
+    for (std::int32_t j = i; j < num_books; j++) {
+      time_sum += a[j];
+      if (time_sum > time) {
+        break_loop = true;
+        break;
+      }
+
+      current_count++;
+
+      if (time_sum == time) {
+        break_loop = true;
+        break;
+      }
+    }
+    time_sum = 0;
+    max_counts = std::max(current_count, max_counts);
+  }
+
+  std::cout << max_counts << '\n';
 }
 
 int main() {
@@ -76,7 +90,7 @@ int main() {
 #endif  // ONLINE_JUDGE
 
   std::uint32_t tests = 1;
-  std::cin >> tests;  // overwrite
+  // std::cin >> tests;  // overwrite
   while (tests--) solution();
 
 #ifndef ONLINE_JUDGE

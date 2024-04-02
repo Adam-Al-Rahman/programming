@@ -11,12 +11,12 @@ author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 */
 
 // HEADERS
-#include <algorithm>
 #include <cstdint>
 #include <cstdio>  // freopen
 #include <ctime>   // std::clock
 #include <ios>     // std::ios_base
 #include <iostream>
+#include <unordered_map>
 #include <vector>
 
 // GLOBAL CONSTANTS
@@ -24,41 +24,36 @@ constexpr std::int32_t MODULU = std::int32_t(1e9) + 7;  // Modulus
 constexpr std::int32_t LARGE_NUM = 200005;
 
 // PROBLEM KEYPOINTS
+// * find two values (at distinct positions) whose sum is `x`.
 
 // HELPER FUNCTIONS
 
 // PROBLEM SOLUTION
 void solution() {
-  std::int64_t n, k;
-  std::cin >> n >> k;
+  std::uint32_t n;
+  std::cin >> n;
 
-  std::vector<std::int64_t> a(n);
-  for (int i = 0; i < n; i++) std::cin >> a[i];
+  std::uint32_t x;
+  std::cin >> x;
 
-  // --- Kadane's Algorithm
-  std::int64_t max_sum = 0;
-  std::int64_t total_sum = 0;
-  std::int64_t current_sum = 0;
+  std::vector<std::uint32_t> a(n);
+  for (std::int32_t i = 0; i < n; i++) {
+    std::cin >> a[i];
+  }
+
+  std::unordered_map<int, int> index_map;
 
   for (int i = 0; i < n; i++) {
-    total_sum += a[i];
+    int complement = x - a[i];
+    if (index_map.count(complement) > 0) {
+      std::cout << index_map[complement] + 1 << ' ' << i + 1 << '\n';
+      return;
+    }
 
-    current_sum += a[i];
-    current_sum = std::max(current_sum, std::int64_t(0));
-    max_sum = std::max(max_sum, current_sum);
-  }
-  // ---
-
-  total_sum = (total_sum % MODULU + MODULU) % MODULU;
-  max_sum = max_sum % MODULU;
-
-  std::int64_t t = 1;
-  for (int i = 0; i < k; i++) {
-    t = t * 2 % MODULU;
+    index_map[a[i]] = i;
   }
 
-  std::int64_t ans = (total_sum + max_sum * t - max_sum + MODULU) % MODULU;
-  std::cout << ans << '\n';
+  std::cout << "IMPOSSIBLE" << '\n';
 }
 
 int main() {
@@ -76,7 +71,7 @@ int main() {
 #endif  // ONLINE_JUDGE
 
   std::uint32_t tests = 1;
-  std::cin >> tests;  // overwrite
+  // std::cin >> tests;  // overwrite
   while (tests--) solution();
 
 #ifndef ONLINE_JUDGE

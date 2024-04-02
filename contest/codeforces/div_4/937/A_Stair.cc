@@ -11,13 +11,11 @@ author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 */
 
 // HEADERS
-#include <algorithm>
 #include <cstdint>
 #include <cstdio>  // freopen
 #include <ctime>   // std::clock
 #include <ios>     // std::ios_base
 #include <iostream>
-#include <vector>
 
 // GLOBAL CONSTANTS
 constexpr std::int32_t MODULU = std::int32_t(1e9) + 7;  // Modulus
@@ -29,36 +27,15 @@ constexpr std::int32_t LARGE_NUM = 200005;
 
 // PROBLEM SOLUTION
 void solution() {
-  std::int64_t n, k;
-  std::cin >> n >> k;
+  std::uint16_t a, b, c;
+  std::cin >> a >> b >> c;
 
-  std::vector<std::int64_t> a(n);
-  for (int i = 0; i < n; i++) std::cin >> a[i];
-
-  // --- Kadane's Algorithm
-  std::int64_t max_sum = 0;
-  std::int64_t total_sum = 0;
-  std::int64_t current_sum = 0;
-
-  for (int i = 0; i < n; i++) {
-    total_sum += a[i];
-
-    current_sum += a[i];
-    current_sum = std::max(current_sum, std::int64_t(0));
-    max_sum = std::max(max_sum, current_sum);
-  }
-  // ---
-
-  total_sum = (total_sum % MODULU + MODULU) % MODULU;
-  max_sum = max_sum % MODULU;
-
-  std::int64_t t = 1;
-  for (int i = 0; i < k; i++) {
-    t = t * 2 % MODULU;
-  }
-
-  std::int64_t ans = (total_sum + max_sum * t - max_sum + MODULU) % MODULU;
-  std::cout << ans << '\n';
+  if (a < b && b < c)
+    std::cout << "STAIR" << '\n';
+  else if (a < b && b > c)
+    std::cout << "PEAK" << '\n';
+  else
+    std::cout << "NONE" << '\n';
 }
 
 int main() {

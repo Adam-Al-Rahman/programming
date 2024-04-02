@@ -10,8 +10,10 @@
 author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 */
 
+// ONLINE_JUDGE
+// #define ONLINE_JUDGE
+
 // HEADERS
-#include <algorithm>
 #include <cstdint>
 #include <cstdio>  // freopen
 #include <ctime>   // std::clock
@@ -19,46 +21,41 @@ author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 #include <iostream>
 #include <vector>
 
-// GLOBAL CONSTANTS
+// GLOBAL CONSTANTS EXPRESSIONS
 constexpr std::int32_t MODULU = std::int32_t(1e9) + 7;  // Modulus
-constexpr std::int32_t LARGE_NUM = 200005;
+constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
 
 // PROBLEM KEYPOINTS
+// - MEX (minimum non-negative integer)
 
 // HELPER FUNCTIONS
 
 // PROBLEM SOLUTION
 void solution() {
-  std::int64_t n, k;
-  std::cin >> n >> k;
+  std::uint32_t n;  // len of `p` & `a`
+  std::cin >> n;
 
-  std::vector<std::int64_t> a(n);
-  for (int i = 0; i < n; i++) std::cin >> a[i];
+  std::vector<std::int32_t> a(n);
+  std::vector<std::int32_t> p(n);
+  std::vector<bool> has(n, false);
 
-  // --- Kadane's Algorithm
-  std::int64_t max_sum = 0;
-  std::int64_t total_sum = 0;
-  std::int64_t current_sum = 0;
+  std::int32_t mex = 0;
 
   for (int i = 0; i < n; i++) {
-    total_sum += a[i];
+    std::cin >> a[i];
 
-    current_sum += a[i];
-    current_sum = std::max(current_sum, std::int64_t(0));
-    max_sum = std::max(max_sum, current_sum);
-  }
-  // ---
+    if (a[i] > 0) {
+      p[i] = mex++;
+      while (has[mex]) ++mex;
+    } else {
+      p[i] = mex - a[i];
+    }
 
-  total_sum = (total_sum % MODULU + MODULU) % MODULU;
-  max_sum = max_sum % MODULU;
-
-  std::int64_t t = 1;
-  for (int i = 0; i < k; i++) {
-    t = t * 2 % MODULU;
+    has[p[i]] = true;
   }
 
-  std::int64_t ans = (total_sum + max_sum * t - max_sum + MODULU) % MODULU;
-  std::cout << ans << '\n';
+  for (int i = 0; i < n; i++) std::cout << p[i] << ' ';
+  std::cout << '\n';
 }
 
 int main() {

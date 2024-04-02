@@ -1,17 +1,17 @@
 /*
+╔═══════════════════════════════════════════════╗
+║                                               ║
+║  Competitive programming is not about solving ║
+║  problems; it's about continuously evolving   ║
+║  your approach to problem-solving.            ║
+║                                               ║
+╚═══════════════════════════════════════════════╝
 
-  Competitive programming is not about solving problems; it's about continuously
-  evolving your approach to problem-solving.
-
+author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 */
 
-/**
-In online judge like [codeforces, codechef]
-`ONLINE_JUDGE` is pre-define. so use ifndef to check it.
-*/
-
-// ALIASES [RECOMMENDED NOT TO USE]
-#define ll long long int
+// ONLINE_JUDGE
+// #define ONLINE_JUDGE
 
 // HEADERS
 #include <cstdint>
@@ -20,9 +20,12 @@ In online judge like [codeforces, codechef]
 #include <ios>     // std::ios_base
 #include <iostream>
 
-// GLOBAL CONSTANTS
+// GLOBAL CONSTANTS EXPRESSIONS
 constexpr std::int32_t MODULU = std::int32_t(1e9) + 7;  // Modulus
-constexpr std::int32_t LARGE_NUM = 200005;
+constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
+
+// PROBLEM KEYPOINTS
+// - MEX (minimum non-negative integer)
 
 // HELPER FUNCTIONS
 
@@ -31,9 +34,7 @@ void solution() {}
 
 int main() {
   std::ios_base::sync_with_stdio(0);
-  std::cin.tie(0);  // tie() is a method that simply guarantees the flushing of
-                    // std::cout before std::cin accepts an input. For
-                    // INTERACTIVE PROBLEM
+  std::cin.tie(0);
   std::cout.tie(0);
 
 #ifndef ONLINE_JUDGE

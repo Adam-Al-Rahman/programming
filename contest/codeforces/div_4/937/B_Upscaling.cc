@@ -11,13 +11,11 @@ author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 */
 
 // HEADERS
-#include <algorithm>
 #include <cstdint>
 #include <cstdio>  // freopen
 #include <ctime>   // std::clock
 #include <ios>     // std::ios_base
 #include <iostream>
-#include <vector>
 
 // GLOBAL CONSTANTS
 constexpr std::int32_t MODULU = std::int32_t(1e9) + 7;  // Modulus
@@ -29,36 +27,43 @@ constexpr std::int32_t LARGE_NUM = 200005;
 
 // PROBLEM SOLUTION
 void solution() {
-  std::int64_t n, k;
-  std::cin >> n >> k;
+  std::uint16_t n;
+  std::cin >> n;
 
-  std::vector<std::int64_t> a(n);
-  for (int i = 0; i < n; i++) std::cin >> a[i];
+  std::string hash_tag = "##";
+  std::string dots = "..";
 
-  // --- Kadane's Algorithm
-  std::int64_t max_sum = 0;
-  std::int64_t total_sum = 0;
-  std::int64_t current_sum = 0;
+  bool choose_dots = false;
 
-  for (int i = 0; i < n; i++) {
-    total_sum += a[i];
+  std::string current_row;
+  std::string row_chess;
 
-    current_sum += a[i];
-    current_sum = std::max(current_sum, std::int64_t(0));
-    max_sum = std::max(max_sum, current_sum);
-  }
-  // ---
-
-  total_sum = (total_sum % MODULU + MODULU) % MODULU;
-  max_sum = max_sum % MODULU;
-
-  std::int64_t t = 1;
-  for (int i = 0; i < k; i++) {
-    t = t * 2 % MODULU;
+  for (int i = 1; i <= n; i++) {
+    if (choose_dots) {
+      choose_dots = false;
+      current_row += dots;
+    } else {
+      choose_dots = true;
+      current_row += hash_tag;
+    }
   }
 
-  std::int64_t ans = (total_sum + max_sum * t - max_sum + MODULU) % MODULU;
-  std::cout << ans << '\n';
+  row_chess += current_row + '\n' + current_row + '\n';
+
+  for (int i = 1; i < n; i++) {
+    for (int i = 1; i < current_row.size(); i += 2) {
+      if (current_row[i - 1] == '#' && current_row[i] == '#') {
+        current_row[i - 1] = '.';
+        current_row[i] = '.';
+      } else if (current_row[i - 1] == '.' && current_row[i] == '.') {
+        current_row[i - 1] = '#';
+        current_row[i] = '#';
+      }
+    }
+
+    row_chess += current_row + '\n' + current_row + '\n';
+  }
+  std::cout << row_chess;
 }
 
 int main() {
