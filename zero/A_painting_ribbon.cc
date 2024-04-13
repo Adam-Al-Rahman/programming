@@ -19,28 +19,22 @@ author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 #include <ctime>   // std::clock
 #include <ios>     // std::ios_base
 #include <iostream>
-#include <vector>
 
-// GLOBAL CONSTANTS
+// GLOBAL CONSTANTS EXPRESSIONS
 constexpr std::int32_t MODULU = std::int32_t(1e9) + 7;  // Modulus
-constexpr std::int32_t LARGE_NUM = 200005;
+constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
 
 // PROBLEM KEYPOINTS
+// - MEX (minimum non-negative integer)
 
 // HELPER FUNCTIONS
 
 // PROBLEM SOLUTION
 void solution() {
-  std::uint32_t n, k;
-  std::cin >> n >> k;
+  int n, m, k;
+  std::cin >> n >> m >> k;
 
-  std::vector<std::uint32_t> ai(n);
-  for (std::uint32_t &element : ai) std::cin >> element;
-
-  if (ai.size() == 1) {
-    std::cout << 0 << '\n';
-    return;
-  }
+  if (n == m && n > k) std::cout << "NO" << '\n';
 }
 
 int main() {
@@ -49,8 +43,8 @@ int main() {
   std::cout.tie(0);
 
 #ifndef ONLINE_JUDGE
-  freopen("./test_zero/input.txt", "r", stdin);
-  freopen("./test_zero/output.txt", "w", stdout);
+  freopen("./zero/input.txt", "r", stdin);
+  freopen("./zero/output.txt", "w", stdout);
 #endif  // ONLINE_JUDGE
 
 #ifndef ONLINE_JUDGE

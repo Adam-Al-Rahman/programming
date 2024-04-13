@@ -1,3 +1,3 @@
 # Current Contest
 
-- contest: codeforces/codeton/
+- contest: codeforces/
