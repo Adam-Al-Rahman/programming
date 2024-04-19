@@ -1,3 +1,3 @@
 # Current Contest
 
-- contest: codeforces/
+- contest: codeforces/div_2/939

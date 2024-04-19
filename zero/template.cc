@@ -25,7 +25,6 @@ constexpr std::int32_t MODULU = std::int32_t(1e9) + 7;  // Modulus
 constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
 
 // PROBLEM KEYPOINTS
-// - MEX (minimum non-negative integer)
 
 // HELPER FUNCTIONS
 
