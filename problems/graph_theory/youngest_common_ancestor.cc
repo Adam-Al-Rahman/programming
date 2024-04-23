@@ -10,7 +10,6 @@
  */
 
 #include <iostream>
-#include <queue>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -49,9 +48,7 @@ int descendant_depth(AncestralTree* descendant, AncestralTree* topAncestor) {
   return depth;
 }
 
-AncestralTree* backtrack_ancestor(AncestralTree* lower_ancestor,
-                                  AncestralTree* higher_ancestor,
-                                  int depth_diff) {
+AncestralTree* backtrack_ancestor(AncestralTree* lower_ancestor, AncestralTree* higher_ancestor, int depth_diff) {
   while (depth_diff > 0) {
     lower_ancestor = lower_ancestor->ancestor;
     depth_diff -= 1;
@@ -65,18 +62,14 @@ AncestralTree* backtrack_ancestor(AncestralTree* lower_ancestor,
   return lower_ancestor;  // now, they both are equal to there ancestor;
 }
 
-AncestralTree* getYoungestCommonAncestor(AncestralTree* topAncestor,
-                                         AncestralTree* descendantOne,
+AncestralTree* getYoungestCommonAncestor(AncestralTree* topAncestor, AncestralTree* descendantOne,
                                          AncestralTree* descendantTwo) {
   int done_depth = descendant_depth(descendantOne, topAncestor);
   int dtwo_depth = descendant_depth(descendantTwo, topAncestor);
 
-  if (done_depth > dtwo_depth)
-    return backtrack_ancestor(descendantOne, descendantTwo,
-                              done_depth - dtwo_depth);
+  if (done_depth > dtwo_depth) return backtrack_ancestor(descendantOne, descendantTwo, done_depth - dtwo_depth);
 
-  return backtrack_ancestor(descendantTwo, descendantOne,
-                            dtwo_depth - done_depth);
+  return backtrack_ancestor(descendantTwo, descendantOne, dtwo_depth - done_depth);
 }
 
 int main() {
@@ -86,8 +79,7 @@ int main() {
   trees.at('D')->add_ancestor({trees.at('H'), trees.at('I')});
   trees.at('C')->add_ancestor({trees.at('F'), trees.at('G')});
 
-  AncestralTree* yca =
-      getYoungestCommonAncestor(trees.at('A'), trees.at('E'), trees.at('I'));
+  AncestralTree* yca = getYoungestCommonAncestor(trees.at('A'), trees.at('E'), trees.at('I'));
 
   std::cout << yca->name;
 }

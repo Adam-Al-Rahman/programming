@@ -9,6 +9,8 @@
  * @status: unsolved
  */
 
+#include <climits>
+#include <cstdlib>
 #include <iostream>
 #include <queue>
 
@@ -23,13 +25,26 @@ class BST {
 };
 
 int findClosestValueInBst(BST* tree, int target) {
+  int diff = INT_MAX;
+  int closest_value = tree->value;
+
   std::queue<BST*> nodes;
   nodes.push(tree);
 
-  int closest_value = 0;
   while (!nodes.empty()) {
     BST* current = nodes.front();
     nodes.pop();
+
+    if (std::abs(std::abs(current->value) - std::abs(target)) < diff) {
+      diff = std::abs(std::abs(current->value) - std::abs(target));
+      closest_value = current->value;
+    }
+
+    if (current->value == target) return closest_value;
+    if (current->right && (current->value < target))
+      nodes.push(current->right);
+    else if (current->left && (current->value > target))
+      nodes.push(current->left);
   }
 
   return closest_value;
