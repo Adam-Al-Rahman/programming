@@ -14,6 +14,7 @@ author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 // #define ONLINE_JUDGE
 
 // HEADERS
+#include <algorithm>
 #include <cstdint>
 #include <cstdio>  // freopen
 #include <ctime>   // std::clock
@@ -26,14 +27,31 @@ constexpr std::int32_t MODULU = std::int32_t(1e9) + 7;  // Modulus
 constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
 
 // PROBLEM KEYPOINTS
-// - construct sequence of non-negative `n` integer
 
 // HELPER FUNCTIONS
 
 // PROBLEM SOLUTION
 void solution() {
-  int n, k;
-  std::cin >> n >> k;
+  int n;
+  std::cin >> n;
+
+  std::vector<int> a(n);
+  for (int i = 0; i < n; i++) std::cin >> a[i];
+
+  std::vector<int> b(n);  // expected to
+  for (int i = 0; i < n; i++) std::cin >> b[i];
+
+  int count = 0;
+  for (int i = 0; i < n; i++) {
+    if (a[i] > b[i]) {
+      count++;
+      a.pop_back();
+      a.push_back(a[i]);
+      std::sort(a.begin(), a.end());
+    }
+  }
+
+  std::cout << count << '\n';
 }
 
 int main() {

@@ -62,6 +62,5 @@ int main() {
     std::cout << binary_representation[i] << std::flush;
   }
 
-  std::cout << "\nBinary representation: " << binary_representation
-            << std::endl;
+  std::cout << "\nBinary representation: " << binary_representation << std::endl;
 }

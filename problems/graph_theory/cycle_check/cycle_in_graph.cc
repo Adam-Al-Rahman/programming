@@ -10,37 +10,41 @@
  */
 
 #include <iostream>
-#include <stack>
-#include <unordered_map>
-#include <utility>
 #include <vector>
 
-struct PairHash {
-  std::size_t operator()(const std::pair<int, int>& pair) const {
-    // Combine the hash values of the pair's elements
-    return std::hash<int>()(pair.first) ^ std::hash<int>()(pair.second);
+bool is_cycle(const std::vector<std::vector<int>>& edges, int node, std::vector<bool>& visited,  // NOLINT (non-const)
+              std::vector<bool>& in_stack) {                                                     // NOLINT (non-const)
+  visited[node] = true;
+  in_stack[node] = true;
+
+  std::vector<int> neighbors = edges[node];
+
+  for (auto& neighbor : neighbors) {
+    bool contains_cycle = is_cycle(edges, neighbor, visited, in_stack);
+    if (!visited[neighbor]) {
+      if (contains_cycle)
+        return true;
+      else if (in_stack[neighbor])
+        return true;
+    }
   }
-};
+  in_stack[node] = false;
+
+  return false;
+}
 
 bool cycleInGraph(std::vector<std::vector<int>> edges) {
   if (edges.empty()) return false;
 
-  std::unordered_map<std::pair<int, int>, bool, PairHash> exists;
+  std::vector<bool> visited(edges.size(), false);
+  std::vector<bool> in_stack(edges.size(), false);
 
-  std::stack<std::pair<int, int>> nodes;
-  nodes.push(std::make_pair(0, edges[0][0]));
+  for (int i = 0; i < edges.size(); i++) {
+    if (visited[i]) continue;
 
-  while (!nodes.empty()) {
-    std::pair<int, int> current = nodes.top();
-    nodes.pop();
+    bool contains_cycle = is_cycle(edges, i, visited, in_stack);
 
-    if (exists[current]) return true;
-    exists[current] = true;
-
-    if (edges[current.first].empty() && (current.first + 1 < edges.size()))
-      nodes.push(std::make_pair(current.first + 1, current.second));
-    for (auto it = edges[current.first].rbegin(); it != edges[current.first].rend(); it++)
-      nodes.push(std::make_pair(current.first, *it));
+    if (contains_cycle) return true;
   }
 
   return false;

@@ -29,7 +29,23 @@ constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
 // HELPER FUNCTIONS
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n;
+  std::cin >> n;
+
+  std::string s;
+  std::cin >> s;
+
+  int u_count = 0;
+  for (char &c : s) {
+    if (c == 'U') u_count++;
+  }
+
+  if (u_count % 2 == 0)
+    std::cout << "NO" << '\n';
+  else
+    std::cout << "YES" << '\n';
+}
 
 int main() {
   std::ios_base::sync_with_stdio(0);
