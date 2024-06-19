@@ -14,10 +14,11 @@ author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 // #define ONLINE_JUDGE
 
 // HEADERS
-#include <cstdint>
-#include <cstdio>  // freopen
-#include <ctime>   // std::clock
-#include <ios>     // std::ios_base
+#include <algorithm>
+#include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
+#include <cstdio>   // freopen
+#include <ctime>    // std::clock
+#include <ios>      // std::ios_base
 #include <iostream>
 #include <string>
 
@@ -26,17 +27,22 @@ constexpr std::int32_t MODULU = std::int32_t(1e9) + 7;  // Modulus
 constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
 
 // PROBLEM KEYPOINTS
+//
+// - Each string of len 3
 
 // HELPER FUNCTIONS
 
 // PROBLEM SOLUTION
 void solution() {
-  int n, m;
-  std::cin >> n >> m;
+  std::string a;
+  std::cin >> a;
 
-  std::string sa;
-  std::string sb;
-  std::cin >> sa >> sb;
+  std::string b;
+  std::cin >> b;
+
+  std::swap(a[0], b[0]);
+
+  std::cout << a << ' ' << b << '\n';
 }
 
 int main() {

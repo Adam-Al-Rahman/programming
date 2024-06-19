@@ -14,11 +14,12 @@ author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 // #define ONLINE_JUDGE
 
 // HEADERS
-#include <cstdint>
-#include <cstdio>  // freopen
-#include <ctime>   // std::clock
-#include <ios>     // std::ios_base
+#include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
+#include <cstdio>   // freopen
+#include <ctime>    // std::clock
+#include <ios>      // std::ios_base
 #include <iostream>
+#include <numeric>  // std::lcm and std::gcd
 #include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
@@ -26,19 +27,34 @@ constexpr std::int32_t MODULU = std::int32_t(1e9) + 7;  // Modulus
 constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
 
 // PROBLEM KEYPOINTS
+// - i and j need not be equal
 
 // HELPER FUNCTIONS
+// Function to compute LCM of all elements in a vector
+int find_lcm(const std::vector<std::uint16_t>& numbers) {
+  return std::accumulate(numbers.begin(), numbers.end(), 1, [](int a, int b) { return std::lcm(a, b); });
+}
 
-// Q: https://codeforces.com/contest/1953/problem/A#
 // PROBLEM SOLUTION
 void solution() {
-  std::uint32_t N;
-  std::cin >> N;
+  std::uint16_t n;
+  std::cin >> n;
 
-  std::vector<double> xi(N);
-  for (int i = 0; i < N; i++) std::cin >> std::scientific >> xi[i];
+  std::vector<std::uint16_t> k(n);
+  for (int i = 0; i < n; i++) std::cin >> k[i];
 
-  std::cout << xi[0];
+  int z = find_lcm(k);
+
+  int sum = 0;
+  for (std::uint16_t i = 0; i < n; i++) sum += (z / k[i]);
+
+  if (sum < z) {
+    for (int i = 0; i < n; i++) std::cout << (z / k[i]) << ' ';
+    std::cout << '\n';
+    return;
+  }
+
+  std::cout << -1 << '\n';
 }
 
 int main() {
@@ -56,7 +72,7 @@ int main() {
 #endif  // ONLINE_JUDGE
 
   std::uint32_t tests = 1;
-  // std::cin >> tests;  // overwrite
+  std::cin >> tests;  // overwrite
   while (tests--) solution();
 
 #ifndef ONLINE_JUDGE

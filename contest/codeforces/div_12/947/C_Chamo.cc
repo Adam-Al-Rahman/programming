@@ -15,11 +15,12 @@ author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 
 // HEADERS
 #include <algorithm>
-#include <cstdint>
-#include <cstdio>  // freopen
-#include <ctime>   // std::clock
-#include <ios>     // std::ios_base
+#include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
+#include <cstdio>   // freopen
+#include <ctime>    // std::clock
+#include <ios>      // std::ios_base
 #include <iostream>
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 constexpr std::int32_t MODULU = std::int32_t(1e9) + 7;  // Modulus
@@ -31,30 +32,26 @@ constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
 
 // PROBLEM SOLUTION
 void solution() {
-  std::string s;
-  std::cin >> s;
+  std::uint32_t n;
+  std::cin >> n;
 
-  int occurrences = std::count(s.begin(), s.end(), s[0]);
+  std::vector<std::uint32_t> a(n);
+  for (int i = 0; i < n; i++) std::cin >> a[i];
 
-  if (occurrences == s.size()) {
-    std::cout << "NO" << '\n';
+  if (n == 2) {
+    std::cout << std::min(a[0], a[1]) << '\n';
     return;
   }
 
-  std::cout << "YES" << '\n';
-
-  int i = 0;
-  int j = s.size() - 1;
-
-  while (i < j) {
-    if (s[i] != s[j]) {
-      std::swap(s[i], s[j]);
-      break;
-    } else {
-      i++;
-    }
+  int ans = std::min(a[0], a[1]);
+  for (int i = 0; i <= n - 3; i++) {
+    std::vector<int> tmp;
+    for (int k = 0; k <= 2; k++) tmp.push_back(a[i + k]);
+    std::sort(tmp.begin(), tmp.end());
+    ans = std::max(ans, tmp[1]);
   }
-  std::cout << s << '\n';
+
+  std::cout << ans << '\n';
 }
 
 int main() {

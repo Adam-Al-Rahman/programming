@@ -29,7 +29,29 @@ constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
 // HELPER FUNCTIONS
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  std::uint64_t n, a, b;
+  std::cin >> n >> a >> b;
+
+  if (b <= a) {
+    std::cout << (n * a) << '\n';
+    return;
+  }
+
+  std::uint64_t rem = b - a;
+  std::uint64_t profit = 0;
+
+  if (n <= rem) {
+    profit = n * (2 * b - n + 1) / 2;  // Sum AP series
+  } else {
+    // For a decreasing series from b down to b - rem + 1, where a = b and d = -1
+    // First calculate the profit for the initial `rem` units with decreasing profit
+    profit = rem * (2 * b - rem + 1) / 2;
+    // Then calculate the profit for the remaining units with profit `a`
+    profit += (n - rem) * a;
+  }
+  std::cout << profit << '\n';
+}
 
 int main() {
   std::ios_base::sync_with_stdio(0);

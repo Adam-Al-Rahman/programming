@@ -14,12 +14,12 @@ author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 // #define ONLINE_JUDGE
 
 // HEADERS
-#include <algorithm>
-#include <cstdint>
-#include <cstdio>  // freopen
-#include <ctime>   // std::clock
-#include <ios>     // std::ios_base
+#include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
+#include <cstdio>   // freopen
+#include <ctime>    // std::clock
+#include <ios>      // std::ios_base
 #include <iostream>
+#include <unordered_map>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 constexpr std::int32_t MODULU = std::int32_t(1e9) + 7;  // Modulus
@@ -31,12 +31,25 @@ constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
 
 // PROBLEM SOLUTION
 void solution() {
-  std::uint16_t x;
-  std::uint16_t y;
+  std::uint16_t n;
+  std::cin >> n;
 
-  std::cin >> x >> y;
+  std::uint16_t m;
+  std::cin >> m;
 
-  std::cout << std::min(x, y) << ' ' << std::max(x, y) << '\n';
+  std::string diff_level;
+  std::cin >> diff_level;
+
+  std::unordered_map<char, int> char_count = {{'A', 0}, {'B', 0}, {'C', 0}, {'D', 0}, {'E', 0}, {'F', 0}, {'G', 0}};
+
+  for (char cx : diff_level) char_count[cx]++;
+
+  int result = 0;
+
+  for (auto &[k, v] : char_count) {
+    if ((m - v) > 0) result += (m - v);
+  }
+  std::cout << result << '\n';
 }
 
 int main() {

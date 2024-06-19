@@ -14,11 +14,13 @@ author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 // #define ONLINE_JUDGE
 
 // HEADERS
-#include <cstdint>
-#include <cstdio>  // freopen
-#include <ctime>   // std::clock
-#include <ios>     // std::ios_base
+#include <algorithm>
+#include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
+#include <cstdio>   // freopen
+#include <ctime>    // std::clock
+#include <ios>      // std::ios_base
 #include <iostream>
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 constexpr std::int32_t MODULU = std::int32_t(1e9) + 7;  // Modulus
@@ -30,23 +32,17 @@ constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
 
 // PROBLEM SOLUTION
 void solution() {
-  int p1, p2, p3;
-  std::cin >> p1 >> p2 >> p3;
+  std::uint32_t n;
+  std::cin >> n;
 
-  if (p1 == 0 && p2 == 0 && p3 == 0) {
-    std::cout << 0 << '\n';
-    return;
-  }
+  std::vector<std::uint32_t> a(n);
+  for (int i = 0; i < n; i++) std::cin >> a[i];
 
-  if (p1 == p2 && p2 == p3) {
-    std::cout << -1 << '\n';
-    return;
-  }
+  std::vector<int> max_adj;
 
-  int q = p1 / 2;
-  int r = p1 - q;
+  for (int i = 1; i < n; i++) max_adj.push_back(std::max(a[i - 1], a[i]));
 
-  std::cout << p1 + (p2 - q) << '\n';
+  std::cout << (*std::min_element(max_adj.begin(), max_adj.end())) - 1 << '\n';
 }
 
 int main() {

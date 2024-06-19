@@ -14,10 +14,11 @@ author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 // #define ONLINE_JUDGE
 
 // HEADERS
-#include <cstdint>
-#include <cstdio>  // freopen
-#include <ctime>   // std::clock
-#include <ios>     // std::ios_base
+#include <algorithm>
+#include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
+#include <cstdio>   // freopen
+#include <ctime>    // std::clock
+#include <ios>      // std::ios_base
 #include <iostream>
 #include <vector>
 
@@ -31,33 +32,41 @@ constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
 
 // PROBLEM SOLUTION
 void solution() {
-  int n;
+  std::uint32_t n;
   std::cin >> n;
 
-  std::vector<int> a(n);
-  for (int i = 0; i < n; i++) std::cin >> a[i];
+  int check = 0;
+  std::vector<std::uint32_t> a(n);
+  for (int i = 0; i < n; i++) {
+    std::cin >> a[i];
+    if (a[i] == 1) check = 1;
+  }
 
-  if (n == 1) {
-    std::cout << 1 << '\n';
+  if (check) {
+    std::cout << "YES" << '\n';
     return;
   }
 
-  std::vector<int> possible;
-
-  int x = a[0];
-  int y = a[1];
+  std::sort(a.begin(), a.end());
+  std::vector<std::uint32_t> b;
 
   for (int i = 1; i < n; i++) {
-    if (x == y) possible.push_back(i);
-
-    x |= a[i];
-    y |= a[i + 1];
+    if (a[i] % a[0]) b.push_back(a[i]);
   }
 
-  for (auto &m : possible) std::cout << m;
-  std::cout << '\n';
+  // reuse b
+  n = b.size();
+  for (int j = 1; j < n; j++) {
+    if (b[j] % b[0]) {
+      check = 1;
+      break;
+    }
+  }
 
-  // std::cout << possible.back() << '\n';
+  if (!check)
+    std::cout << "YES" << '\n';
+  else
+    std::cout << "NO" << '\n';
 }
 
 int main() {

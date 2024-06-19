@@ -14,11 +14,14 @@ author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 // #define ONLINE_JUDGE
 
 // HEADERS
+#include <algorithm>
 #include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
 #include <cstdio>   // freopen
-#include <ctime>    // std::clock
-#include <ios>      // std::ios_base
+#include <cstdlib>
+#include <ctime>  // std::clock
+#include <ios>    // std::ios_base
 #include <iostream>
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 constexpr std::int32_t MODULU = std::int32_t(1e9) + 7;  // Modulus
@@ -29,7 +32,43 @@ constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
 // HELPER FUNCTIONS
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  std::uint64_t n, k;
+  std::cin >> n >> k;
+
+  std::uint64_t max_k = 0;
+  std::uint64_t rev = n;
+
+  for (int i = 0; i < n; i++) max_k += std::abs(int(n - 1 - i - i));
+
+  if (k % 2 != 0 || k > max_k) {
+    std::cout << "NO" << '\n';
+    return;
+  }
+
+  std::cout << "YES" << '\n';
+  std::uint64_t first = 1;
+  std::uint64_t last = n;
+
+  std::vector<std::uint64_t> vec(n);
+  for (std::size_t i = 0; i < n; i++) vec[i] = i + 1;  // Initialize the vector with 1 to n
+
+  while (k > 0) {
+    if (k >= (2 * (last - first))) {
+      std::swap(vec[first - 1], vec[last - 1]);
+      k -= (2 * (last - first));
+      first++;
+      last--;
+    } else {
+      last--;
+    }
+  }
+
+  for (std::size_t i = 0; i < n; i++) {
+    std::cout << vec[i] << ' ';
+  }
+  std::cout << '\n';
+}
 
 int main() {
   std::ios_base::sync_with_stdio(0);

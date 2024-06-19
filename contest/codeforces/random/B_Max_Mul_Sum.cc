@@ -14,39 +14,49 @@ author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 // #define ONLINE_JUDGE
 
 // HEADERS
-#include <cstdint>
-#include <cstdio>  // freopen
-#include <ctime>   // std::clock
-#include <ios>     // std::ios_base
+#include <algorithm>
+#include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
+#include <cstdio>   // freopen
+#include <ctime>    // std::clock
+#include <ios>      // std::ios_base
 #include <iostream>
-#include <numeric>
+#include <utility>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 constexpr std::int32_t MODULU = std::int32_t(1e9) + 7;  // Modulus
 constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
 
 // PROBLEM KEYPOINTS
+//
+// - Each string of len 3
 
 // HELPER FUNCTIONS
 
 // PROBLEM SOLUTION
 void solution() {
-  std::int16_t x;
-  std::cin >> x;
+  std::uint16_t n;
+  std::cin >> n;
 
-  std::int16_t global = 0;
-  std::int16_t y = 1;
+  std::pair<int, int> max_index;
 
-  for (int i = 1; i < x; i++) {
-    std::int16_t current = std::gcd(x, i) + i;
+  for (int x = 2; x <= n; x++) {
+    int sum = 0;
 
-    if (global < current) {
-      global = current;
-      y = i;
+    int current = 0;
+    int coeff = 1;
+    while (current <= n) {
+      current = (coeff * x);
+      sum += current;
+      coeff++;
+    }
+
+    if (max_index.first <= sum) {
+      max_index.first = sum;
+      max_index.second = x;
     }
   }
 
-  std::cout << y << '\n';
+  std::cout << max_index.second << '\n';
 }
 
 int main() {

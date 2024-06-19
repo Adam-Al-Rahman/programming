@@ -19,6 +19,7 @@ author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 #include <ctime>    // std::clock
 #include <ios>      // std::ios_base
 #include <iostream>
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 constexpr std::int32_t MODULU = std::int32_t(1e9) + 7;  // Modulus
@@ -29,7 +30,21 @@ constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
 // HELPER FUNCTIONS
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  std::uint16_t n;
+  std::cin >> n;
+
+  std::vector<int> a(n);
+  for (int i = 0; i < n; i++) std::cin >> a[i];
+
+  int max_elem = a[0];
+
+  for (int i = 1; i < (n - 1); i++) {
+    if (max_elem <= a[i]) max_elem = a[i];
+  }
+
+  std::cout << (max_elem + a[n - 1]) << '\n';
+}
 
 int main() {
   std::ios_base::sync_with_stdio(0);

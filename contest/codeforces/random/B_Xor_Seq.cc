@@ -14,10 +14,11 @@ author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 // #define ONLINE_JUDGE
 
 // HEADERS
-#include <cstdint>
-#include <cstdio>  // freopen
-#include <ctime>   // std::clock
-#include <ios>     // std::ios_base
+#include <bitset>
+#include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
+#include <cstdio>   // freopen
+#include <ctime>    // std::clock
+#include <ios>      // std::ios_base
 #include <iostream>
 
 // GLOBAL CONSTANTS EXPRESSIONS
@@ -25,20 +26,30 @@ constexpr std::int32_t MODULU = std::int32_t(1e9) + 7;  // Modulus
 constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
 
 // PROBLEM KEYPOINTS
+// - i and j need not be equal
 
 // HELPER FUNCTIONS
 
 // PROBLEM SOLUTION
 void solution() {
-  int n;
-  std::cin >> n;
+  std::uint32_t x, y;
+  std::cin >> x >> y;
 
-  if (n == 1 || n == 4 || n == 7)
-    std::cout << 1 << '\n';
-  else if (n == 2)
-    std::cout << 2 << '\n';
-  else
-    std::cout << 0 << '\n';
+  std::bitset<32> x_bits(x);
+  std::string x_bits_str = x_bits.to_string();
+
+  std::bitset<32> y_bits(y);
+  std::string y_bits_str = y_bits.to_string();
+
+  int k = 0;
+  for (int i = 31; i > 0; i--) {
+    if (x_bits_str[i] == y_bits_str[i])
+      k++;
+    else
+      break;
+  }
+
+  std::cout << (1 << k) << '\n';
 }
 
 int main() {

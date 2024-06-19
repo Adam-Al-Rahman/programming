@@ -14,6 +14,7 @@ author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 // #define ONLINE_JUDGE
 
 // HEADERS
+#include <cmath>
 #include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
 #include <cstdio>   // freopen
 #include <ctime>    // std::clock
@@ -29,7 +30,12 @@ constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
 // HELPER FUNCTIONS
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  std::uint32_t l, r;
+  std::cin >> l >> r;
+
+  std::cout << std::uint32_t(std::log2(r)) << '\n';
+}
 
 int main() {
   std::ios_base::sync_with_stdio(0);
