@@ -29,7 +29,17 @@ constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
 // HELPER FUNCTIONS
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  std::uint64_t n, m, a;
+  std::cin >> n >> m >> a;
+
+  std::uint64_t granite_width = (n + a - 1) / a;
+  std::uint64_t granite_height = (m + a - 1) / a;
+
+  std::uint64_t no_granite = granite_width * granite_height;
+
+  std::cout << no_granite << '\n';
+}
 
 int main() {
   std::ios_base::sync_with_stdio(0);
@@ -37,8 +47,8 @@ int main() {
   std::cout.tie(0);
 
 #ifndef ONLINE_JUDGE
-  (void)freopen("./zero/input.txt", "r", stdin);
-  (void)freopen("./zero/output.txt", "w", stdout);
+  freopen("./zero/input.txt", "r", stdin);
+  freopen("./zero/output.txt", "w", stdout);
 #endif  // ONLINE_JUDGE
 
 #ifndef ONLINE_JUDGE
@@ -46,7 +56,7 @@ int main() {
 #endif  // ONLINE_JUDGE
 
   std::uint32_t tests = 1;
-  std::cin >> tests;  // overwrite
+  // std::cin >> tests;  // overwrite
   while (tests--) solution();
 
 #ifndef ONLINE_JUDGE

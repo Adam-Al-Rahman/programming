@@ -29,7 +29,12 @@ constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
 // HELPER FUNCTIONS
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  std::int32_t n, k;
+  std::cin >> n >> k;
+
+  std::cout << ((n - 1) * k) + 1 << '\n';
+}
 
 int main() {
   std::ios_base::sync_with_stdio(0);

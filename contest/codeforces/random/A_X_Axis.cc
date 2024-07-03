@@ -14,11 +14,15 @@ author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 // #define ONLINE_JUDGE
 
 // HEADERS
+#include <algorithm>
 #include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
 #include <cstdio>   // freopen
-#include <ctime>    // std::clock
-#include <ios>      // std::ios_base
+#include <cstdlib>
+#include <ctime>  // std::clock
+#include <ios>    // std::ios_base
 #include <iostream>
+#include <unordered_map>
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 constexpr std::int32_t MODULU = std::int32_t(1e9) + 7;  // Modulus
@@ -29,7 +33,33 @@ constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
 // HELPER FUNCTIONS
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int x1, x2, x3;
+  std::cin >> x1 >> x2 >> x3;
+
+  std::unordered_map<int, int> num_count;
+  num_count[x1]++;
+  num_count[x2]++;
+  num_count[x3]++;
+
+  std::vector<int> nx = {x1, x2, x3};
+  std::sort(nx.begin(), nx.end());
+
+  int normal = nx[1];
+
+  int ans = 0;
+  if (num_count[x1] > 1)
+    ans = std::abs(x1 - x2) + std::abs(x1 - x3);
+  else if (num_count[x2] > 1)
+    ans = std::abs(x2 - x1) + std::abs(x2 - x3);
+  else if (num_count[x3] > 1)
+    ans = std::abs(x1 - x3) + std::abs(x2 - x3);
+  else {
+    ans = std::abs(normal - x1) + std::abs(normal - x2) + std::abs(normal - x3);
+  }
+
+  std::cout << ans << '\n';
+}
 
 int main() {
   std::ios_base::sync_with_stdio(0);
@@ -37,8 +67,8 @@ int main() {
   std::cout.tie(0);
 
 #ifndef ONLINE_JUDGE
-  (void)freopen("./zero/input.txt", "r", stdin);
-  (void)freopen("./zero/output.txt", "w", stdout);
+  freopen("./zero/input.txt", "r", stdin);
+  freopen("./zero/output.txt", "w", stdout);
 #endif  // ONLINE_JUDGE
 
 #ifndef ONLINE_JUDGE

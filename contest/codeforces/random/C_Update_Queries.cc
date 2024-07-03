@@ -14,11 +14,14 @@ author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 // #define ONLINE_JUDGE
 
 // HEADERS
+#include <algorithm>
 #include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
 #include <cstdio>   // freopen
 #include <ctime>    // std::clock
 #include <ios>      // std::ios_base
 #include <iostream>
+#include <string>
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 constexpr std::int32_t MODULU = std::int32_t(1e9) + 7;  // Modulus
@@ -29,7 +32,36 @@ constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
 // HELPER FUNCTIONS
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  std::uint32_t n, m;
+  std::cin >> n >> m;
+
+  std::string s;
+  std::cin >> s;
+
+  std::vector<int> index(n, 0);
+  for (int i = 0; i < m; i++) {
+    int x;
+    std::cin >> x;
+    x--;
+    index[x] = 1;
+  }
+
+  std::string c;
+  std::cin >> c;
+
+  std::sort(c.begin(), c.end());
+
+  int p = 0;
+  for (int i = 0; i < n; i++) {
+    if (index[i] == 1) {
+      s[i] = c[p];
+      p++;
+    }
+  }
+
+  std::cout << s << '\n';
+}
 
 int main() {
   std::ios_base::sync_with_stdio(0);
@@ -37,8 +69,8 @@ int main() {
   std::cout.tie(0);
 
 #ifndef ONLINE_JUDGE
-  (void)freopen("./zero/input.txt", "r", stdin);
-  (void)freopen("./zero/output.txt", "w", stdout);
+  freopen("./zero/input.txt", "r", stdin);
+  freopen("./zero/output.txt", "w", stdout);
 #endif  // ONLINE_JUDGE
 
 #ifndef ONLINE_JUDGE
