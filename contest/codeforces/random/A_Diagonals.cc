@@ -29,7 +29,33 @@ constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
 // HELPER FUNCTIONS | STRUCT | CLASS
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n, k;
+  std::cin >> n >> k;
+
+  int i = n;
+  int diag = 0;
+
+  if (k > n) {
+    k -= n;
+    i = n - 1;
+    diag = 1;
+  }
+
+  while (k > 0 && i > 0) {
+    if (k >= 2 * i) {
+      diag += 2;
+      k -= (2 * i);
+    } else if (k >= i) {
+      diag++;
+      k -= i;
+    }
+
+    i--;
+  }
+
+  std::cout << diag << '\n';
+}
 
 int main() {
   std::ios_base::sync_with_stdio(0);

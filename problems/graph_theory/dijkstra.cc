@@ -9,9 +9,11 @@
 
  */
 
+#include <algorithm>
 #include <iostream>
-#include <limits>
-#include <queue>
+#include <limits>   // std::numeric_limits
+#include <queue>    // std::priority_queue
+#include <utility>  // std::pair
 #include <vector>
 
 struct Edge {
@@ -19,6 +21,9 @@ struct Edge {
   int dest;
 
   Edge(int d, int w) : dest(d), weight(w) {}
+
+  // Convertion operator to std::pair
+  operator std::pair<int, int>() { return std::make_pair(weight, dest); }
 };
 
 void dijkstra(int src, std::vector<std::vector<Edge>>& graph, std::vector<int>& weights, std::vector<int>& parent) {
@@ -37,9 +42,8 @@ void dijkstra(int src, std::vector<std::vector<Edge>>& graph, std::vector<int>& 
     if (visited[current]) continue;
     visited[current] = true;
 
-    for (const Edge& edge : graph[current]) {
-      int neighbor = edge.dest;
-      int new_weight = current_weight + edge.weight;
+    for (auto& [neighbor_weight, neighbor] : graph[current]) {
+      int new_weight = current_weight + neighbor_weight;
 
       if (new_weight < weights[neighbor]) {
         weights[neighbor] = new_weight;

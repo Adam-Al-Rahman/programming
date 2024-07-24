@@ -14,11 +14,13 @@ author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 // #define ONLINE_JUDGE
 
 // HEADERS
+#include <algorithm>
 #include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
 #include <cstdio>   // freopen
 #include <ctime>    // std::clock
 #include <ios>      // std::ios_base
 #include <iostream>
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 constexpr std::int32_t MODULU = std::int32_t(1e9) + 7;  // Modulus
@@ -29,7 +31,20 @@ constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
 // HELPER FUNCTIONS | STRUCT | CLASS
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int a, b, c;
+  std::cin >> a >> b >> c;
+
+  std::vector<int> x = {a, b, c};
+  std::sort(x.begin(), x.end());
+
+  for (int i = 0; i < 5; i++) {
+    auto it = std::min_element(x.begin(), x.end());
+    (*it)++;
+  }
+
+  std::cout << x[0] * x[1] * x[2] << '\n';
+}
 
 int main() {
   std::ios_base::sync_with_stdio(0);

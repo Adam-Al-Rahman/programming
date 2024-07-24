@@ -1,7 +1,7 @@
 /*
 ╔═══════════════════════════════════════════════╗
-║                                               ║
 ║  Competitive programming is not about solving ║
+║                                               ║
 ║  problems; it's about continuously evolving   ║
 ║  your approach to problem-solving.            ║
 ║                                               ║
@@ -23,13 +23,21 @@ author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 // GLOBAL CONSTANTS EXPRESSIONS
 constexpr std::int32_t MODULU = std::int32_t(1e9) + 7;  // Modulus
 constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
-
 // PROBLEM KEYPOINTS
+// 28 112 252 448 700 1008 1372
 
 // HELPER FUNCTIONS | STRUCT | CLASS
-
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n;
+  std::cin >> n;
+
+  for (int i = 1; i <= n; i++) {
+    std::cout << i << ' ';
+  }
+
+  std::cout << '\n';
+}
 
 int main() {
   std::ios_base::sync_with_stdio(0);
