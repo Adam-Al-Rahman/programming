@@ -1,13 +1,20 @@
-// ╔════════════════════════════════════════════════════════════════════╗
-// ║ Competitive programming is not about solving problems.             ║
-// ║ It's about continuously evolving your approach to problem-solving. ║
-// ╚════════════════════════════════════════════════════════════════════╝
-// author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+/*
+╔═══════════════════════════════════════════════╗
+║                                               ║
+║  Competitive programming is not about solving ║
+║  problems; it's about continuously evolving   ║
+║  your approach to problem-solving.            ║
+║                                               ║
+╚═══════════════════════════════════════════════╝
+
+author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+*/
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
 
 // HEADERS (Required)
+#include <climits>
 #include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
 #include <cstdio>   // freopen
 #include <ctime>    // std::clock
@@ -16,7 +23,8 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
-
+#include <sstream>
+#include <vector>
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
 constexpr std::int32_t mod = std::int32_t(1e9) + 7;  // Modulus
@@ -31,7 +39,33 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n;
+  std::cin >> n;
+  std::vector<int> b(n - 1);
+  for (int i = 0; i < n - 1; i++) std::cin >> b[i];
+
+  std::vector<int> a(n + 1);
+  a[0] = b[0];
+  a[n - 1] = b[n - 2];
+
+  for (int i = 1; i < n - 1; i++) {
+    a[i] = b[i - 1] | b[i];
+  }
+
+  std::ostringstream ans;
+
+  for (int i = 0; i < n - 1; i++) {
+    if (b[i] == (a[i] & a[i + 1]))
+      ans << a[i] << " ";
+    else {
+      std::cout << -1 << '\n';
+      return;
+    }
+  }
+
+  std::cout << ans.str() << a[n - 1] << '\n';
+}
 
 int main() {
   std::ios_base::sync_with_stdio(0);

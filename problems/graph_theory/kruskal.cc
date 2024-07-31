@@ -14,6 +14,13 @@ struct Edge {
   bool operator<(this Edge& self, const Edge& other) const { return self.weight < other.weight; }
 };
 
+// Edge alternative px::node
+namespace px {
+using node = std::tuple<std::int64_t, std::int64_t, std::int64_t>;
+
+bool operator<(const node& lhs, const node& rhs) { return std::get<2>(lhs) < std::get<2>(rhs); }
+}  // namespace px
+
 // Data structure for Kruskal's Algorithm
 class DisjointSetUnion {
  public:

@@ -1,13 +1,20 @@
-// ╔════════════════════════════════════════════════════════════════════╗
-// ║ Competitive programming is not about solving problems.             ║
-// ║ It's about continuously evolving your approach to problem-solving. ║
-// ╚════════════════════════════════════════════════════════════════════╝
-// author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+/*
+╔═══════════════════════════════════════════════╗
+║                                               ║
+║  Competitive programming is not about solving ║
+║  problems; it's about continuously evolving   ║
+║  your approach to problem-solving.            ║
+║                                               ║
+╚═══════════════════════════════════════════════╝
+
+author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+*/
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
 
 // HEADERS (Required)
+#include <climits>
 #include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
 #include <cstdio>   // freopen
 #include <ctime>    // std::clock
@@ -16,6 +23,8 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <algorithm>
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -31,7 +40,19 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n;
+  std::cin >> n;
+  std::vector<int> a(n + 1);
+  for (int i = 1; i <= n; i++) std::cin >> a[i];
+
+  int max_value = 0;
+  for (int i = 1; i <= n; i += 2) {
+    max_value = std::max(max_value, a[i]);
+  }
+
+  std::cout << max_value << '\n';
+}
 
 int main() {
   std::ios_base::sync_with_stdio(0);

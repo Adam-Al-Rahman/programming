@@ -1,8 +1,14 @@
-// ╔════════════════════════════════════════════════════════════════════╗
-// ║ Competitive programming is not about solving problems.             ║
-// ║ It's about continuously evolving your approach to problem-solving. ║
-// ╚════════════════════════════════════════════════════════════════════╝
-// author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+/*
+╔═══════════════════════════════════════════════╗
+║                                               ║
+║  Competitive programming is not about solving ║
+║  problems; it's about continuously evolving   ║
+║  your approach to problem-solving.            ║
+║                                               ║
+╚═══════════════════════════════════════════════╝
+
+author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+*/
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -16,6 +22,8 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <string>
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -31,7 +39,21 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  std::int16_t n, k;
+  std::cin >> n >> k;
+
+  std::vector<std::string> g(n);
+  for (int i = 0; i < n; i++) std::cin >> g[i];
+
+  std::string ans;
+  for (int i = 0; i < n; i += k) {
+    for (int j = 0; j < n; j += k) ans += g[i][j];
+    ans += '\n';
+  }
+
+  std::cout << ans;
+}
 
 int main() {
   std::ios_base::sync_with_stdio(0);

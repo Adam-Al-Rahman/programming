@@ -22,7 +22,8 @@ struct Edge {
 
   Edge(int d, int w) : dest(d), weight(w) {}
 
-  // Convertion operator to std::pair
+  // Implicit Convertion Edge -> `operator std::pair` c++20
+  // dont use `explicit`
   operator std::pair<int, int>() { return std::make_pair(weight, dest); }
 };
 
@@ -36,14 +37,14 @@ void dijkstra(int src, std::vector<std::vector<Edge>>& graph, std::vector<int>& 
   std::vector<bool> visited(graph.size(), false);
 
   while (!nodes.empty()) {
-    auto [current_weight, current] = nodes.top();
+    auto [c_weight, current] = nodes.top();
     nodes.pop();
 
     if (visited[current]) continue;
     visited[current] = true;
 
-    for (auto& [neighbor_weight, neighbor] : graph[current]) {
-      int new_weight = current_weight + neighbor_weight;
+    for (auto& [n_weight, neighbor] : graph[current]) {
+      int new_weight = c_weight + n_weight;
 
       if (new_weight < weights[neighbor]) {
         weights[neighbor] = new_weight;
