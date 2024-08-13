@@ -22,9 +22,9 @@ int main() {
     distance[src][dest] = wt;
   }
 
-  for (int k = 0; k < v; k++) {
-    for (int i = 0; i < v; i++) {
-      for (int j = 0; j < v; j++) {
+  for (int k = 0; k < v; ++k) {
+    for (int i = 0; i < v; ++i) {
+      for (int j = 0; j < v; ++j) {
         // main logic
         if (distance[i][k] < INF && distance[k][j] < INF)
           distance[i][j] = std::min(distance[i][j], distance[i][k] + distance[k][j]);

@@ -22,11 +22,23 @@ ASCII standard, where each character is assigned a unique 7-bit code.
 */
 
 #include <iostream>
+#include <string>
+
 int main() {
   char myChar = 'A';  // 'A' has an ASCII value of 65
   // Perform arithmetic operation involving char
 
   int result = myChar + 1;  // Result is 66 (ASCII value of 'B')
-  std::cout << "Result: " << result << std::endl;
-  return 0;
+  std::cout << "'A' + 1: " << result << std::endl;
+
+  // char to integer
+  int num1 = '9' - '0';
+  int num2 = '8' - '0';
+  std::cout << "'9' + '8': " << num1 + num2 << '\n';
+
+  // char to string
+  std::string x = std::string(1, 'a');
+
+  // ascii to char
+  char ac = static_cast<char>(100);
 }

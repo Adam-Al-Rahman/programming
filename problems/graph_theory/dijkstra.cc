@@ -86,13 +86,12 @@ int main() {
     } else {
       std::cout << weights[i] << " (via ";
       std::vector<int> path;
-      for (int v = i; v != -1; v = parent[v]) {
-        path.push_back(v);
-      }
+
+      for (int v = i; v != -1; v = parent[v]) path.push_back(v);
+
       std::reverse(path.begin(), path.end());
-      for (int v : path) {
-        std::cout << v << " ";
-      }
+
+      for (int v : path) std::cout << v << " ";
       std::cout << ")\n";
     }
   }

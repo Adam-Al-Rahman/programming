@@ -21,6 +21,9 @@ author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 #include <iostream>
 #include <vector>
 
+// Current
+#include <algorithm>
+
 // GLOBAL CONSTANTS EXPRESSIONS
 constexpr std::int32_t MODULU = std::int32_t(1e9) + 7;  // Modulus
 constexpr std::int32_t LARGE_NUM = std::int32_t(2e5) + 5;
@@ -44,16 +47,9 @@ void solution() {
     return;
   }
 
-  if ((n == 1 || n == 5 || n == 3) && (m == 1 || m == 3 || m == 5)) {
-    std::swap(a[n / 2][m / 2], a[n - 1][m - 1]);
-  }
-
-  n--;
-  m--;
-  for (int i = n; i >= 0; i--) {
-    for (int j = m; j >= 0; j--) {
-      std::cout << a[i][j] << ' ';
-    }
+  // Apply cyclic shift (row and col ) without std::rotate
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < m; ++j) std::cout << a[(i + 1) % n][(j + 1) % m] << ' ';
     std::cout << '\n';
   }
 }
