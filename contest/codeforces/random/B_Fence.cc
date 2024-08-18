@@ -3,6 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+// Q: https://codeforces.com/problemset/problem/363/B
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -16,6 +17,7 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -36,7 +38,31 @@ using float80_t = long double;  // Clang on x64 use 80bit (IEEE 754 Extended Pre
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n, k;
+  std::cin >> n >> k;
+
+  std::vector<int> f(n);
+  for (int i = 0; i < n; ++i) std::cin >> f[i];
+
+  int current_sum = 0;
+  for (int i = 0; i < k; ++i) current_sum += f[i];
+
+  int min_val = current_sum;
+  int min_index = 0;
+
+  // sliding window
+  for (int i = 1; i <= (n - k); ++i) {
+    current_sum = current_sum + f[i + k - 1] - f[i - 1];
+
+    if (current_sum < min_val) {
+      min_val = current_sum;
+      min_index = i;
+    }
+  }
+
+  std::cout << min_index + 1 << std::endl;  // +1: 0-indexing
+}
 
 int main() {
   std::ios_base::sync_with_stdio(0);
@@ -53,7 +79,7 @@ int main() {
 #endif  // ONLINE_JUDGE
 
   std::uint32_t tests = 1;
-  std::cin >> tests;  // overwrite
+  // std::cin >> tests;  // overwrite
   while (tests--) solution();
 
 #ifndef ONLINE_JUDGE

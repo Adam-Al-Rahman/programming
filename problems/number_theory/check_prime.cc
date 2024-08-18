@@ -1,7 +1,4 @@
-
-/**
- * Copyright 2024 Adam-Al-Rahman
- */
+// Copyright 2024 Adam-Al-Rahman
 
 /**
 The check for number % (i + 2) == 0 is a part of an optimization that reduces the number of iterations required to

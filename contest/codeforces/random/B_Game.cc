@@ -10,12 +10,14 @@
 // HEADERS (Required)
 #include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
 #include <cstdio>   // freopen
-#include <ctime>    // std::clock
-#include <ios>      // std::ios_base
+#include <cstdlib>
+#include <ctime>  // std::clock
+#include <ios>    // std::ios_base
 #include <iostream>
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -24,19 +26,39 @@ constexpr std::int32_t num = std::int32_t(2e5) + 5;
 }  // namespace px
 
 // PROBLEM KEYPOINTS
+// if (weight == 0) the weight was erased.
 
 // HELPER FUNCTIONS | STRUCT | CLASS | ALIAS
 namespace px {
-using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, low priority }
-
-using float32_t = float;        // 32-bit floating-point type
-using float64_t = double;       // 64-bit floating-point type
-using float80_t = long double;  // Clang on x64 use 80bit (IEEE 754 Extended Precision)
-
+using node = std::tuple<std::int64_t, std::int64_t>;  //  NOTE: {high priority, low priority }
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int l, r;
+  std::cin >> l >> r;
+
+  int L, R;
+  std::cin >> L >> R;
+
+  std::vector<int> s(101, 0);
+
+  for (int i = l; i <= r; i++) s[i]++;
+  for (int i = L; i <= R; i++) s[i]++;
+
+  int d = 0;
+  for (int i = 1; i < 100; ++i) {
+    if (s[i] - 1 == -1 || (s[i + 1] - 1) == -1)
+      continue;
+    else if ((s[i] - 1) || (s[i + 1] - 1))
+      d++;
+  }
+
+  if (d == 0)
+    std::cout << 1 << '\n';
+  else
+    std::cout << d << '\n';
+}
 
 int main() {
   std::ios_base::sync_with_stdio(0);

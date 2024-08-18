@@ -49,17 +49,19 @@ int descendant_depth(AncestralTree* descendant, AncestralTree* topAncestor) {
 }
 
 AncestralTree* backtrack_ancestor(AncestralTree* lower_ancestor, AncestralTree* higher_ancestor, int depth_diff) {
+  // Bring the lower_ancestor pointer to same level as higher_ancestor pointer
   while (depth_diff > 0) {
     lower_ancestor = lower_ancestor->ancestor;
     depth_diff -= 1;
   }
 
+  // Check for common ancestor
   while (lower_ancestor != higher_ancestor) {
     lower_ancestor = lower_ancestor->ancestor;
     higher_ancestor = higher_ancestor->ancestor;
   }
 
-  return lower_ancestor;  // now, they both are equal to there ancestor;
+  return lower_ancestor;  // now, they both copy pointer are equal to there ancestor;
 }
 
 AncestralTree* getYoungestCommonAncestor(AncestralTree* topAncestor, AncestralTree* descendantOne,
