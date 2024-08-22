@@ -1,3 +1,6 @@
+# Copyright 2024 Adam-Al-Rahman
+# yt: https://www.youtube.com/watch?v=X1PQ7zzltz4
+
 # Dummy Server Database
 server = {
     "database": {
@@ -32,8 +35,6 @@ server = {
         },
     }
 }
-
-import random
 
 
 class User:
@@ -121,6 +122,8 @@ class KillJoy(Agent):
 
     # dundar method __x__
     def __call__(self):
+        import random
+
         return random.choice(self.quotes)
 
     def __getitem__(self, index):

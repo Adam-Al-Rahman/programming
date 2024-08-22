@@ -9,6 +9,7 @@ std::uint64_t largest_prime_factor(std::uint64_t number) {
 
   for (std::uint64_t i = 2; i * i <= number; i++) {
     while (number % i == 0) {
+      // Check if current is largest prime factor
       if (largest_prime_factor < i) largest_prime_factor = i;
       number /= i;
     }

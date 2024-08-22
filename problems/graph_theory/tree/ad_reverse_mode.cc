@@ -18,11 +18,12 @@ class Variable : public Expression {
 
   explicit Variable(float value) { this->value = value; }
 
-  void evaluate() override;
+  void evaluate() override {}
 
   void derive(float seed) override { partial += seed; }
 };
 
+// Operator Overloading for Addition
 class Plus : public Expression {
   std::shared_ptr<Expression> a, b;
 
@@ -41,6 +42,7 @@ class Plus : public Expression {
   }
 };
 
+// Operator Overloading for Multiplication
 class Multiply : public Expression {
   std::shared_ptr<Expression> a, b;
 
@@ -59,15 +61,21 @@ class Multiply : public Expression {
   }
 };
 
+// Overloaded operators for more natural expressions
+std::shared_ptr<Expression> operator+(std::shared_ptr<Expression> a, std::shared_ptr<Expression> b) {
+  return std::make_shared<Plus>(std::move(a), std::move(b));
+}
+
+std::shared_ptr<Expression> operator*(std::shared_ptr<Expression> a, std::shared_ptr<Expression> b) {
+  return std::make_shared<Multiply>(std::move(a), std::move(b));
+}
+
 int main() {
-  // Example: Finding the partials of z = x * (x + y) + y * y at (x, y) = (2, 3)
+  // Example: Finding the partials of z = ((x * (x + y)) + (y * y)) at (x, y) = (2, 3)
   auto x = std::make_shared<Variable>(2.0f);
   auto y = std::make_shared<Variable>(3.0f);
 
-  auto p1 = std::make_shared<Plus>(x, y);
-  auto m1 = std::make_shared<Multiply>(x, p1);
-  auto m2 = std::make_shared<Multiply>(y, y);
-  auto z = std::make_shared<Plus>(m1, m2);
+  auto z = x * (x + y) + y * y;
 
   z->evaluate();
   std::cout << "z = " << z->value << std::endl;

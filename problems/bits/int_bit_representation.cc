@@ -37,6 +37,5 @@ std::string int_bit_represent(std::int16_t number) {
 int main() {
   std::int16_t number = 7;
 
-  std::cout << "Bit Represent " << number << ": " << int_bit_represent(number)
-            << std::flush;
+  std::cout << "Bit Represent " << number << ": " << int_bit_represent(number) << std::flush;
 }

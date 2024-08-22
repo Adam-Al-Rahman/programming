@@ -8,6 +8,11 @@
  * Copyright 2024 Adam-Al-Rahman
  */
 
+/**
+RC (Reference Counting): A general memory management technique where the lifespan of an object is controlled by counting
+the number of references to it. ARC (Automatic Reference Counting): A specific implementation of reference counting,
+primarily used in Objective-C and Swift, where the compiler automatically manages the retain and release operations.
+*/
 #include <iostream>
 
 int main() {
