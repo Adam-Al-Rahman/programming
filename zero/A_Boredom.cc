@@ -3,13 +3,12 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+// Q: https://codeforces.com/problemset/problem/455/A
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
 
 // HEADERS (Required)
-#include <sys/resource.h>  // For getrusage
-
 #include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
 #include <cstdio>   // freopen
 #include <ctime>    // std::clock
@@ -18,6 +17,7 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -40,9 +40,26 @@ using float80_t = long double;  // Clang on x64 use 80bit (IEEE 754 Extended Pre
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n;
+  std::cin >> n;
 
-// MAIN
+  std::vector<int> a(n + 1, 0);
+  for (int i = 0; i < n; ++i) {
+    int x;
+    std::cin >> x;
+    a[x]++;
+  }
+
+  std::vector<int> b(n + 1, 0);
+  b[0] = 0;
+  b[1] = a[1];
+
+  for (int i = 2; i <= n; ++i) b[i] = std::max(b[i - 1], b[i - 2] + (a[i] * i));
+
+  std::cout << b[n] << '\n';
+}
+
 int main() {
   std::ios_base::sync_with_stdio(0);
   std::cin.tie(0);
@@ -58,16 +75,12 @@ int main() {
 #endif  // ONLINE_JUDGE
 
   std::uint32_t tests = 1;
-  std::cin >> tests;  // overwrite
+  // std::cin >> tests;  // overwrite
   while (tests--) solution();
 
 #ifndef ONLINE_JUDGE
   std::clock_t end_time = std::clock();
-  std::cerr << "Experimental Run Time (SEC): " << (static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC)
+  std::cerr << "Experimental Run Time(sec): " << (static_cast<double>(end_time - start_time) / CLOCKS_PER_SEC)
             << std::endl;
-
-  struct rusage usage;
-  getrusage(RUSAGE_SELF, &usage);
-  std::cerr << "Experimental Memory Usage (MB): " << (usage.ru_maxrss / 1024.0) << std::endl;
 #endif  // ONLINE_JUDGE
 }

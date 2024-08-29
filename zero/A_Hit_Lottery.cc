@@ -3,6 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+// Q: https://codeforces.com/problemset/problem/996/A
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -16,6 +17,7 @@
 #include <ios>      // std::ios_base
 #include <iostream>
 #include <tuple>  // std::tuple
+#include <vector>
 
 // HEADERS (Current)
 
@@ -40,9 +42,37 @@ using float80_t = long double;  // Clang on x64 use 80bit (IEEE 754 Extended Pre
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {  // Dynamic Programming
+  int n;
+  std::cin >> n;
 
-// MAIN
+  std::vector<int> coins = {100, 20, 10, 5, 1};  // order matters
+  std::vector<int> cache(n + 1, n + 1);          // Initialize dp array with a large value
+  cache[0] = 0;                                  // Base case
+
+  for (int i = 1; i <= n; ++i) {
+    for (int coin : coins)
+      if (i >= coin) cache[i] = std::min(cache[i], cache[i - coin] + 1);
+  }
+
+  std::cout << cache[n] << '\n';
+}
+
+// void solution() {
+//   int n;
+//   std::cin >> n;
+//
+//   int ans = 0;
+//   std::vector<int> coins = {100, 20, 10, 5, 1};  // order matters
+//
+//   for (int coin : coins) {
+//     ans += (n / coin);
+//     n %= coin;
+//   }
+//
+//   std::cout << ans << '\n';
+// }
+
 int main() {
   std::ios_base::sync_with_stdio(0);
   std::cin.tie(0);
@@ -58,7 +88,7 @@ int main() {
 #endif  // ONLINE_JUDGE
 
   std::uint32_t tests = 1;
-  std::cin >> tests;  // overwrite
+  // std::cin >> tests;  // overwrite
   while (tests--) solution();
 
 #ifndef ONLINE_JUDGE

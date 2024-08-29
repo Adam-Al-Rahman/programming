@@ -1,7 +1,4 @@
-/**
- * @copyright
- * Copyright 2024 Adam-Al-Rahman
- */
+// Copyright 2024 Adam-Al-Rahman
 
 /**
  The error message "no viable overloaded =" typically means that the compiler

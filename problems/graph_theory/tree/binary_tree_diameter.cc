@@ -18,6 +18,7 @@ node. Children nodes can either be BinaryTree nodes themselves or None / null
 #include <iostream>
 
 // Current
+#include <algorithm>
 #include <stack>
 #include <unordered_map>
 
@@ -32,12 +33,39 @@ class BinaryTree {
 
 int binaryTreeDiameter(BinaryTree* tree) {
   int diameter = 0;
+
+  // Use a cache to store the depth of nodes
   std::unordered_map<BinaryTree*, int> cache;
 
   std::stack<BinaryTree*> nodes;
   nodes.push(tree);
 
   while (!nodes.empty()) {
+    auto current = nodes.top();
+
+    // Check if the current node's children have been processed
+    bool left_processed = !current->left || cache.find(current->left) != cache.end();
+    bool right_processed = !current->right || cache.find(current->right) != cache.end();
+
+    if (left_processed && right_processed) {
+      // Pop and process the current node
+      nodes.pop();
+
+      int left_depth = current->left ? cache[current->left] : 0;
+      int right_depth = current->right ? cache[current->right] : 0;
+
+      cache[current] = std::max(left_depth, right_depth) + 1;
+
+      diameter = std::max(diameter, left_depth + right_depth);
+
+      // Remove used cache entries
+      if (current->left) cache.erase(current->left);
+      if (current->right) cache.erase(current->right);
+    } else {
+      // Push children onto the stack for processing
+      if (current->left && !left_processed) nodes.push(current->left);
+      if (current->right && !right_processed) nodes.push(current->right);
+    }
   }
 
   return diameter;

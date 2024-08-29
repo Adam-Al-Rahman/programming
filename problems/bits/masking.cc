@@ -13,9 +13,10 @@ Given an integer x, return its complement.
 int main() {
   int x = 5;
 
+  // CREATE MASK: for data ( using  data and condition )
   int mask = 0b00000000000000000000000000000001;
-  while (mask < x) mask = (mask << 1) | 1;
+  while (mask < x) mask = (mask << 1) | 1;  // why (mask < x), because after flipping the last 1 bit it will be 0
 
-  // XOR `x` with `mask` will flip all the bits of num
+  // MASKING: XOR `x` with `mask` will flip all the bits of num
   std::cout << (x ^ mask) << std::endl;
 }
