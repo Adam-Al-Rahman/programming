@@ -1,6 +1,4 @@
-/**
- * Copyright 2024 Adam-Al-Rahman
- */
+// Copyright 2024 Adam-Al-Rahman
 
 #include <cmath>
 #include <iostream>
@@ -34,6 +32,4 @@ int main() {
   double pi_estimate = estimate_pi(num_samples);
 
   std::cout << "Estimated value of π: " << pi_estimate << std::endl;
-
-  return 0;
 }

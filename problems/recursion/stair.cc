@@ -20,6 +20,7 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -39,8 +40,30 @@ using float32_t = float;   // 32-bit floating-point type
 using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
+// Return: # Way to reach N
+int helper(int level, int n, std::vector<int>& cache) {
+  // Pruning case
+  if (level > n) return 0;
+
+  // Base case
+  if (level == n) return 1;
+  if (cache[level] != -1) return cache[level];
+
+  int ways = 0;
+  for (int step = 1; step <= 3; ++step) {
+    if (level + step <= n) ways += helper(level + step, n, cache);
+  }
+
+  return cache[level] = ways;
+}
+
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int level, n;
+  std::cin >> level >> n;
+  std::vector<int> cache(n + 1, -1);
+  std::cout << helper(level, n, cache) << '\n';
+}
 
 // MAIN
 int main() {
@@ -58,7 +81,7 @@ int main() {
 #endif  // ONLINE_JUDGE
 
   std::uint32_t tests = 1;
-  std::cin >> tests;  // overwrite
+  // std::cin >> tests;  // overwrite
   while (tests--) solution();
 
 #ifndef ONLINE_JUDGE

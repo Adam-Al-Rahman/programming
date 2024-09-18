@@ -3,6 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+// Q: https://codeforces.com/contest/2009/problem/C
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -20,6 +21,7 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <cmath>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -40,7 +42,17 @@ using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int x, y, k;
+  std::cin >> x >> y >> k;
+
+  int j_x = (x + k - 1) / k;  // jump x dir
+  int j_y = (y + k - 1) / k;
+  int moves = 2 * std::max(j_x, j_y);
+  if (j_x > j_y) moves--;
+
+  std::cout << moves << '\n';
+}
 
 // MAIN
 int main() {

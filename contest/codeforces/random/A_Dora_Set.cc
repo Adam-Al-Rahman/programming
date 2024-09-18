@@ -3,6 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+// Q: https://codeforces.com/contest/2007/problem/0
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -35,12 +36,23 @@ inline constexpr std::int32_t inf = 0x7FFFFFFF;  // prime: 2147483647
 namespace px {
 using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, low priority }
 
-using float32_t = float;   // 32-bit floating-point type
-using float64_t = double;  // 64-bit floating-point type
+using float32_t = float;        // 32-bit floating-point type
+using float64_t = double;       // 64-bit floating-point type
+using float80_t = long double;  // Clang on x64 use 80bit (IEEE 754 Extended Precision)
+
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int l, r;
+  std::cin >> l >> r;
+
+  int odd_count = 0;
+  for (int i = l; i <= r; ++i)
+    if (i % 2 != 0) odd_count++;
+
+  std::cout << odd_count / 2 << '\n';
+}
 
 // MAIN
 int main() {

@@ -3,6 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+// Q: https://codeforces.com/problemset/problem/2009/C
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -39,8 +40,18 @@ using float32_t = float;   // 32-bit floating-point type
 using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
+int ceil(int a, int k) { return (a + k - 1) / k; }
+
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int x, y, k;
+  std::cin >> x >> y >> k;
+
+  if (ceil(y, k) >= ceil(x, k))
+    std::cout << 2 * ceil(y, k) << '\n';
+  else
+    std::cout << 2 * ceil(x, k) - 1 << '\n';
+}
 
 // MAIN
 int main() {

@@ -9,7 +9,6 @@ const bool armstrong(int number);
 } // namespace local
 
 int main() {
-
   // int firstNum, secondNum;
   // char optr;
 

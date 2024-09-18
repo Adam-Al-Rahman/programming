@@ -3,6 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+// Q: https:https://codeforces.com/contest/2008/problem/B
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -20,6 +21,7 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <cmath>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -40,7 +42,52 @@ using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n;
+  std::cin >> n;
+
+  std::string s;
+  std::cin >> s;
+
+  int c = 0;
+  int root = static_cast<int>(std::round(std::sqrt(n)));
+
+  if (root * root == n)
+    c = root;
+  else {
+    std::cout << "No" << '\n';
+    return;
+  }
+
+  for (int i = 0; i < c; ++i) {
+    if (s[i] != '1') {
+      std::cout << "No" << '\n';
+      return;
+    }
+  }
+
+  std::string mid_rows = "1";
+  for (int i = 1; i <= c - 2; ++i) mid_rows.push_back('0');
+  mid_rows.push_back('1');
+
+  for (int i = 1; i <= c - 2; ++i) {
+    int x = i * c;
+    if (s.substr(x, c) != mid_rows) {
+      std::cout << "No" << '\n';
+      return;
+    }
+  }
+
+  for (int j = 0; j < c; ++j) {
+    int x = ((c - 1) * c + j) - 1;
+    if (s[x] != '1') {
+      std::cout << "No" << '\n';
+      return;
+    }
+  }
+
+  std::cout << "Yes" << '\n';
+}
 
 // MAIN
 int main() {

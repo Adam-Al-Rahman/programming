@@ -3,11 +3,13 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+// Q: https://codeforces.com/problemset/problem/1878/C
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
 
 // HEADERS (Required)
+#include <cassert>
 #ifndef ONLINE_JUDGE
 #include <sys/resource.h>  // For getrusage
 #endif                     // ONLINE_JUDGE
@@ -40,7 +42,19 @@ using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  std::uint64_t n, k, x;
+  std::cin >> n >> k >> x;
+
+  std::uint64_t min_sum = (k * (k + 1)) / 2;
+  std::uint64_t total_sum = (n * (n + 1)) / 2;
+  std::uint64_t max_sum = total_sum - ((n - k) * (n - k + 1)) / 2;
+
+  if (x >= min_sum && x <= max_sum)
+    std::cout << "YES" << '\n';
+  else
+    std::cout << "NO" << '\n';
+}
 
 // MAIN
 int main() {

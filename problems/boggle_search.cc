@@ -21,16 +21,12 @@ int col[] = {-1, 0, 1, -1, 1, -1, 0, 1};
 /* (x – 1, y – 1), (x – 1, y), (x – 1, y + 1), (x, y – 1), (x, y + 1), (x + 1, y
  * – 1) (x + 1, y)(x + 1, y + 1) */
 
-bool is_safe(std::int8_t x, std::int8_t y,
-             std::vector<std::vector<bool>> &visited) {
-  return ((x >= 0 && x < visited.size()) && (y >= 0 && y < visited[0].size()) &&
-          !visited[x][y]);
+bool is_safe(std::int8_t x, std::int8_t y, std::vector<std::vector<bool>> &visited) {
+  return ((x >= 0 && x < visited.size()) && (y >= 0 && y < visited[0].size()) && !visited[x][y]);
 }
 
-void generator(std::vector<std::vector<char>> const &board,
-               std::unordered_set<std::string> &words,
-               std::unordered_set<std::string> &result,
-               std::vector<std::vector<bool>> &visited, std::int8_t i,
+void generator(std::vector<std::vector<char>> const &board, std::unordered_set<std::string> &words,
+               std::unordered_set<std::string> &result, std::vector<std::vector<bool>> &visited, std::int8_t i,
                std::int8_t j, std::string &str_path) {
   // mark as the current visited
   visited[i][j] = true;
@@ -47,23 +43,20 @@ void generator(std::vector<std::vector<char>> const &board,
   for (std::int8_t k = 0; k < 8; k++) {
     // skip if a cell is invalid or it is already visited
     if (is_safe(i + row[k], j + col[k], visited)) {
-      generator(board, words, result, visited, i + row[k], j + col[k],
-                str_path);
+      generator(board, words, result, visited, i + row[k], j + col[k], str_path);
     }
   }
 }
 
-std::unordered_set<std::string> boggle_search(
-    std::vector<std::vector<char>> const &board,
-    std::unordered_set<std::string> const &words) {
+std::unordered_set<std::string> boggle_search(std::vector<std::vector<char>> const &board,
+                                              std::unordered_set<std::string> const &words) {
   std::unordered_set<std::string> result;
 
   return result;
 }
 
 int main() {
-  std::vector<std::vector<char>> board = {
-      {'M', 'S', 'E'}, {'R', 'A', 'T'}, {'L', 'O', 'N'}};
+  std::vector<std::vector<char>> board = {{'M', 'S', 'E'}, {'R', 'A', 'T'}, {'L', 'O', 'N'}};
 
   std::unordered_set<std::string> words = {"STAR", "NOTE", "SAND", "STONE"};
 

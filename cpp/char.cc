@@ -41,4 +41,7 @@ int main() {
 
   // ascii to char
   char ac = static_cast<char>(100);
+
+  // char to ascii
+  int ca = static_cast<int>('A');
 }

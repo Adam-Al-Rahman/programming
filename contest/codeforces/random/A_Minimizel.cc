@@ -40,7 +40,18 @@ using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int a, b;
+  std::cin >> a >> b;
+
+  int min = px::inf;
+  for (int c = a; c <= b; ++c) {
+    int cal = (c - a) + (b - c);
+    if (cal < min) min = cal;
+  }
+
+  std::cout << min << '\n';
+}
 
 // MAIN
 int main() {

@@ -3,6 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+// Q: https://codeforces.com/contest/2008/problem/0
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -40,7 +41,17 @@ using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int a, b;
+  std::cin >> a >> b;
+
+  if ((a == 0 && b % 2 != 0) || (a % 2 != 0 && b == 0))
+    std::cout << "NO" << '\n';
+  else if (a % 2 != 0)
+    std::cout << "NO" << '\n';
+  else
+    std::cout << "YES" << '\n';
+}
 
 // MAIN
 int main() {

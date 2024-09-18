@@ -1,8 +1,7 @@
-
-/**
- * Sieve Eratosthenes: Get all the primes <= number
- * Copyright 2024 Adam-Al-Rahman
- */
+// Copyright 2024 Adam-Al-Rahman
+// Sieve Eratosthenes: Get all the primes <= number
+// Time Complexity O(nloglogn)
+// Space Complexity O(n)
 
 #include <cstdint>
 #include <iostream>

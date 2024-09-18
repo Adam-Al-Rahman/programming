@@ -3,6 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+// Q: https://codeforces.com/contest/2005/problem/0
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -20,6 +21,9 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <algorithm>
+#include <string>
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -40,7 +44,17 @@ using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n;
+  std::cin >> n;
+  std::vector<char> vowels = {'a', 'e', 'i', 'o', 'u'};
+
+  std::string str;
+  for (int i = 0; i < n; ++i) str.push_back(vowels[i % 5]);
+  std::sort(str.begin(), str.end());
+
+  std::cout << str << '\n';
+}
 
 // MAIN
 int main() {

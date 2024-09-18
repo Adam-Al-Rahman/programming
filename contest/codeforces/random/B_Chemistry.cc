@@ -3,11 +3,13 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+// Q: https://codeforces.com/problemset/problem/1883/B
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
 
 // HEADERS (Required)
+#include <cassert>
 #ifndef ONLINE_JUDGE
 #include <sys/resource.h>  // For getrusage
 #endif                     // ONLINE_JUDGE
@@ -20,6 +22,8 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <string>
+#include <unordered_map>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -40,7 +44,26 @@ using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n, k;
+  std::cin >> n >> k;
+
+  std::string s;
+  std::cin >> s;
+
+  std::unordered_map<char, int> cx;
+  for (char x : s) cx[x]++;
+
+  int odd_k = 0;
+  for (auto [k, v] : cx) {
+    if (v % 2 != 0) odd_k += 1;
+  }
+
+  if (odd_k > k + 1)
+    std::cout << "NO" << '\n';
+  else
+    std::cout << "YES" << '\n';
+}
 
 // MAIN
 int main() {

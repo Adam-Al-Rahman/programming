@@ -20,6 +20,7 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -39,8 +40,54 @@ using float32_t = float;   // 32-bit floating-point type
 using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
+bool check(int level, int x, int k, std::vector<int>& taken, std::vector<int>& time) {
+  int time_taken = 0;
+  int item_taken = 0;
+  for (int i = 0; i < level; ++i) {
+    if (taken[i]) {
+      time_taken += time[i];
+      item_taken += 1;
+    }
+  }
+  time_taken += time[level];
+  item_taken += 1;
+
+  if (time_taken <= x && item_taken <= k) return true;
+  return false;
+}
+
+// level: current item in [0 ... n-1]
+int helper(int level, int n, int x, int k, std::vector<int>& taken, std::vector<int>& time, std::vector<int>& skill) {
+  // pruning case
+
+  // base case
+  if (level == n) return 0;
+
+  // transition state
+  int ways = helper(level + 1, n, x, k, taken, time, skill);  // choice 1: don't take
+
+  if (check(level, x, k, taken, time)) {                                                   // choice 2: take
+    taken[level] = 1;                                                                      // place the change
+    ways = std::max(ways, helper(level + 1, n, x, k, taken, time, skill) + skill[level]);  // move
+    taken[level] = 0;                                                                      // backtrack
+  }
+
+  return ways;
+}
+
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n, x, k;
+  std::cin >> n >> x >> k;
+
+  std::vector<int> time(n);
+  std::vector<int> skill(n);
+  for (int i = 0; i < n; ++i) std::cin >> time[i] >> skill[i];
+
+  std::vector<int> taken(n);
+
+  std::cout << helper(0, n, x, k, taken, time, skill) << '\n';
+}
 
 // MAIN
 int main() {
@@ -58,7 +105,7 @@ int main() {
 #endif  // ONLINE_JUDGE
 
   std::uint32_t tests = 1;
-  std::cin >> tests;  // overwrite
+  // std::cin >> tests;  // overwrite
   while (tests--) solution();
 
 #ifndef ONLINE_JUDGE

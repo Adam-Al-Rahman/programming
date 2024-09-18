@@ -20,6 +20,8 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <string>
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -40,7 +42,23 @@ using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n;
+  std::cin >> n;
+
+  std::vector<std::string> notes(n);
+  for (int i = n - 1; i >= 0; --i) std::cin >> notes[i];
+
+  std::string ans;
+  for (auto x : notes) {
+    for (int i = 0; i < x.size(); ++i) {
+      if (x[i] == '#') ans += std::to_string(i + 1);
+    }
+    ans += ' ';
+  }
+
+  std::cout << ans << '\n';
+}
 
 // MAIN
 int main() {

@@ -3,6 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+// Q: https://codeforces.com/problemset/problem/1904/A
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -20,6 +21,8 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <algorithm>
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -40,7 +43,38 @@ using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int a, b;
+  std::cin >> a >> b;
+
+  int xk, yk;
+  std::cin >> xk >> yk;
+
+  int xq, yq;
+  std::cin >> xq >> yq;
+
+  std::vector<px::node> king_death = {{xk + a, yk + b}, {xk + a, yk - b}, {xk - a, yk + b}, {xk - a, yk - b},
+                                      {xk + b, yk + a}, {xk + b, yk - a}, {xk - b, yk + a}, {xk - b, yk - a}};
+
+  std::vector<px::node> queen_death = {{xq + a, yq + b}, {xq + a, yq - b}, {xq - a, yq + b}, {xq - a, yq - b},
+                                       {xq + b, yq + a}, {xq + b, yq - a}, {xq - b, yq + a}, {xq - b, yq - a}};
+
+  // Sort the vector before applying std::unique
+  std::sort(king_death.begin(), king_death.end());
+  std::sort(queen_death.begin(), queen_death.end());
+
+  // Remove duplicates using std::unique and erase
+  king_death.erase(std::unique(king_death.begin(), king_death.end()), king_death.end());
+  queen_death.erase(std::unique(queen_death.begin(), queen_death.end()), queen_death.end());
+
+  int count = 0;
+  for (auto &[kx, ky] : king_death) {
+    for (auto &[qx, qy] : queen_death)
+      if (kx == qx && ky == qy) count += 1;
+  }
+
+  std::cout << count << '\n';
+}
 
 // MAIN
 int main() {

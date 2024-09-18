@@ -3,6 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+// Q: https://codeforces.com/contest/2005/problem/B1
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -20,6 +21,9 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <algorithm>
+#include <cmath>
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -39,8 +43,42 @@ using float32_t = float;   // 32-bit floating-point type
 using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
+void helper(int n, int m, int d, std::vector<int>& teachers) {
+  if (d < teachers.front()) {
+    std::cout << teachers.front() - 1 << '\n';
+    return;
+  }
+
+  if (d > teachers.back()) {
+    std::cout << n - teachers.back() << '\n';
+    return;
+  }
+
+  auto left_it = std::lower_bound(teachers.begin(), teachers.end(), d);
+  // auto right_it = std::lower_bound(teachers.begin(), teachers.end(), d);
+  auto right_it = left_it - 1;
+
+  int mid_point = (*left_it + *right_it) / 2;
+  int t1 = std::abs(mid_point - *left_it);
+  int t2 = std::abs(*right_it - mid_point);
+  std::cout << std::min(t1, t2) << '\n';
+}
+
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n, m, q;
+  std::cin >> n >> m >> q;
+
+  std::vector<int> teachers(m);
+  for (int i = 0; i < m; ++i) std::cin >> teachers[i];
+
+  std::vector<int> query(q);
+  for (int i = 0; i < q; ++i) std::cin >> query[i];
+
+  std::sort(teachers.begin(), teachers.end());
+
+  for (int d : query) helper(n, m, d, teachers);
+}
 
 // MAIN
 int main() {

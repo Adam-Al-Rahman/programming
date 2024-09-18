@@ -20,6 +20,8 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <cstdlib>  // std::abs
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -39,8 +41,51 @@ using float32_t = float;   // 32-bit floating-point type
 using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
+/** check in O(1)
+To optimize queen placement checks to (O(1)), use three arrays: one for columns, one for left diagonals (n - row +
+col), and one for right diagonals ((2 * n - 1) - row - col). These arrays track whether a column or diagonal is
+occupied by a queen. Update the arrays when placing or removing queens to ensure efficient collision detection. This
+approach eliminates the need for nested loops, significantly improving performance.
+
+More advanced approaches exist, such as representing the diagonals using bitmasks and using bitwise AND operations to
+determine possible queen positions in O(1), which offers even greater efficiency.
+*/
+// check: queen collision
+bool check(int row, int col, std::vector<int>& queens) {
+  for (int i = 0; i < row; ++i) {
+    int prev_row = i;
+    int prev_col = queens[i];
+
+    if (prev_col == col || std::abs(col - prev_col) == std::abs(row - prev_row)) return false;
+  }
+
+  return true;
+}
+
+// level: row in which we are placing the queen
+// choice: which column to select to place queen
+int helper(int level, int n, std::vector<int>& queens) {
+  // pruning case
+  // base case
+  if (level == n) return 1;
+
+  // transition state
+  int ways = 0;
+  for (int col = 0; col < n; ++col) {        // loop over all choices
+    if (check(level, col, queens)) {         // check if choice is valid
+      queens[level] = col;                   // place the queen
+      ways += helper(level + 1, n, queens);  // explore the option
+      queens[level] = -1;                    // bracktrack: revert placing the queen
+    }
+  }
+  return ways;
+}
+
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  std::vector<int> queen(4, -1);  // queen[i] -> where is my queen in row i.
+  std::cout << helper(0, 4, queen) << '\n';
+}
 
 // MAIN
 int main() {

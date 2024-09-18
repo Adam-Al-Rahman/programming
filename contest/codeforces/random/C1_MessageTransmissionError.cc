@@ -3,6 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+// Q: https://codeforces.com/problemset/problem/2010/C1
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -20,6 +21,8 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <string>
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -39,8 +42,35 @@ using float32_t = float;   // 32-bit floating-point type
 using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
+std::vector<int> compute_lps(const std::string& pattern) {
+  int length = 0;  // Length of the previous longest prefix suffix
+  std::vector<int> lps(pattern.size(), 0);
+
+  for (int i = 1; i < pattern.size(); ++i) {
+    while (length > 0 && pattern[i] != pattern[length]) length = lps[length - 1];
+
+    if (pattern[i] == pattern[length]) ++length;
+
+    lps[i] = length;
+  }
+
+  return lps;
+}
+
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  std::string t;
+  std::cin >> t;
+  int length = t.length();
+
+  std::vector<int> lps = compute_lps(t);
+  int prefix_length = lps[length - 1];
+
+  if (2 * prefix_length <= length)
+    std::cout << "NO" << '\n';
+  else
+    std::cout << "YES" << '\n' << t.substr(0, prefix_length) << '\n';
+}
 
 // MAIN
 int main() {
@@ -58,7 +88,7 @@ int main() {
 #endif  // ONLINE_JUDGE
 
   std::uint32_t tests = 1;
-  std::cin >> tests;  // overwrite
+  // std::cin >> tests;  // overwrite
   while (tests--) solution();
 
 #ifndef ONLINE_JUDGE

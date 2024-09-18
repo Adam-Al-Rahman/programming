@@ -3,6 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+// Q: https://codeforces.com/problemset/problem/69/A
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -40,7 +41,27 @@ using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n;
+  std::cin >> n;
+
+  int x_sum = 0;
+  int y_sum = 0;
+  int z_sum = 0;
+
+  for (int i = 0; i < n; ++i) {
+    int x, y, z;
+    std::cin >> x >> y >> z;
+    x_sum += x;
+    y_sum += y;
+    z_sum += z;
+  }
+
+  if (x_sum == 0 && y_sum == 0 && z_sum == 0)
+    std::cout << "YES" << '\n';
+  else
+    std::cout << "NO" << '\n';
+}
 
 // MAIN
 int main() {
@@ -58,7 +79,7 @@ int main() {
 #endif  // ONLINE_JUDGE
 
   std::uint32_t tests = 1;
-  std::cin >> tests;  // overwrite
+  // std::cin >> tests;  // overwrite
   while (tests--) solution();
 
 #ifndef ONLINE_JUDGE
