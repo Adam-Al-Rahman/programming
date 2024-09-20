@@ -10,7 +10,7 @@ double estimate_pi(int num_samples) {
   // Random number generator and Gaussian distribution
   std::random_device rd;
   std::mt19937 gen(rd());
-  std::normal_distribution<> gaussian_dist(0.0, 1.0);  // mean = 0, stddev = 1
+  std::normal_distribution<double> gaussian_dist(0.0, 1.0);  // mean = 0, stddev = 1
 
   for (int i = 0; i < num_samples; ++i) {
     // Generate random point (x, y) using Gaussian distribution
@@ -18,9 +18,7 @@ double estimate_pi(int num_samples) {
     double y = gaussian_dist(gen);
 
     // Check if the point is inside the unit circle
-    if (x * x + y * y <= 1.0) {
-      ++inside_circle;
-    }
+    if (x * x + y * y <= 1.0) inside_circle += 1;
   }
 
   // Estimate of π

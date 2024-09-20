@@ -1,1 +1,1 @@
-// Note: Each character should be written by you.
+// Note: Each character must be written by you.

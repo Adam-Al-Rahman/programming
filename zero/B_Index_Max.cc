@@ -3,6 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+// Q: https://codeforces.com/problemset/problem/2007/B
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -12,7 +13,6 @@
 #include <sys/resource.h>  // For getrusage
 #endif                     // ONLINE_JUDGE
 
-#include <array>
 #include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
 #include <cstdio>   // freopen
 #include <ctime>    // std::clock
@@ -21,9 +21,6 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
-#include <algorithm>  // std::fill
-#include <array>
-#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -43,45 +40,46 @@ using float32_t = float;   // 32-bit floating-point type
 using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
-std::array<std::array<std::array<int, 101>, 101>, 101> cache;
-
-// level: current item in [0 ... n-1]
-int helper(int level, int n, int x, int k, int time_taken, int item_taken, std::vector<int>& time,
-           std::vector<int>& skill) {
-  // pruning case
-
-  // base case
-  if (level == n) return 0;
-
-  // cache check
-  if (cache[level][time_taken][item_taken] != -1) return cache[level][time_taken][item_taken];
-
-  // transition state
-  int ways = helper(level + 1, n, x, k, time_taken, item_taken, time, skill);  // choice 1: don't take
-
-  if ((time_taken + time[level] <= x) && (item_taken + 1 <= k)) {  // choice 2: take
-    ways = std::max(
-        ways, helper(level + 1, n, x, k, time_taken + time[level], item_taken, time, skill) + skill[level]);  // move
-  }
-
-  return cache[level][time_taken][item_taken] = ways;
-}
-
 // PROBLEM SOLUTION
 void solution() {
-  int n, x, k;
-  std::cin >> n >> x >> k;
+  int n, m;
+  std::cin >> n >> m;
 
-  std::vector<int> time(n);
-  std::vector<int> skill(n);
-  for (int i = 0; i < n; ++i) std::cin >> time[i] >> skill[i];
+  int max = 0;
+  for (int i = 0; i < n; ++i) {
+    int x;
+    std::cin >> x;
 
-  std::vector<int> taken(n);
-  for (auto& layer : cache) {
-    for (auto& row : layer) std::fill(row.begin(), row.end(), -1);
+    if (max < x) max = x;
   }
 
-  std::cout << helper(0, n, x, k, 0, 0, time, skill) << '\n';
+  while (m--) {
+    char op;
+    std::cin >> op;
+
+    int l, r;
+    std::cin >> l >> r;
+
+    if (op == '+') {
+      if (max > r || max < l) {
+        std::cout << max << ' ';
+      } else {
+        max += 1;
+        std::cout << max << ' ';
+      }
+    }
+
+    if (op == '-') {
+      if (max > r || max < l) {
+        std::cout << max << ' ';
+      } else {
+        max -= 1;
+        std::cout << max << ' ';
+      }
+    }
+  }
+
+  std::cout << '\n';
 }
 
 // MAIN
@@ -100,7 +98,7 @@ int main() {
 #endif  // ONLINE_JUDGE
 
   std::uint32_t tests = 1;
-  // std::cin >> tests;  // overwrite
+  std::cin >> tests;  // overwrite
   while (tests--) solution();
 
 #ifndef ONLINE_JUDGE
