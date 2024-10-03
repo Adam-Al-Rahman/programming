@@ -2,7 +2,8 @@
 // ║ Competitive programming is not about solving problems.             ║
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
-// author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
+// author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+// Q: https://codeforces.com/contest/2014/problem/C
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -20,25 +21,51 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <algorithm>
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
 inline constexpr std::int32_t mod = std::int32_t(1e9) + 7;  // Modulus
 inline constexpr std::int32_t nums = std::int32_t(2e5) + 5;
 inline constexpr std::int32_t inf = 0x7FFFFFFF;  // prime: 2147483647
+
 }  // namespace px
 
 // PROBLEM KEYPOINTS
 
-// ALIAS | STRUCT | CLASS | HELPER FUNCTIONS
+// HELPER FUNCTIONS | STRUCT | CLASS | ALIAS
 namespace px {
-using float32_t = float;                              // 32-bit floating-point type
-using float64_t = double;                             // 64-bit floating-point type
 using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, low priority }
+
+using float32_t = float;   // 32-bit floating-point type
+using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  std::int64_t n;
+  std::cin >> n;
+
+  std::int64_t sum = 0;
+  std::vector<std::int64_t> a(n);
+  for (int i = 0; i < n; ++i) {
+    std::cin >> a[i];
+    sum += a[i];
+  }
+
+  if (n < 3) {
+    std::cout << -1 << '\n';
+    return;
+  }
+
+  std::sort(a.begin(), a.end());
+
+  int j = n / 2;
+  std::uint64_t x = std::max(std::int64_t(0), 2 * n * a[j] - sum + 1);
+
+  std::cout << x << '\n';
+}
 
 // MAIN
 int main() {

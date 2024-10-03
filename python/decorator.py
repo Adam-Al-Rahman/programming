@@ -1,8 +1,7 @@
 # Funtion in python are first class citizens
 
-
 # Required: Function as variable
-def hello():
+def hello() -> str:
     return "Hello!!!!"
 
 

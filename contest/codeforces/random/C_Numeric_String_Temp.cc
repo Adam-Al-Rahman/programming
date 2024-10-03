@@ -2,7 +2,8 @@
 // ║ Competitive programming is not about solving problems.             ║
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
-// author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
+// author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+// Q: https://codeforces.com/problemset/problem/2000/C
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -20,6 +21,9 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -30,15 +34,54 @@ inline constexpr std::int32_t inf = 0x7FFFFFFF;  // prime: 2147483647
 
 // PROBLEM KEYPOINTS
 
-// ALIAS | STRUCT | CLASS | HELPER FUNCTIONS
+// HELPER FUNCTIONS | STRUCT | CLASS | ALIAS
 namespace px {
-using float32_t = float;                              // 32-bit floating-point type
-using float64_t = double;                             // 64-bit floating-point type
 using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, low priority }
+
+using float32_t = float;   // 32-bit floating-point type
+using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n;
+  std::cin >> n;
+
+  std::vector<int> a(n);
+  for (int i = 0; i < n; ++i) std::cin >> a[i];
+
+  int m;
+  std::cin >> m;
+
+  while (m--) {
+    std::string s;
+    std::cin >> s;
+
+    if (n != s.size()) {
+      std::cout << "NO" << '\n';
+      continue;
+    }
+
+    bool ok = false;
+    std::unordered_map<char, int> char_to_int;
+    std::unordered_map<int, char> int_to_char;
+
+    for (int i = 0; i < n; ++i) {
+      if (char_to_int.count(s[i]) == 0 && int_to_char.count(a[i]) == 0) {
+        char_to_int[s[i]] = a[i];
+        int_to_char[a[i]] = s[i];
+      } else if (char_to_int[s[i]] != a[i] || int_to_char[a[i]] != s[i]) {
+        std::cout << "NO" << '\n';
+        ok = true;
+        break;
+      }
+    }
+
+    if (ok) continue;
+
+    std::cout << "YES" << '\n';
+  }
+}
 
 // MAIN
 int main() {

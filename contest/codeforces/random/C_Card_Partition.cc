@@ -3,6 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
+// Q: https://codeforces.com/contest/2019/problem/C
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -20,6 +21,8 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <algorithm>
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -38,7 +41,43 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  std::int64_t n, k;
+  std::cin >> n >> k;
+
+  std::int64_t sum = 0;
+  std::int64_t max = 0;
+
+  std::vector<std::int64_t> a(n + 1);
+  for (int i = 1; i <= n; ++i) {
+    std::cin >> a[i];
+
+    max = std::max(max, a[i]);
+    sum += a[i];
+  }
+
+  for (int i = n; i >= 1; --i) {
+    bool ok = false;
+
+    std::int64_t need = max * i;
+    if (sum + k < need)
+      continue;
+    else if (sum > need) {
+      std::int64_t t = i * ((sum - 1 + i) / i);
+      if (sum + k < t)
+        continue;
+      else
+        ok = true;
+    } else {
+      ok = true;
+    }
+
+    if (ok) {
+      std::cout << i << '\n';
+      return;
+    }
+  }
+}
 
 // MAIN
 int main() {

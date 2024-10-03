@@ -3,6 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
+// Q: https://codeforces.com/problemset/problem/1999/D
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -20,6 +21,7 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <string>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -38,7 +40,40 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  std::string s;
+  std::cin >> s;
+
+  std::string t;
+  std::cin >> t;
+
+  int i = 0;
+  int j = 0;
+  while (i < s.size()) {
+    if (j == t.size() && s[i] == '?') {
+      s[i] = 'a';
+      i += 1;
+      continue;
+    }
+
+    if (s[i] == t[j]) {
+      i += 1;
+      j += 1;
+    } else if (s[i] == '?') {
+      s[i] = t[j];
+      i += 1;
+      j += 1;
+    } else {
+      i += 1;
+    }
+  }
+
+  if (j == t.size()) {
+    std::cout << "YES" << '\n' << s << '\n';
+  } else {
+    std::cout << "NO" << '\n';
+  }
+}
 
 // MAIN
 int main() {

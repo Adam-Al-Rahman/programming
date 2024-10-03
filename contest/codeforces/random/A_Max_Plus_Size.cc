@@ -2,7 +2,8 @@
 // ║ Competitive programming is not about solving problems.             ║
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
-// author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
+// author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+// Q: https://codeforces.com/contest/2019/problem/A
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -20,6 +21,8 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <algorithm>
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -30,15 +33,46 @@ inline constexpr std::int32_t inf = 0x7FFFFFFF;  // prime: 2147483647
 
 // PROBLEM KEYPOINTS
 
-// ALIAS | STRUCT | CLASS | HELPER FUNCTIONS
+// HELPER FUNCTIONS | STRUCT | CLASS | ALIAS
 namespace px {
-using float32_t = float;                              // 32-bit floating-point type
-using float64_t = double;                             // 64-bit floating-point type
 using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, low priority }
+
+using float32_t = float;   // 32-bit floating-point type
+using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
+//
+
+int helper(int level, int val, int count, const std::vector<int>& a, std::vector<int>& cache) {
+  if (level >= a.size()) return val + count;
+
+  if (cache[level] != -1) return cache[level];
+
+  val = std::max(val, a[level]);
+  int ans = val;  // Start with the current accumulated value
+  for (int i = level + 2; i < a.size() + 2; i += 2) {
+    ans = std::max(ans, helper(i, val, count + 1, a, cache));
+  }
+
+  return cache[level] = ans;
+}
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n;
+  std::cin >> n;
+
+  std::vector<int> a(n);
+  for (int i = 0; i < n; ++i) std::cin >> a[i];
+
+  std::vector<int> cache(n + 1, -1);
+
+  int ans = 0;
+  for (int i = 0; i < n; ++i) {
+    ans = std::max(ans, helper(i, 0, 0, a, cache));
+  }
+
+  std::cout << ans << '\n';
+}
 
 // MAIN
 int main() {

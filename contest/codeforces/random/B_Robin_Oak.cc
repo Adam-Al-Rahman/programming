@@ -2,7 +2,8 @@
 // ║ Competitive programming is not about solving problems.             ║
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
-// author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
+// author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+// Q: https://codeforces.com/contest/2014/problem/B
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -30,15 +31,28 @@ inline constexpr std::int32_t inf = 0x7FFFFFFF;  // prime: 2147483647
 
 // PROBLEM KEYPOINTS
 
-// ALIAS | STRUCT | CLASS | HELPER FUNCTIONS
+// HELPER FUNCTIONS | STRUCT | CLASS | ALIAS
 namespace px {
-using float32_t = float;                              // 32-bit floating-point type
-using float64_t = double;                             // 64-bit floating-point type
 using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, low priority }
+
+using float32_t = float;   // 32-bit floating-point type
+using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n, k;
+  std::cin >> n >> k;
+
+  int a = n - k + 1;
+
+  std::uint64_t sum = k * (2 * a + (k - 1)) / 2;
+
+  if (sum % 2 == 0)
+    std::cout << "YES" << '\n';
+  else
+    std::cout << "NO" << '\n';
+}
 
 // MAIN
 int main() {

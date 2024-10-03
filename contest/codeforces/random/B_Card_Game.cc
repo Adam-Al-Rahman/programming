@@ -3,6 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
+// Q: https://codeforces.com/problemset/problem/1999/B
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -37,8 +38,27 @@ using float64_t = double;                             // 64-bit floating-point t
 using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, low priority }
 }  // namespace px
 
+int helper(int a, int b) {
+  if (a > b) return 1;
+  if (a == b) return 0;
+
+  // if (a < b)
+  return -1;
+}
+
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int a1, a2, b1, b2;
+  std::cin >> a1 >> a2 >> b1 >> b2;
+
+  int count = 0;
+  if ((helper(a1, b1) + helper(a2, b2)) > 0) count += 1;
+  if ((helper(a1, b2) + helper(a2, b1)) > 0) count += 1;
+  if ((helper(a2, b1) + helper(a1, b2)) > 0) count += 1;
+  if ((helper(a2, b2) + helper(a1, b1)) > 0) count += 1;
+
+  std::cout << count << '\n';
+}
 
 // MAIN
 int main() {

@@ -2,7 +2,8 @@
 // ║ Competitive programming is not about solving problems.             ║
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
-// author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
+// author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+// Q: https://codeforces.com/problemset/problem/2002/C
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -20,6 +21,7 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -30,15 +32,53 @@ inline constexpr std::int32_t inf = 0x7FFFFFFF;  // prime: 2147483647
 
 // PROBLEM KEYPOINTS
 
-// ALIAS | STRUCT | CLASS | HELPER FUNCTIONS
+// HELPER FUNCTIONS | STRUCT | CLASS | ALIAS
 namespace px {
-using float32_t = float;                              // 32-bit floating-point type
-using float64_t = double;                             // 64-bit floating-point type
 using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, low priority }
+
+using float32_t = float;   // 32-bit floating-point type
+using float64_t = double;  // 64-bit floating-point type
+
+int64_t dist(const px::node& a, const px::node& b) {
+  auto& [xa, ya] = a;
+  auto& [xb, yb] = b;
+
+  return (xa - xb) * (xa - xb) + (ya - yb) * (ya - yb);
+}
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n;
+  std::cin >> n;
+
+  std::vector<px::node> circles(n);
+  for (int i = 0; i < n; ++i) {
+    auto& [x, y] = circles[i];
+    std::cin >> x >> y;
+  }
+
+  px::node start;
+  auto& [xs, ys] = start;
+  std::cin >> xs >> ys;
+
+  px::node target;
+  auto& [xt, yt] = target;
+  std::cin >> xt >> yt;
+
+  std::int64_t dist_st = px::dist(start, target);
+
+  for (auto& circle : circles) {
+    std::int64_t dist_it = px::dist(circle, target);
+
+    if (dist_it <= dist_st) {
+      std::cout << "NO" << '\n';
+      return;
+    }
+  }
+
+  std::cout << "YES" << '\n';
+}
 
 // MAIN
 int main() {

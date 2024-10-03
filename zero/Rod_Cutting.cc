@@ -20,6 +20,8 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <limits>
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -37,8 +39,35 @@ using float64_t = double;                             // 64-bit floating-point t
 using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, low priority }
 }  // namespace px
 
+int helper(int l, int r, const std::vector<int>& a, std::vector<std::vector<int>>& cache) {
+  // Base Case
+  if (l + 1 == r) return 0;
+
+  // Cache check
+  if (cache[l][r] != -1) return cache[l][r];
+
+  // Transition
+  int ans = std::numeric_limits<int>::max();
+
+  for (int p = l + 1; p < r; p++) {
+    ans = std::min(ans, (a[r] - a[l]) + helper(l, p, a, cache) + helper(p, r, a, cache));
+  }
+
+  return cache[l][r] = ans;
+}
+
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n;
+  std::cin >> n;
+
+  std::vector<int> a(n);
+  for (int i = 0; i < n; ++i) std::cin >> a[i];
+
+  std::vector<std::vector<int>> cache(n + 1, std::vector<int>(n + 1, -1));
+
+  std::cout << helper(0, n - 1, a, cache) << '\n';
+}
 
 // MAIN
 int main() {

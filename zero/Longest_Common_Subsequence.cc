@@ -20,6 +20,8 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <string>
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -37,8 +39,40 @@ using float64_t = double;                             // 64-bit floating-point t
 using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, low priority }
 }  // namespace px
 
+std::string helper(int i, int j, const std::string& s1, const std::string& s2,
+                   std::vector<std::vector<std::string>>& cache) {
+  // Base Case
+  if (i == s1.size() || j == s2.size()) return "";
+
+  // Cache check
+  if (cache[i][j] != "-") return cache[i][j];
+
+  // Transition: If characters match
+  if (s1[i] == s2[j]) {
+    // NOTE: Include s1[i] before `helper` to return
+    return s1[i] + helper(i + 1, j + 1, s1, s2, cache);
+  }
+
+  // Transition: If characters didn't match
+  std::string option1 = helper(i + 1, j, s1, s2, cache);
+  std::string option2 = helper(i, j + 1, s1, s2, cache);
+
+  return cache[i][j] = (option1.size() > option2.size() ? option1 : option2);
+}
+
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  std::string s1;
+  std::cin >> s1;
+
+  std::string s2;
+  std::cin >> s2;
+
+  std::string lcs = "";
+  std::vector<std::vector<std::string>> cache(s1.size(), std::vector<std::string>(s2.size(), "-"));
+
+  std::cout << helper(0, 0, s1, s2, cache) << '\n';
+}
 
 // MAIN
 int main() {

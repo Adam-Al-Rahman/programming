@@ -20,6 +20,8 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <algorithm>
+#include <climits>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -37,8 +39,40 @@ using float64_t = double;                             // 64-bit floating-point t
 using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, low priority }
 }  // namespace px
 
+int helper(int i, int j, const std::vector<px::node>& directions, const std::vector<std::vector<int>>& matrix,
+           std::vector<std::vector<int>>& cache) {
+  // Base case
+  if (i == matrix.size() - 1 && j == matrix[0].size() - 1) return matrix[i][j];
+
+  // Cache check
+  // Instead Use visisted[i][j] to check along with cache[i][j]
+  // If # Negative values <= (n * m) / 2 use hashmap[{i,j}] return bool
+  if (cache[i][j] != INT_MIN) return cache[i][j];
+
+  // Transition
+  int current = INT_MIN;
+  for (const auto& [dx, dy] : directions) {
+    if (i + dx < matrix.size() && j + dy < matrix.size())
+      current = std::max(current, helper(i + dx, j + dy, directions, matrix, cache) + matrix[i][j]);
+  }
+
+  return cache[i][j] = current;
+}
+
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n, m;
+  std::cin >> n >> m;
+
+  std::vector<std::vector<int>> matrix(n, std::vector<int>(n, 0));
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < m; ++j) std::cin >> matrix[i][j];
+  }
+
+  std::vector<px::node> directions = {{0, 1}, {1, 0}};
+  std::vector<std::vector<int>> caches(n, std::vector<int>(m, INT_MIN));
+  std::cout << helper(0, 0, directions, matrix, caches);
+}
 
 // MAIN
 int main() {

@@ -2,12 +2,14 @@
 // ║ Competitive programming is not about solving problems.             ║
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
-// author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
+// author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+// Q: https://codeforces.com/problemset/problem/2003/C
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
 
 // HEADERS (Required)
+#include <unordered_map>
 #ifndef ONLINE_JUDGE
 #include <sys/resource.h>  // For getrusage
 #endif                     // ONLINE_JUDGE
@@ -20,6 +22,9 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <queue>
+#include <unordered_map>
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -30,15 +35,55 @@ inline constexpr std::int32_t inf = 0x7FFFFFFF;  // prime: 2147483647
 
 // PROBLEM KEYPOINTS
 
-// ALIAS | STRUCT | CLASS | HELPER FUNCTIONS
+// HELPER FUNCTIONS | STRUCT | CLASS | ALIAS
 namespace px {
-using float32_t = float;                              // 32-bit floating-point type
-using float64_t = double;                             // 64-bit floating-point type
-using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, low priority }
+using node = std::tuple<std::int64_t, char>;  // NOTE: {high priority, low priority }
+
+using float32_t = float;   // 32-bit floating-point type
+using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n;
+  std::cin >> n;
+
+  std::unordered_map<char, std::int32_t> s;
+  for (int i = 0; i < n; ++i) {
+    char x;
+    std::cin >> x;
+
+    s[x] += 1;
+  }
+
+  std::priority_queue<px::node, std::vector<px::node>> nodes;
+  for (auto [ch, count] : s) nodes.push({count, ch});
+
+  std::string morph = "";
+  while (nodes.size() > 1) {
+    auto [c_count, current] = nodes.top();
+    nodes.pop();
+
+    morph.push_back(current);
+
+    auto [c2_count, current_2] = nodes.top();
+    nodes.pop();
+
+    morph.push_back(current_2);
+
+    if (c_count != 1) nodes.push({c_count - 1, current});
+    if (c2_count != 1) nodes.push({c2_count - 1, current_2});
+  }
+
+  if (nodes.size() == 1) {
+    auto [count, current] = nodes.top();
+    nodes.pop();
+
+    for (int i = 0; i < count; ++i) morph.push_back(current);
+  }
+
+  std::cout << morph << '\n';
+}
 
 // MAIN
 int main() {

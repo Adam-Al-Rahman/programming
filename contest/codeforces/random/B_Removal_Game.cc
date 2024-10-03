@@ -2,12 +2,14 @@
 // ║ Competitive programming is not about solving problems.             ║
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
-// author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
+// author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+// Q: https://codeforces.com/problemset/problem/2002/B
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
 
 // HEADERS (Required)
+#include <vector>
 #ifndef ONLINE_JUDGE
 #include <sys/resource.h>  // For getrusage
 #endif                     // ONLINE_JUDGE
@@ -30,15 +32,41 @@ inline constexpr std::int32_t inf = 0x7FFFFFFF;  // prime: 2147483647
 
 // PROBLEM KEYPOINTS
 
-// ALIAS | STRUCT | CLASS | HELPER FUNCTIONS
+// HELPER FUNCTIONS | STRUCT | CLASS | ALIAS
 namespace px {
-using float32_t = float;                              // 32-bit floating-point type
-using float64_t = double;                             // 64-bit floating-point type
 using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, low priority }
+
+using float32_t = float;   // 32-bit floating-point type
+using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n;
+  std::cin >> n;
+
+  std::vector<int> a(n);
+  for (int i = 0; i < n; ++i) std::cin >> a[i];
+
+  std::vector<int> b(n);
+  for (int i = 0; i < n; ++i) std::cin >> b[i];
+
+  // check if both array are same or reverse
+  bool is_same = true;
+  bool is_reverse = true;
+  for (int i = 0; i < n; ++i) {
+    if (a[i] != b[i]) is_same = false;
+    if (a[i] != b[n - i - 1]) is_reverse = false;
+
+    // Early Exist if both are not true
+    if (!is_same && !is_reverse) break;
+  }
+
+  if (is_same || is_reverse)
+    std::cout << "Bob" << '\n';
+  else
+    std::cout << "Alice" << '\n';
+}
 
 // MAIN
 int main() {

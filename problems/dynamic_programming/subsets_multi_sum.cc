@@ -31,6 +31,13 @@ inline constexpr std::int32_t inf = 0x7FFFFFFF;  // prime: 2147483647
 }  // namespace px
 
 // PROBLEM KEYPOINTS
+// Example:
+// 1
+// 4 3
+// 1 2 5 9
+// 7
+// 10
+// 4
 
 // HELPER FUNCTIONS | STRUCT | CLASS | ALIAS
 namespace px {
@@ -40,35 +47,73 @@ using float32_t = float;   // 32-bit floating-point type
 using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
-void helper(std::vector<int> taken, std::vector<int> a, std::vector<std::vector<int>>& subsets) {
-  if (a.empty()) {
-    if (!taken.empty()) subsets.push_back(taken);
+// Using concept back-pointer
+void find_subsets(int level, int sum_left, const std::vector<int>& a, std::vector<std::vector<int>>& cache,
+                  std::vector<int>& current_subset, std::vector<std::vector<int>>& all_subsets) {
+  // Pruning condition: if the current sum_left below 0
+  if (sum_left < 0) return;
+
+  // Base case: if we've processed all elements
+  if (level == a.size()) {
+    if (sum_left == 0) all_subsets.push_back(current_subset);  // Store the current valid subset
     return;
   }
 
-  taken.push_back(a.back());
-  a.pop_back();
+  // Decision to skip the current element
+  find_subsets(level + 1, sum_left, a, cache, current_subset, all_subsets);
 
-  helper(taken, a, subsets);
-
-  taken.pop_back();
-  helper(taken, a, subsets);
+  // Decision to include the current element
+  current_subset.push_back(a[level]);  // Include the current element
+  find_subsets(level + 1, sum_left - a[level], a, cache, current_subset, all_subsets);
+  current_subset.pop_back();  // Backtrack
 }
 
-// PROBLEM SOLUTION
-void solution() {
-  int n, t;
-  std::cin >> n >> t;
+bool helper(int level, int sum_left, const std::vector<int>& a, std::vector<std::vector<int>>& cache) {
+  // Pruning condition: if the current sum_left below 0
+  if (sum_left < 0) return false;
 
+  // Base case: if we've processed all elements
+  if (level == a.size()) return sum_left == 0;
+
+  // Cache check: return cached result if already computed
+  if (cache[level][sum_left] != -1) return cache[level][sum_left];
+
+  // Compute the result: either skip or take the current element
+  bool ans = helper(level + 1, sum_left, a, cache) || helper(level + 1, sum_left - a[level], a, cache);
+
+  // Store the result in the cache
+  return cache[level][sum_left] = ans;
+}
+
+void solution() {
+  int n, q;  //  q: # queries
+  std::cin >> n >> q;
+
+  // Input the array of elements
   std::vector<int> a(n);
   for (int i = 0; i < n; ++i) std::cin >> a[i];
 
-  std::vector<std::vector<int>> subsets;
-  helper({}, a, subsets);
+  // Cache value, only once for all the queries
+  std::vector<std::vector<int>> cache(n + 1, std::vector<int>(1000, -1));
 
-  for (auto x : subsets) {
-    for (auto y : x) std::cout << y << ' ';
-    std::cout << '\n';
+  while (q--) {
+    int t;  // t: target
+    std::cin >> t;
+
+    // Call helper to determine if the target sum can be formed
+    if (helper(0, t, a, cache)) {
+      std::vector<int> current_subset;
+      std::vector<std::vector<int>> all_subsets;
+
+      // Find and print all valid subsets
+      find_subsets(0, t, a, cache, current_subset, all_subsets);
+      for (const auto& subset : all_subsets) {
+        for (int num : subset) std::cout << num << " ";
+        std::cout << '\n';
+      }
+    } else {
+      std::cout << -1 << '\n';  // Print -1 if no subset can form the target sum
+    }
   }
 }
 

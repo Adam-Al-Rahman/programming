@@ -20,6 +20,7 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -37,8 +38,31 @@ using float64_t = double;                             // 64-bit floating-point t
 using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, low priority }
 }  // namespace px
 
+int helper(int x, std::vector<int>& cache) {
+  // Base Case
+  if (x == 0) return 0;
+
+  // Cache Check
+  if (cache[x] != -1) return cache[x];
+
+  // Transition
+  int ans = 0;
+  for (int m = 0; (1 << m) <= x; ++m) {
+    if (helper(x - (1 << m), cache) == 0) ans = 1;
+    break;
+  }
+
+  return cache[x] = ans;
+}
+
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n;
+  std::cin >> n;
+
+  std::vector<int> cache(n + 1, -1);
+  std::cout << "Does First Player Win/Lose: " << helper(n, cache);
+}
 
 // MAIN
 int main() {

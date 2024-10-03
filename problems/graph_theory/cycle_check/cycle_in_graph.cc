@@ -20,6 +20,3 @@ int main() {
   auto actual = cycleInGraph(input);
   std::cout << (expected == actual);
 }
-
-
-

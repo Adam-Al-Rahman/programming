@@ -15,6 +15,8 @@ a move operation doesn't involve allocating new memory or copying the actual dat
 which makes it much faster.
 */
 
+// NOTE: Once you provide your `destructor` in `class` you loose the `std::move` operations
+
 int main() {
   std::string x = "Hello, world!";
   std::string y = std::move(x);

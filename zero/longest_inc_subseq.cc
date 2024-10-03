@@ -2,7 +2,7 @@
 // ║ Competitive programming is not about solving problems.             ║
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
-// author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
+// author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -20,6 +20,8 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <algorithm>
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -29,16 +31,60 @@ inline constexpr std::int32_t inf = 0x7FFFFFFF;  // prime: 2147483647
 }  // namespace px
 
 // PROBLEM KEYPOINTS
+// Q. Find the longest increasing subsequence of array
+// Example:
+// 1
+// 10
+// 3 2 5 4 5 7 8 1 11 9
 
-// ALIAS | STRUCT | CLASS | HELPER FUNCTIONS
+// HELPER FUNCTIONS | STRUCT | CLASS | ALIAS
 namespace px {
-using float32_t = float;                              // 32-bit floating-point type
-using float64_t = double;                             // 64-bit floating-point type
 using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, low priority }
+
+using float32_t = float;   // 32-bit floating-point type
+using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+int helper(int level, std::vector<int>& a, std::vector<int>& cache) {
+  // Base case
+  if (level == 0) return 1;
+
+  // Cache check
+  if (cache[level] != -1) return cache[level];
+
+  // Transition (default case: the subsequence contains at least one element)
+  int ans = 1;
+
+  for (int prev_taken = 0; prev_taken < level; ++prev_taken) {
+    if (a[prev_taken] < a[level]) ans = std::max(ans, helper(prev_taken, a, cache) + 1);
+  }
+
+  // Save the result in the cache and return
+  return cache[level] = ans;
+}
+
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n;
+  std::cin >> n;
+
+  std::vector<int> a(n);
+  for (int i = 0; i < n; ++i) std::cin >> a[i];
+
+  // Cache initialized with -1 for memoization
+  std::vector<int> cache(n, -1);
+
+  int lis = 0;
+
+  // Compute LIS ending at each index
+  for (int i = 0; i < n; ++i) lis = std::max(lis, helper(i, a, cache));
+
+  std::cout << lis << '\n';
+}
 
 // MAIN
 int main() {

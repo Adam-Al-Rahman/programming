@@ -2,7 +2,8 @@
 // ║ Competitive programming is not about solving problems.             ║
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
-// author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
+// author: Adam-Al-Rahman <https://atiq-ur-rehaman.netlify.app>
+// Q: https://codeforces.com/contest/2013/problem/0
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -26,19 +27,35 @@ namespace px {
 inline constexpr std::int32_t mod = std::int32_t(1e9) + 7;  // Modulus
 inline constexpr std::int32_t nums = std::int32_t(2e5) + 5;
 inline constexpr std::int32_t inf = 0x7FFFFFFF;  // prime: 2147483647
+
 }  // namespace px
 
 // PROBLEM KEYPOINTS
 
-// ALIAS | STRUCT | CLASS | HELPER FUNCTIONS
+// HELPER FUNCTIONS | STRUCT | CLASS | ALIAS
 namespace px {
-using float32_t = float;                              // 32-bit floating-point type
-using float64_t = double;                             // 64-bit floating-point type
 using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, low priority }
+
+using float32_t = float;   // 32-bit floating-point type
+using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n;
+  std::cin >> n;
+
+  int x, y;
+  std::cin >> x >> y;
+
+  int c = x < y ? x : y;
+
+  int sec = n / c;
+  n -= (c * sec);
+  if (n > 0) sec += 1;
+
+  std::cout << sec << '\n';
+}
 
 // MAIN
 int main() {
