@@ -67,23 +67,52 @@ int helper(int level, std::vector<int>& a, std::vector<int>& cache) {
   return cache[level] = ans;
 }
 
+std::vector<int> helper_optim(const std::vector<int>& a, int n) {
+  std::vector<int> lis;
+  std::vector<int> inserted_at(n);
+
+  for (int i = 0; i < n; ++i) {
+    if (lis.empty() || lis.back() < a[i]) {
+      lis.push_back(a[i]);
+      inserted_at[i] = lis.size() - 1;
+    } else {
+      auto it = std::lower_bound(lis.begin(), lis.end(), a[i]);
+      *it = a[i];
+      inserted_at[i] = it - lis.begin();
+    }
+  }
+
+  std::vector<int> list;
+  int current_len = lis.size() - 1;
+  for (int i = n - 1; i >= 0; i -= 1) {
+    if (inserted_at[i] == current_len) {
+      list.push_back(a[i]);
+      current_len -= 1;
+    }
+  }
+
+  std::reverse(list.begin(), list.end());
+  return list;
+};
+
 // PROBLEM SOLUTION
 void solution() {
   int n;
   std::cin >> n;
 
-  std::vector<int> a(n);
+  std::vector<int> a(n, 0);
   for (int i = 0; i < n; ++i) std::cin >> a[i];
 
   // Cache initialized with -1 for memoization
   std::vector<int> cache(n, -1);
 
-  int lis = 0;
+  // int lis = 0;
+  // // Compute LIS ending at each index
+  // for (int i = 0; i < n; ++i) lis = std::max(lis, helper(i, a, cache));
+  // std::cout << lis << '\n';
 
-  // Compute LIS ending at each index
-  for (int i = 0; i < n; ++i) lis = std::max(lis, helper(i, a, cache));
-
-  std::cout << lis << '\n';
+  std::vector<int> list = helper_optim(a, n);
+  for (auto x : list) std::cout << x << ' ';
 }
 
 // MAIN
