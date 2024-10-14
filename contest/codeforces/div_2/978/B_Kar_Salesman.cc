@@ -3,6 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
+// Q: https://codeforces.com/contest/2022/problem/B
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -20,6 +21,7 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <algorithm>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -36,10 +38,44 @@ using float32_t = float;
 using float64_t = double;
 using float128_t = long double;
 using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, low priority }
+
+std::int64_t ceil(std::int64_t a, int64_t b) { return (a + b - 1) / b; }
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n, k;
+  std::cin >> n >> k;
+
+  std::int64_t max = 0;
+  std::int64_t sum = 0;
+  for (int i = 0; i < n; ++i) {
+    int x;
+    std::cin >> x;
+
+    sum += x;
+    if (max < x) max = x;
+  }
+
+  if (k == n) {
+    std::cout << max << '\n';
+    return;
+  }
+
+  if (k == 1) {
+    std::cout << sum << '\n';
+    return;
+  }
+
+  // Instead: use px::ceil
+  // std::int64_t count = 0;
+  // if (sum % k == 0)
+  //   count = sum / k;
+  // else
+  //   count = (sum / k) + 1;
+
+  std::cout << std::max(max, px::ceil(sum, k)) << '\n';
+}
 
 // MAIN
 int main() {

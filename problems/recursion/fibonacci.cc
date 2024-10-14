@@ -5,9 +5,7 @@
 
 #include <iostream>
 
-/**
- * @param n: nth fib sequence element
- */
+// @param n: nth fib sequence element
 int fibonacci(int n) {
   if (n == 0)
     return 0;

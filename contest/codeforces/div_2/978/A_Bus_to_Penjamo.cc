@@ -3,6 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
+// Q: https://codeforces.com/contest/2022/problem/0
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -20,6 +21,7 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -39,7 +41,36 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n, r;
+  std::cin >> n >> r;
+
+  std::vector<int> a(n);
+  for (int i = 0; i < n; ++i) std::cin >> a[i];
+
+  int seats = 2 * r;
+  int happy = 0;
+  int unseated = 0;
+  for (int i = 0; i < n; ++i) {
+    if (a[i] % 2 == 0) {
+      happy += a[i];
+      seats -= a[i];
+    } else {
+      happy += (a[i] - 1);
+      seats -= (a[i] - 1);
+      unseated += 1;
+    }
+  }
+
+  if (((seats / 2) >= unseated)) {
+    happy += unseated;
+  } else {
+    int unhappy = 2 * (unseated - (seats / 2));
+    happy += (unseated - unhappy);
+  }
+
+  std::cout << happy << '\n';
+}
 
 // MAIN
 int main() {

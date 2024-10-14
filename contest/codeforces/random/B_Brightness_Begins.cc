@@ -3,6 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
+// Q: https://codeforces.com/problemset/problem/2020/B
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -20,11 +21,12 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <cmath>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
 inline constexpr std::int32_t mod = std::int32_t(1e9) + 7;  // Modulus
-inline constexpr std::int32_t num = std::int32_t(2e5) + 5;
+inline constexpr std::int32_t nums = std::int32_t(2e5) + 5;
 inline constexpr std::int32_t inf = 0x7FFFFFFF;  // prime: 2147483647
 }  // namespace px
 
@@ -32,14 +34,31 @@ inline constexpr std::int32_t inf = 0x7FFFFFFF;  // prime: 2147483647
 
 // ALIAS | STRUCT | CLASS | HELPER FUNCTIONS
 namespace px {
-using float32_t = float;
-using float64_t = double;
-using float128_t = long double;
+using float32_t = float;                              // 32-bit floating-point type
+using float64_t = double;                             // 64-bit floating-point type
+using float128_t = long double;                       // 128-bit floating-point type (64-Bit Architecture)
 using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, low priority }
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  std::int64_t k;
+  std::cin >> k;
+
+  std::int64_t low = 1;
+  std::int64_t high = std::int64_t(2e18);
+  while (high - low > 1) {
+    px::float128_t mid = (low + high) >> 1;
+    px::float128_t n = mid - std::int64_t(std::sqrt(mid));
+
+    if (n >= k)
+      high = mid;
+    else
+      low = mid;
+  }
+
+  std::cout << high << '\n';
+}
 
 // MAIN
 int main() {

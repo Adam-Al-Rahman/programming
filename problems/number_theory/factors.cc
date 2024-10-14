@@ -20,5 +20,5 @@ std::vector<std::uint64_t> factors(std::uint64_t number) {
 }
 
 int main() {
-  for (auto x : factors(5)) std::cout << x << ' ';
+  for (auto x : factors(12)) std::cout << x << ' ';
 }
