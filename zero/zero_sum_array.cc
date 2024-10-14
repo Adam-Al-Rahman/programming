@@ -8,9 +8,22 @@
 // one element and as long as the original array.
 
 #include <cassert>
+#include <unordered_set>
 #include <vector>
 
-bool zeroSumSubarray(std::vector<int> nums) { return false; }
+bool zeroSumSubarray(std::vector<int> nums) {
+  std::unordered_set<int> prefix_sum;
+  int current_sum = 0;
+  prefix_sum.insert(current_sum);
+
+  for (int x : nums) {
+    current_sum += x;
+    if (prefix_sum.find(current_sum) != prefix_sum.end()) return true;
+    prefix_sum.insert(current_sum);
+  }
+
+  return false;
+}
 
 int main() {
   auto input = {4, 2, -1, -1, 3};
