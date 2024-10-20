@@ -3,6 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
+// Q: https://codeforces.com/contest/2030/problem/0
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -21,6 +22,7 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <climits>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -40,7 +42,25 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n;
+  std::cin >> n;
+
+  int min = INT_MAX;
+  int max = INT_MIN;
+
+  for (int i = 0; i < n; ++i) {
+    int x;
+    std::cin >> x;
+
+    if (x < min) min = x;
+    if (x > max) max = x;
+  }
+
+  int score = 0;
+  for (int i = 1; i < n; ++i) score += (max - min);
+  std::cout << score << '\n';
+}
 
 // MAIN
 int main() {

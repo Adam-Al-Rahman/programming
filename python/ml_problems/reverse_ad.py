@@ -1,7 +1,13 @@
+"""
+Reverse Automatic Differentiation
+"""
+
 from abc import ABC, abstractmethod
 
 
 class Node(ABC):  # ABC: Abstract Base Class
+    """Base Class of all the custom operator"""
+
     def __init__(self):
         self.gradient = 0
         self._value = None  # Cache for the evaluated value
@@ -9,17 +15,14 @@ class Node(ABC):  # ABC: Abstract Base Class
     @abstractmethod
     def _evaluate(self) -> float:
         """Actual evaluation logic to be implemented by subclasses."""
-        pass
 
     @abstractmethod
     def derivative(self, wrt_variable: "Variable") -> float:
         """Compute the derivative with respect to the given variable."""
-        pass
 
     @abstractmethod
     def backprop(self, prev_gradient: float):
         """Perform backpropagation with the given gradient."""
-        pass
 
     def evaluate(self) -> float:
         """Evaluate the node and return its value."""
@@ -33,6 +36,8 @@ class Node(ABC):  # ABC: Abstract Base Class
 
 
 class Constant(Node):
+    """AD for constant values"""
+
     def __init__(self, value: float):
         super().__init__()
         self.value = value
@@ -75,17 +80,14 @@ class BinaryOperator(Node):
     @abstractmethod
     def _evaluate(self) -> float:
         """Actual evaluation logic to be implemented by subclasses."""
-        pass
 
     @abstractmethod
     def derivative(self, wrt_variable: "Variable") -> float:
         """Compute the derivative with respect to the given variable."""
-        pass
 
     @abstractmethod
     def backprop(self, prev_gradient: float):
         """Perform backpropagation with the given gradient."""
-        pass
 
 
 class Add(BinaryOperator):

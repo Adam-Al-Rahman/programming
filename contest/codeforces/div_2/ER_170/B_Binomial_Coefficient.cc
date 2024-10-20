@@ -3,6 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
+// Q: https://codeforces.com/contest/2025/problem/B
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -21,6 +22,7 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -40,7 +42,27 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int t;
+  std::cin >> t;
+
+  std::vector<int> n(t);
+  for (int i = 0; i < t; ++i) std::cin >> n[i];
+
+  std::vector<int> k(t);
+  for (int i = 0; i < t; ++i) std::cin >> k[i];
+
+  // for (int n = 0; n < N; n++) {  // loop over n from 0 to N-1 (inclusive)
+  //   C[n][0] = 1;
+  //   C[n][n] = 1;
+  //   for (int k = 1; k < n; k++)  // loop over k from 1 to n-1 (inclusive)
+  //     C[n][k] = C[n][k - 1] + C[n - 1][k - 1];
+  // }
+  std::vector<int> C(px::num, 1);
+  for (int i = 1; i <= px::num; i++) C[i] = (2 * C[i - 1]) % px::mod;
+
+  for (int i = 0; i < t; ++i) std::cout << C[k[i]] << '\n';
+}
 
 // MAIN
 int main() {
@@ -58,7 +80,7 @@ int main() {
 #endif  // ONLINE_JUDGE
 
   std::uint32_t tests = 1;
-  std::cin >> tests;  // overwrite
+  // std::cin >> tests;  // overwrite
   while (tests--) solution();
 
 #ifndef ONLINE_JUDGE

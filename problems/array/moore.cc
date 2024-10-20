@@ -5,22 +5,19 @@
 #include <iostream>
 #include <vector>
 
-int majority_element(std::vector<int>& elements) {
+int majority_element(const std::vector<int>& elements) {
   int candidate;
   int count = 0;
 
   for (int x : elements) {
-    if (count == 0) {
-      candidate = x;
-      count += 1;
-    }
+    if (count == 0) candidate = x;
 
     if (x == candidate) count += 1;
 
     if (x != candidate) count -= 1;
   }
 
-  // verify candidate
+  // verify candidate (not necessary)
   count = 0;
   for (int x : elements) {
     if (x == candidate) count += 1;

@@ -3,6 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
+// Q: https://codeforces.com/contest/2025/problem/A
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -10,17 +11,18 @@
 // HEADERS (Required)
 #ifndef ONLINE_JUDGE
 #include <sys/resource.h>  // For getrusage
-
-#include <cstdio>  // freopen
-#include <ctime>   // std::clock
-#endif             // ONLINE_JUDGE
+#endif                     // ONLINE_JUDGE
 
 #include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
+#include <cstdio>   // freopen
+#include <ctime>    // std::clock
 #include <ios>      // std::ios_base
 #include <iostream>
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <algorithm>
+#include <string>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -40,7 +42,30 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  std::string s;
+  std::cin >> s;
+
+  std::string t;
+  std::cin >> t;
+
+  int size = std::min(s.size(), t.size());
+
+  int com_sec = 0;
+  for (int i = 0; i < size; ++i) {
+    if (s[i] == t[i])
+      com_sec += 1;
+    else
+      break;
+  }
+
+  int total = com_sec;
+  if (com_sec != 0) total += 1;
+  total += (s.size() - com_sec);
+  total += (t.size() - com_sec);
+
+  std::cout << total << '\n';
+}
 
 // MAIN
 int main() {

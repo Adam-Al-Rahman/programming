@@ -3,6 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
+// Q: https://codeforces.com/contest/2030/problem/C
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -21,6 +22,7 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
+#include <string>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -40,7 +42,27 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 }  // namespace px
 
 // PROBLEM SOLUTION
-void solution() {}
+void solution() {
+  int n;
+  std::cin >> n;
+
+  std::string bin;
+  std::cin >> bin;
+
+  if (bin[0] == '1' || bin[n - 1] == '1') {
+    std::cout << "YES" << '\n';
+    return;
+  }
+
+  for (int i = 0; i < n - 1; i += 1) {
+    if (bin[i] == '1' && bin[i + 1] == '1') {
+      std::cout << "YES" << '\n';
+      return;
+    }
+  }
+
+  std::cout << "NO" << '\n';
+}
 
 // MAIN
 int main() {

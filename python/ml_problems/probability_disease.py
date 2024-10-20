@@ -19,8 +19,18 @@ Note that:
 import unittest
 
 
+# Bayes Theorem
 def probability_of_disease(accuracy, prevalence):
-    return []
+    # P(d=1 | +ve) = (prevalence * accuracy) / ((prevalence * accuracy) + (1 - prevalence) * (1 - accuracy))
+    prob_pos = (prevalence * accuracy) / (
+        (prevalence * accuracy) + (1 - prevalence) * (1 - accuracy)
+    )
+
+    # P(d=0 | -ve)
+    prob_neg = ((1 - prevalence) * accuracy) / (
+        (prevalence * (1 - accuracy)) + (1 - prevalence) * accuracy
+    )
+    return [prob_pos * 100, prob_neg * 100]
 
 
 class TestProgram(unittest.TestCase):
