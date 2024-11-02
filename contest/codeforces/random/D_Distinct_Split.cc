@@ -3,7 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
-// Q: https://codeforces.com/contest/2024/problem/B
+// Q: https://codeforces.com/problemset/problem/1791/D
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -14,7 +14,9 @@
 
 #include <cstdio>  // freopen
 #include <ctime>   // std::clock
-#endif             // ONLINE_JUDGE
+
+#include "cpp-dump/cpp-dump.hpp"  // cpp_dump (debug)
+#endif                            // ONLINE_JUDGE
 
 #include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
 #include <ios>      // std::ios_base
@@ -44,24 +46,27 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 
 // PROBLEM SOLUTION
 void solution() {
-  int n, k;
-  std::cin >> n >> k;
+  int n;
+  std::cin >> n;
 
-  std::vector<int> a(n);
-  for (int i = 0; i < n; ++i) std::cin >> a[i];
+  std::string s;
+  std::cin >> s;
 
-  std::sort(a.begin(), a.end());
+  std::vector<int> c1(26, 0);
+  for (int i = 0; i < n; ++i) c1[s[i] - 'a'] += 1;
 
-  std::int64_t sum = 0;
-  std::int64_t idx = 0;
-  while (idx < n) {
-    if (sum + (a[idx] * (n - idx)) >= k) break;
-    sum += a[idx];
+  std::vector<int> c2(26, 0);
 
-    idx += 1;
+  std::uint64_t count = 0;
+  for (char x : s) {
+    c1[x - 'a'] -= 1;
+    c2[x - 'a'] += 1;
+    std::uint64_t current = 0;
+    for (int i = 0; i < 26; ++i) current += std::min(1, c1[i]) + std::min(1, c2[i]);
+    count = std::max(count, current);
   }
 
-  std::cout << k + idx << '\n';
+  std::cout << count << '\n';
 }
 
 // MAIN

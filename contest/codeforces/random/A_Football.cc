@@ -3,7 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
-// Q: https://codeforces.com/contest/2024/problem/B
+// Q: https://codeforces.com/problemset/problem/96/A
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -22,8 +22,7 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
-#include <algorithm>
-#include <vector>
+#include <string>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -44,24 +43,25 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 
 // PROBLEM SOLUTION
 void solution() {
-  int n, k;
-  std::cin >> n >> k;
+  std::string teams;
+  std::cin >> teams;
 
-  std::vector<int> a(n);
-  for (int i = 0; i < n; ++i) std::cin >> a[i];
-
-  std::sort(a.begin(), a.end());
-
-  std::int64_t sum = 0;
-  std::int64_t idx = 0;
-  while (idx < n) {
-    if (sum + (a[idx] * (n - idx)) >= k) break;
-    sum += a[idx];
-
-    idx += 1;
+  if (teams.size() < 7) {
+    std::cout << "NO" << '\n';
+    return;
   }
 
-  std::cout << k + idx << '\n';
+  std::string zeros = "0000000";
+  std::string ones = "1111111";
+
+  for (int i = 0; i <= teams.size() - 7; ++i) {
+    if (teams.substr(i, 7) == zeros || teams.substr(i, 7) == ones) {
+      std::cout << "YES" << '\n';
+      return;
+    }
+  }
+
+  std::cout << "NO" << '\n';
 }
 
 // MAIN
@@ -80,7 +80,7 @@ int main() {
 #endif  // ONLINE_JUDGE
 
   std::uint32_t tests = 1;
-  std::cin >> tests;  // overwrite
+  // std::cin >> tests;  // overwrite
   while (tests--) solution();
 
 #ifndef ONLINE_JUDGE

@@ -3,12 +3,13 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
-// Q: https://codeforces.com/contest/2024/problem/B
+// Q: https://codeforces.com/contest/2027/problem/B
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
 
 // HEADERS (Required)
+#include <limits>
 #ifndef ONLINE_JUDGE
 #include <sys/resource.h>  // For getrusage
 
@@ -23,6 +24,7 @@
 
 // HEADERS (Current)
 #include <algorithm>
+#include <limits>
 #include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
@@ -44,24 +46,25 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 
 // PROBLEM SOLUTION
 void solution() {
-  int n, k;
-  std::cin >> n >> k;
+  int n;
+  std::cin >> n;
 
   std::vector<int> a(n);
-  for (int i = 0; i < n; ++i) std::cin >> a[i];
-
-  std::sort(a.begin(), a.end());
-
-  std::int64_t sum = 0;
-  std::int64_t idx = 0;
-  while (idx < n) {
-    if (sum + (a[idx] * (n - idx)) >= k) break;
-    sum += a[idx];
-
-    idx += 1;
+  for (int i = 0; i < n; ++i) {
+    std::cin >> a[i];
   }
 
-  std::cout << k + idx << '\n';
+  int count = std::numeric_limits<int>::max();
+  for (int i = 0; i < n; ++i) {
+    int lc = i;
+    for (int j = i + 1; j < n; ++j) {
+      if (a[j] > a[i]) lc += 1;
+    }
+
+    count = std::min(count, lc);
+  }
+
+  std::cout << count << '\n';
 }
 
 // MAIN

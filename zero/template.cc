@@ -4,23 +4,22 @@
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
 
-// ONLINE_JUDGE
-// #define ONLINE_JUDGE
-
-// HEADERS (Required)
+// HEADERS [Required]
 #ifndef ONLINE_JUDGE
 #include <sys/resource.h>  // For getrusage
 
 #include <cstdio>  // freopen
 #include <ctime>   // std::clock
-#endif             // ONLINE_JUDGE
+
+#include "cpp-dump/cpp-dump.hpp"  // cpp_dump (debug)
+#endif                            // ONLINE_JUDGE
 
 #include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
 #include <ios>      // std::ios_base
 #include <iostream>
 #include <tuple>  // std::tuple
 
-// HEADERS (Current)
+// HEADERS [Current]
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {

@@ -76,7 +76,6 @@ BST* reconstructBstFromRange(int lowerBound, int upperBound, std::vector<int>& p
 
   currentSubtreeInfo.rootIdx += 1;
   auto leftSubtree = reconstructBstFromRange(lowerBound, rootValue, preOrderTraversalValues, currentSubtreeInfo);
-
   auto rightSubtree = reconstructBstFromRange(rootValue, upperBound, preOrderTraversalValues, currentSubtreeInfo);
 
   auto tree = new BST(rootValue);

@@ -44,13 +44,13 @@ class DisjointSetUnion {
       parent[root_v] = root_u;
     } else {
       parent[root_v] = root_u;
-      rank[root_u]++;
+      rank[root_u] += 1;
     }
   }
 };
 
 // Kruskal Algorithm
-int kruskal(int n, std::vector<px::node>& edges) {
+int kruskal(int n, const std::vector<px::node>& edges) {
   DisjointSetUnion dsu(n);
   std::sort(edges.begin(), edges.end());
 

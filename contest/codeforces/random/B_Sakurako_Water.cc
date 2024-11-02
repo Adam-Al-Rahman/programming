@@ -3,7 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
-// Q: https://codeforces.com/contest/2024/problem/B
+// Q: https://codeforces.com/contest/2033/problem/B
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -22,7 +22,6 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
-#include <algorithm>
 #include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
@@ -44,24 +43,33 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 
 // PROBLEM SOLUTION
 void solution() {
-  int n, k;
-  std::cin >> n >> k;
+  int n;
+  std::cin >> n;
 
-  std::vector<int> a(n);
-  for (int i = 0; i < n; ++i) std::cin >> a[i];
-
-  std::sort(a.begin(), a.end());
-
-  std::int64_t sum = 0;
-  std::int64_t idx = 0;
-  while (idx < n) {
-    if (sum + (a[idx] * (n - idx)) >= k) break;
-    sum += a[idx];
-
-    idx += 1;
+  std::vector<std::vector<int>> a(n, std::vector<int>(n, 0));
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) std::cin >> a[i][j];
   }
 
-  std::cout << k + idx << '\n';
+  std::vector<int> b(n, 0);
+
+  for (int i = 0; i < n; i++) {
+    for (int j = i; j < n; j++) {
+      if (a[i][j] < 0 && b[std::abs(i - j)] > a[i][j]) b[std::abs(i - j)] = a[i][j];
+    }
+  }
+
+  std::vector<int> c(n, 0);
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < i; j++) {
+      if (a[i][j] < 0 && c[std::abs(i - j)] > a[i][j]) c[std::abs(i - j)] = a[i][j];
+    }
+  }
+
+  int sum = 0;
+  for (int i = 0; i < n; i++) sum += (-1 * (b[i] + c[i]));
+
+  std::cout << sum << '\n';
 }
 
 // MAIN

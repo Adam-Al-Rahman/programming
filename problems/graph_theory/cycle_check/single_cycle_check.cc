@@ -1,52 +1,44 @@
-/*
- * @question: Single Cyclic Search
- * @brief: You're given an array of integers where each integer represents a
- jump of its value in the array. For instance, the integer 2 represents a jump
- of two indices forward in the array; the integer -3 represents a
- jump of three indices backward in the array.
+// Single Cyclic Search
 
- If a jump spills past the array's bounds, it wraps over to the other side. For
- instance, a jump of <span>-1</span> at index <span>0</span> brings us to the
- last index in the array. Similarly, a jump of <span>1</span> at the last index
- in the array brings us to index <span>0</span>.
+// You're given an array of integers where each integer represents a jump of its value in the array.
+// For instance, the integer 2 represents a jump of two indices forward in the array; the integer
+// -3 represents a jump of three indices backward in the array.
 
- Write a function that returns a boolean representing whether the jumps in the
- array form a single cycle. A single cycle occurs if, starting at any index in
- the array and following the jumps, every element in the array is visited
- exactly once before landing back on the starting index.
+// If a jump spills past the array's bounds, it wraps over to the other side. For instance, a jump of
+// -1 at index 0 brings us to the last index in the array. Similarly, a jump of 1 at the last index
+// in the array brings us to index 0
 
- * @source:
- * @tags: ["graph", "cycle_check", "cpp"]
- * @status: unsolved
-*/
+// Write a function that returns a boolean representing whether the jumps in the array form a
+// single cycle. A single cycle occurs if, starting at any index in the array and following the jumps,
+// every element in the array is visited exactly once before landing back on the starting index.
 
 #include <iostream>
 #include <vector>
 
-std::int16_t get_next_index(std::int16_t current_index,
-                            const std::vector<std::int16_t> &list) {
-  std::int16_t next_index = (current_index + list[current_index]) % list.size();
+// The problem arises in (current_idx + list[current_idx]) % list.size() if list.size() is not cast to int32_t.
+// list.size() returns an std::size_t, which is an unsigned integer (typically 64 bits on many systems). When you
+// perform the modulo operation with an unsigned integer, C++ promotes the int32_t result of (current_idx +
+// list[current_idx]) to std::size_t before performing the modulo operation.
+std::int16_t get_next_idx(std::int16_t current_idx, const std::vector<std::int32_t> &list) {
+  std::int16_t next_idx = (current_idx + list[current_idx]) % static_cast<std::int32_t>(list.size());
 
   // for positive number else negative numbers
-  return next_index >= 0 ? next_index : next_index + list.size();
+  return next_idx >= 0 ? next_idx : next_idx + list.size();
 }
 
-bool has_single_cycle(const std::vector<std::int16_t> &list) {
+bool hasSingleCycle(const std::vector<std::int32_t> &list) {
   std::int16_t num_element_visited = 0;
-  std::int16_t current_index = 0;
+  std::int16_t current_idx = 0;
 
   while (num_element_visited < list.size()) {
     // If return to start index before visiting each element
-    if (num_element_visited > 0 && current_index == 0) return false;
+    if (num_element_visited > 0 && current_idx == 0) return false;
 
     num_element_visited += 1;
-    current_index = get_next_index(current_index, list);
+    current_idx = get_next_idx(current_idx, list);
   }
 
-  // Check for disconnected cycles
-  return num_element_visited == list.size() && current_index == 0;
+  return current_idx == 0;
 }
 
-int main() {
-  std::cout << "Value: " << has_single_cycle({2, 3, 1, -4, -4, 2}) << std::endl;
-}
+int main() { std::cout << "Value: " << hasSingleCycle({2, 3, 1, -4, -4, 2}) << std::endl; }

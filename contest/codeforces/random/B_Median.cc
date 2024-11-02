@@ -3,27 +3,24 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
-// Q: https://codeforces.com/contest/2024/problem/B
+// problem: https://codeforces.com/contest/2032/problem/B
 
-// ONLINE_JUDGE
-// #define ONLINE_JUDGE
-
-// HEADERS (Required)
+// HEADERS [Required]
 #ifndef ONLINE_JUDGE
 #include <sys/resource.h>  // For getrusage
 
 #include <cstdio>  // freopen
 #include <ctime>   // std::clock
-#endif             // ONLINE_JUDGE
+
+#include "cpp-dump/cpp-dump.hpp"  // cpp_dump (debug)
+#endif                            // ONLINE_JUDGE
 
 #include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
 #include <ios>      // std::ios_base
 #include <iostream>
 #include <tuple>  // std::tuple
 
-// HEADERS (Current)
-#include <algorithm>
-#include <vector>
+// HEADERS [Current]
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -47,21 +44,36 @@ void solution() {
   int n, k;
   std::cin >> n >> k;
 
-  std::vector<int> a(n);
-  for (int i = 0; i < n; ++i) std::cin >> a[i];
-
-  std::sort(a.begin(), a.end());
-
-  std::int64_t sum = 0;
-  std::int64_t idx = 0;
-  while (idx < n) {
-    if (sum + (a[idx] * (n - idx)) >= k) break;
-    sum += a[idx];
-
-    idx += 1;
+  if (n == 1 && k != 1) {
+    std::cout << -1 << '\n';
+    return;
+  } else if (n == 1 && k == 1) {
+    std::cout << 1 << '\n';
+    std::cout << n << '\n';
+    return;
   }
 
-  std::cout << k + idx << '\n';
+  int l = k - 1;
+  int r = n - k;
+
+  if (l == 0 || r == 0) {
+    std::cout << -1 << '\n';
+    return;
+  }
+
+  if (l % 2 == 0 && r % 2 == 0) {
+    std::cout << 5 << '\n';
+    std::cout << 1 << ' ' << 2 << ' ' << k << ' ' << k + 1 << ' ' << k + 2 << '\n';
+    return;
+  }
+
+  if (l % 2 != 0 && r % 2 != 0) {
+    std::cout << 3 << '\n';
+    std::cout << 1 << ' ' << k << ' ' << k + 1 << '\n';
+    return;
+  }
+
+  std::cout << -1 << '\n';
 }
 
 // MAIN

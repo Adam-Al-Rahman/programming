@@ -3,7 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
-// Q: https://codeforces.com/contest/2024/problem/B
+// Q: https://codeforces.com/problemset/problem/1807/D
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -22,7 +22,6 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
-#include <algorithm>
 #include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
@@ -44,24 +43,37 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 
 // PROBLEM SOLUTION
 void solution() {
-  int n, k;
-  std::cin >> n >> k;
+  int n, q;
+  std::cin >> n >> q;
 
-  std::vector<int> a(n);
-  for (int i = 0; i < n; ++i) std::cin >> a[i];
-
-  std::sort(a.begin(), a.end());
-
-  std::int64_t sum = 0;
-  std::int64_t idx = 0;
-  while (idx < n) {
-    if (sum + (a[idx] * (n - idx)) >= k) break;
-    sum += a[idx];
-
-    idx += 1;
+  std::vector<int> prefix_sum(n + 1, 0);  // +1: one-index
+  for (int i = 1; i <= n; ++i) {
+    int x;
+    std::cin >> x;
+    prefix_sum[i] = prefix_sum[i - 1] + x;
   }
 
-  std::cout << k + idx << '\n';
+  std::int64_t sum = prefix_sum[n];
+
+  while (q--) {
+    int l, r, k;
+    std::cin >> l >> r >> k;
+
+    std::int64_t i_sum = sum;
+
+    std::int64_t left_sum = prefix_sum[l - 1];
+    std::int64_t right_sum = prefix_sum[r];
+    std::int64_t lr_sum = right_sum - left_sum;
+    i_sum -= lr_sum;
+
+    int range = r - l + 1;
+    std::int64_t range_sum = range * k;
+
+    if ((i_sum + range_sum) % 2 == 0)
+      std::cout << "NO" << '\n';
+    else
+      std::cout << "YES" << '\n';
+  }
 }
 
 // MAIN

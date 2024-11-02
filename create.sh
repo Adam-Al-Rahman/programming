@@ -36,6 +36,6 @@ echo "File '$output_file' created successfully."
 
 # Insert data into the file if -u flag is provided
 if [ ! -z "$data" ]; then
-	sed -i "${line_number}i // Q: ${data}" "$output_file"
+	sed -i "${line_number}i // problem: ${data}" "$output_file"
 	echo "Data inserted successfully in $output_file at line $line_number."
 fi

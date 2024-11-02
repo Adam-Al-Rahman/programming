@@ -3,7 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
-// Q: https://codeforces.com/contest/2024/problem/B
+// Q: https://codeforces.com/contest/2035/problem/B
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -22,8 +22,6 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
-#include <algorithm>
-#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -44,24 +42,31 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 
 // PROBLEM SOLUTION
 void solution() {
-  int n, k;
-  std::cin >> n >> k;
+  int n;
+  std::cin >> n;
 
-  std::vector<int> a(n);
-  for (int i = 0; i < n; ++i) std::cin >> a[i];
-
-  std::sort(a.begin(), a.end());
-
-  std::int64_t sum = 0;
-  std::int64_t idx = 0;
-  while (idx < n) {
-    if (sum + (a[idx] * (n - idx)) >= k) break;
-    sum += a[idx];
-
-    idx += 1;
+  if (n == 1 || n == 3) {
+    std::cout << -1 << '\n';
+    return;
   }
 
-  std::cout << k + idx << '\n';
+  std::string number;
+  if (n % 2 == 0) {
+    for (int i = 0; i < n - 2; ++i) number.push_back('3');
+    number.push_back('6');
+  }
+
+  if (n % 2 != 0) {
+    for (int i = 0; i < n - 5; ++i) number.push_back('3');
+    number.push_back('3');
+    number.push_back('6');
+    number.push_back('3');
+    number.push_back('6');
+  }
+
+  number.push_back('6');  // Last digit
+
+  std::cout << number << '\n';
 }
 
 // MAIN

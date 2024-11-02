@@ -3,7 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
-// Q: https://codeforces.com/contest/2024/problem/B
+// Q: https://codeforces.com/contest/2033/problem/C
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -22,7 +22,6 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
-#include <algorithm>
 #include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
@@ -44,24 +43,22 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 
 // PROBLEM SOLUTION
 void solution() {
-  int n, k;
-  std::cin >> n >> k;
+  int n;
+  std::cin >> n;
 
   std::vector<int> a(n);
   for (int i = 0; i < n; ++i) std::cin >> a[i];
 
-  std::sort(a.begin(), a.end());
-
-  std::int64_t sum = 0;
-  std::int64_t idx = 0;
-  while (idx < n) {
-    if (sum + (a[idx] * (n - idx)) >= k) break;
-    sum += a[idx];
-
-    idx += 1;
+  for (int i = 1; i < n / 2; ++i) {
+    if (a[i] == a[i - 1] || a[n - i] == a[n - i - 1]) std::swap(a[i], a[n - i - 1]);
   }
 
-  std::cout << k + idx << '\n';
+  int count = 0;
+  for (int i = 1; i < n; ++i) {
+    count += (a[i] == a[i - 1]);
+  }
+
+  std::cout << count << '\n';
 }
 
 // MAIN

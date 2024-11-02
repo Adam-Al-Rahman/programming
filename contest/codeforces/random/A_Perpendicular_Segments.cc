@@ -3,7 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
-// Q: https://codeforces.com/contest/2024/problem/B
+// Q: https://codeforces.com/contest/2026/problem/0
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -23,7 +23,6 @@
 
 // HEADERS (Current)
 #include <algorithm>
-#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -44,24 +43,13 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 
 // PROBLEM SOLUTION
 void solution() {
-  int n, k;
-  std::cin >> n >> k;
+  int x, y, k;
+  std::cin >> x >> y >> k;
 
-  std::vector<int> a(n);
-  for (int i = 0; i < n; ++i) std::cin >> a[i];
+  int z = std::min(x, y);
 
-  std::sort(a.begin(), a.end());
-
-  std::int64_t sum = 0;
-  std::int64_t idx = 0;
-  while (idx < n) {
-    if (sum + (a[idx] * (n - idx)) >= k) break;
-    sum += a[idx];
-
-    idx += 1;
-  }
-
-  std::cout << k + idx << '\n';
+  std::cout << 0 << ' ' << 0 << ' ' << z << ' ' << z << '\n';
+  std::cout << 0 << ' ' << z << ' ' << z << ' ' << 0 << '\n';
 }
 
 // MAIN

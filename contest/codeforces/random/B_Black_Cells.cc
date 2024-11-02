@@ -3,18 +3,20 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
-// Q: https://codeforces.com/contest/2024/problem/B
+// Q: https://codeforces.com/contest/2026/problem/B
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
 
 // HEADERS (Required)
 #ifndef ONLINE_JUDGE
+
 #include <sys/resource.h>  // For getrusage
 
 #include <cstdio>  // freopen
 #include <ctime>   // std::clock
-#endif             // ONLINE_JUDGE
+
+#endif  // ONLINE_JUDGE
 
 #include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
 #include <ios>      // std::ios_base
@@ -23,6 +25,7 @@
 
 // HEADERS (Current)
 #include <algorithm>
+#include <limits>
 #include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
@@ -44,24 +47,34 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 
 // PROBLEM SOLUTION
 void solution() {
-  int n, k;
-  std::cin >> n >> k;
+  int n;
+  std::cin >> n;
 
-  std::vector<int> a(n);
+  std::vector<std::uint64_t> a(n);  // given: sorted
   for (int i = 0; i < n; ++i) std::cin >> a[i];
 
-  std::sort(a.begin(), a.end());
-
-  std::int64_t sum = 0;
-  std::int64_t idx = 0;
-  while (idx < n) {
-    if (sum + (a[idx] * (n - idx)) >= k) break;
-    sum += a[idx];
-
-    idx += 1;
+  if (n == 1) {
+    std::cout << 1 << '\n';
+    return;
   }
 
-  std::cout << k + idx << '\n';
+  std::uint64_t ans = 0;
+  if (n % 2 == 0) {
+    for (int i = 0; i < n; i += 2) ans = std::max(ans, a[i + 1] - a[i]);
+  }
+
+  if (n % 2 != 0) {
+    ans = std::numeric_limits<std::uint64_t>::max();
+    for (int i = 0; i < n; i++) {
+      std::vector<std::uint64_t> b = a;
+      b.erase(b.begin() + i);
+      std::uint64_t current = 0;
+      for (int j = 0; j < n - 1; j += 2) current = std::max(current, b[j + 1] - b[j]);
+      ans = std::min(ans, current);
+    }
+  }
+
+  std::cout << ans << '\n';
 }
 
 // MAIN

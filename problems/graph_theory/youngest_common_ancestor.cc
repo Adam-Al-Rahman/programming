@@ -1,13 +1,6 @@
-/*
- * @copyright
- * Copyright 2024 Adam-Al-Rahman
- *
- * @question: youngest Common Ancestor
- * @brief:
- * @source:
- * @tags: ["topics/graph", "algorithms/", "methods/"]
- * @status: solved
- */
+// Copyright 2024 Adam-Al-Rahman
+
+//  youngest Common Ancestor
 
 #include <iostream>
 #include <string>

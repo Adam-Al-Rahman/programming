@@ -3,7 +3,7 @@
 // ║ It's about continuously evolving your approach to problem-solving. ║
 // ╚════════════════════════════════════════════════════════════════════╝
 // author: Adam-Al-Rahman <https://atiq-urrehaman.netlify.app>
-// Q: https://codeforces.com/contest/2024/problem/B
+// Q: https://codeforces.com/contest/2027/problem/0
 
 // ONLINE_JUDGE
 // #define ONLINE_JUDGE
@@ -22,8 +22,6 @@
 #include <tuple>  // std::tuple
 
 // HEADERS (Current)
-#include <algorithm>
-#include <vector>
 
 // GLOBAL CONSTANTS EXPRESSIONS
 namespace px {
@@ -44,24 +42,21 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 
 // PROBLEM SOLUTION
 void solution() {
-  int n, k;
-  std::cin >> n >> k;
+  int n;
+  std::cin >> n;
 
-  std::vector<int> a(n);
-  for (int i = 0; i < n; ++i) std::cin >> a[i];
+  int max_w = 0;
+  int max_h = 0;
 
-  std::sort(a.begin(), a.end());
+  while (n--) {
+    int w, h;
+    std::cin >> w >> h;
 
-  std::int64_t sum = 0;
-  std::int64_t idx = 0;
-  while (idx < n) {
-    if (sum + (a[idx] * (n - idx)) >= k) break;
-    sum += a[idx];
-
-    idx += 1;
+    if (max_w < w) max_w = w;
+    if (max_h < h) max_h = h;
   }
 
-  std::cout << k + idx << '\n';
+  std::cout << max_w * 2 + max_h * 2 << '\n';
 }
 
 // MAIN
