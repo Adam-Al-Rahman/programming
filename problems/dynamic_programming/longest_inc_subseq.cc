@@ -45,10 +45,6 @@ using float32_t = float;   // 32-bit floating-point type
 using float64_t = double;  // 64-bit floating-point type
 }  // namespace px
 
-#include <algorithm>
-#include <iostream>
-#include <vector>
-
 int helper(int level, std::vector<int>& a, std::vector<int>& cache) {
   // Base case
   if (level == 0) return 1;
@@ -93,7 +89,7 @@ std::vector<int> helper_optim(const std::vector<int>& a, int n) {
 
   std::reverse(list.begin(), list.end());
   return list;
-};
+}
 
 // PROBLEM SOLUTION
 void solution() {

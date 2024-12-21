@@ -1,3 +1,4 @@
+// problem: https://codeforces.com/problemset/problem/1337/A
 
 // HEADERS [Required]
 #ifndef ONLINE_JUDGE
@@ -9,6 +10,7 @@
 #include "cpp-dump/cpp-dump.hpp"  // cpp_dump (debug)
 #endif                            // ONLINE_JUDGE
 
+#include <algorithm>
 #include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
 #include <ios>      // std::ios_base
 #include <iostream>
@@ -20,7 +22,12 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 }  // namespace px
 
 // PROBLEM KEYPOINTS
-void solution() {}
+void solution() {
+  int a, b, c, d;
+  std::cin >> a >> b >> c >> d;
+
+  std::cout << a << ' ' << std::max(b, c) << ' ' << c << '\n';
+}
 
 // MAIN
 int main() {

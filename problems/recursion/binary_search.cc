@@ -10,8 +10,8 @@
 #include <variant>
 #include <vector>
 
-int binary_search(const int &to_search, const std::vector<int> &sorted_list,
-                  int left_ptr = 0, std::variant<int, char> right_ptr = 's') {
+int binary_search(const int &to_search, const std::vector<int> &sorted_list, int left_ptr = 0,
+                  std::variant<int, char> right_ptr = 's') {
   // int sorted_list_len = sorted_list.size();
 
   if (std::holds_alternative<char>(right_ptr)) {
@@ -22,7 +22,7 @@ int binary_search(const int &to_search, const std::vector<int> &sorted_list,
     // right_ptr = sorted_list_len - 1;
   }
 
-  int mid_ptr = ((left_ptr + std::get<int>(right_ptr)) / 2);
+  int mid_ptr = left_ptr + (std::get<int>(right_ptr) - left_ptr) / 2;  // mid = low + (high - low) / 2
   int mid_element = sorted_list[mid_ptr];
 
   if (mid_element == to_search) return mid_ptr;

@@ -1,3 +1,4 @@
+// problem: https://codeforces.com/contest/2048/problem/C
 
 // HEADERS [Required]
 #ifndef ONLINE_JUDGE
@@ -12,6 +13,7 @@
 #include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
 #include <ios>      // std::ios_base
 #include <iostream>
+#include <string>
 #include <tuple>
 
 // ALIAS | STRUCT | CLASS | HELPER FUNCTIONS
@@ -20,7 +22,18 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 }  // namespace px
 
 // PROBLEM KEYPOINTS
-void solution() {}
+void solution() {
+  std::string bin;
+  std::cin >> bin;
+
+  std::cout << 1 << ' ' << bin.size() << ' ';
+
+  int l2 = 1;
+  int r2 = 1;
+  int size = bin.size() - 1;
+
+  std::cout << l2 << ' ' << r2 << '\n';
+}
 
 // MAIN
 int main() {

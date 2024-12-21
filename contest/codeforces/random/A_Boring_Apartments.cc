@@ -1,3 +1,4 @@
+// problem: https://codeforces.com/problemset/problem/1433/A
 
 // HEADERS [Required]
 #ifndef ONLINE_JUDGE
@@ -12,6 +13,7 @@
 #include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
 #include <ios>      // std::ios_base
 #include <iostream>
+#include <string>
 #include <tuple>
 
 // ALIAS | STRUCT | CLASS | HELPER FUNCTIONS
@@ -20,7 +22,18 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 }  // namespace px
 
 // PROBLEM KEYPOINTS
-void solution() {}
+void solution() {
+  std::string s;
+  std::cin >> s;
+
+  int digit = s[0] - '0';
+  int sum = (digit - 1) * 10;
+
+  int size = s.size();
+  sum += (size * (size + 1) / 2);
+
+  std::cout << sum << '\n';
+}
 
 // MAIN
 int main() {

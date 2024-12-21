@@ -36,6 +36,55 @@
 #include <string>
 #include <vector>
 
+struct CellLocation {
+  int row;
+  int column;
+  CellLocation(int row, int column) : row(row), column(column) {}
+};
+
+std::vector<CellLocation> getNeighbors(std::vector<std::vector<std::string>>& board, int row, int column) {
+  std::vector<std::vector<int>> directions = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
+
+  std::vector<CellLocation> neighbors;
+
+  for (auto const& direction : directions) {
+    int newRow = row + direction[0];
+    int newColumn = column + direction[1];
+
+    if (newRow >= 0 && newRow < board.size() && newColumn >= 0 && newColumn < board[0].size()) {
+      neighbors.push_back(CellLocation(newRow, newColumn));
+    }
+  }
+
+  return neighbors;
+}
+
+// TC: O(w * h) | SC: O(w * h)
+std::vector<std::vector<std::string>> revealMinesweeper(std::vector<std::vector<std::string>>& board, int row,
+                                                        int column) {
+  if (board[row][column] == "M") {
+    board[row][column] = "X";
+    return board;
+  }
+
+  auto neighbors = getNeighbors(board, row, column);
+  int adjacentMinesCount = 0;
+  for (auto const& neighbor : neighbors) {
+    if (board[neighbor.row][neighbor.column] == "M") adjacentMinesCount += 1;
+  }
+
+  if (adjacentMinesCount > 0) {
+    board[row][column] = std::to_string(adjacentMinesCount);
+  } else {
+    board[row][column] = "0";
+    for (auto const& neighbor : neighbors) {
+      if (board[neighbor.row][neighbor.column] == "H") revealMinesweeper(board, neighbor.row, neighbor.column);
+    }
+  }
+
+  return board;
+}
+
 int main() {
   std::vector<std::vector<std::string>> board = {
       {"H", "H", "H", "H", "M"}, {"H", "H", "M", "H", "H"}, {"H", "H", "H", "H", "H"}, {"H", "H", "H", "H", "H"}};

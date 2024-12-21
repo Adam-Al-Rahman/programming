@@ -1,3 +1,4 @@
+// problem: https://codeforces.com/contest/2048/problem/A
 
 // HEADERS [Required]
 #ifndef ONLINE_JUDGE
@@ -12,6 +13,7 @@
 #include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
 #include <ios>      // std::ios_base
 #include <iostream>
+#include <string>
 #include <tuple>
 
 // ALIAS | STRUCT | CLASS | HELPER FUNCTIONS
@@ -20,7 +22,16 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 }  // namespace px
 
 // PROBLEM KEYPOINTS
-void solution() {}
+void solution() {
+  int x;
+  std::cin >> x;
+
+  if (x % 33 == 0) {
+    std::cout << "YES" << '\n';
+  } else {
+    std::cout << "NO" << '\n';
+  }
+}
 
 // MAIN
 int main() {

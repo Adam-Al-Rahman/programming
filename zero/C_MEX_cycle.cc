@@ -1,3 +1,4 @@
+// problem: https://codeforces.com/contest/2049/problem/C
 
 // HEADERS [Required]
 #ifndef ONLINE_JUDGE
@@ -13,6 +14,7 @@
 #include <ios>      // std::ios_base
 #include <iostream>
 #include <tuple>
+#include <vector>
 
 // ALIAS | STRUCT | CLASS | HELPER FUNCTIONS
 namespace px {
@@ -20,7 +22,20 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 }  // namespace px
 
 // PROBLEM KEYPOINTS
-void solution() {}
+void solution() {
+  int n, x, y;
+  std::cin >> n >> x >> y;
+
+  x -= 1;  // 0-Indexing
+  y -= 1;
+
+  std::vector<int> a(n);
+  for (int i = 0; i < n; ++i) a[(x + i) % n] = i % 2;
+
+  if (n % 2 || (x - y) % 2 == 0) a[x] = 2;
+
+  for (int i = 0; i < n; ++i) std::cout << a[i] << " \n"[i == n - 1];
+}
 
 // MAIN
 int main() {

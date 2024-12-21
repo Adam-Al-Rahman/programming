@@ -8,8 +8,13 @@
 # well as a label representing whether the relevant process was intrusive to the network. A label of e
 # means that it wasn't intrusive, while a label of 'i) means that it was intrusive.
 
+# Note that:
+# • You should use the Euclidean distance as the distance metric when finding the k-nearest-neighbors.
+# • You shouldn't use any libraries that implement KNN for you.
+
 import unittest
 
+import math
 import os
 import pickle
 
@@ -24,15 +29,28 @@ def get_knn_examples():
 EXAMPLES = get_knn_examples()
 
 
+def get_euclidean_distance(features, other_features):
+    squared_differences = []
+    for i in range(len(features)):
+        squared_differences.append((other_features[i] - features[i]) ** 2)
+    return math.sqrt(sum(squared_differences))
+
+
+def find_k_nearest_neighbors(dataset, features, k):
+    distances = {}
+    for pid, features_label_map in dataset.items():
+        distance = get_euclidean_distance(features, features_label_map["features"])
+        distances[pid] = distance
+    return sorted(distances, key=distances.get)[:k]
+
+
 # Should use the `find_k_nearest_neighbors` function below.
-def predict_label(dataset, test, k, label_key="is_intrusive"):
-    # Write your code here.
-    pass
-
-
-def find_k_nearest_neighbors(dataset, test, k):
-    # Write your code here.
-    pass
+def predict_label(dataset, features, k, label_key="is_intrusive"):
+    k_nearest_neighbors = find_k_nearest_neighbors(dataset, features, k)
+    k_nearest_neighbors_labels = [
+        dataset[pid][label_key] for pid in k_nearest_neighbors
+    ]
+    return round(sum(k_nearest_neighbors_labels) / k)
 
 
 class TestProgram(unittest.TestCase):

@@ -1,3 +1,4 @@
+// problem: https://codeforces.com/problemset/problem/702/A
 
 // HEADERS [Required]
 #ifndef ONLINE_JUDGE
@@ -9,10 +10,12 @@
 #include "cpp-dump/cpp-dump.hpp"  // cpp_dump (debug)
 #endif                            // ONLINE_JUDGE
 
+#include <algorithm>
 #include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
 #include <ios>      // std::ios_base
 #include <iostream>
 #include <tuple>
+#include <vector>
 
 // ALIAS | STRUCT | CLASS | HELPER FUNCTIONS
 namespace px {
@@ -20,7 +23,29 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 }  // namespace px
 
 // PROBLEM KEYPOINTS
-void solution() {}
+void solution() {
+  int n;
+  std::cin >> n;
+
+  std::vector<int> a(n);
+  for (int i = 0; i < n; ++i) std::cin >> a[i];
+
+  int size = 0;
+
+  for (int i = 1; i < n; ++i) {
+    int count = 0;
+    for (; i < n; ++i) {
+      if (a[i - 1] < a[i])
+        count += 1;
+      else
+        break;
+    }
+
+    size = std::max(size, count);
+  }
+
+  std::cout << size + 1 << '\n';
+}
 
 // MAIN
 int main() {
@@ -38,7 +63,7 @@ int main() {
 #endif  // ONLINE_JUDGE
 
   std::uint32_t tests = 1;
-  std::cin >> tests;  // overwrite
+  // std::cin >> tests;  // overwrite
   while (tests--) solution();
 
 #ifndef ONLINE_JUDGE

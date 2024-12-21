@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Default value for line_number
-line_number=6
+line_number=1
 
 # Check if the -f, -l, and -d flags are provided
 while getopts "f:l:u:" opt; do

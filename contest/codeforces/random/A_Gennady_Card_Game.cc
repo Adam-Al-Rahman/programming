@@ -1,3 +1,4 @@
+// problem: https://codeforces.com/problemset/problem/1097/A
 
 // HEADERS [Required]
 #ifndef ONLINE_JUDGE
@@ -8,10 +9,14 @@
 
 #include "cpp-dump/cpp-dump.hpp"  // cpp_dump (debug)
 #endif                            // ONLINE_JUDGE
+#define debug(arg)                   \
+  ifndef ONLINE_JUDGE cpp_dump(arg); \
+  endif
 
 #include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
 #include <ios>      // std::ios_base
 #include <iostream>
+#include <string>
 #include <tuple>
 
 // ALIAS | STRUCT | CLASS | HELPER FUNCTIONS
@@ -20,7 +25,23 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 }  // namespace px
 
 // PROBLEM KEYPOINTS
-void solution() {}
+void solution() {
+  std::string table;
+  std::cin >> table;
+
+  int n = 5;
+  for (int i = 0; i < n; ++i) {
+    std::string hand;
+    std::cin >> hand;
+
+    if (table[0] == hand[0] || table[1] == hand[1]) {
+      std::cout << "YES" << '\n';
+      return;
+    }
+  }
+
+  std::cout << "NO" << '\n';
+}
 
 // MAIN
 int main() {
@@ -38,7 +59,7 @@ int main() {
 #endif  // ONLINE_JUDGE
 
   std::uint32_t tests = 1;
-  std::cin >> tests;  // overwrite
+  // std::cin >> tests;  // overwrite
   while (tests--) solution();
 
 #ifndef ONLINE_JUDGE

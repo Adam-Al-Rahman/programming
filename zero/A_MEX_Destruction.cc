@@ -1,3 +1,4 @@
+// problem: https://codeforces.com/contest/2049/problem/0
 
 // HEADERS [Required]
 #ifndef ONLINE_JUDGE
@@ -20,7 +21,35 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 }  // namespace px
 
 // PROBLEM KEYPOINTS
-void solution() {}
+void solution() {
+  int n;
+  std::cin >> n;
+
+  int count = 0;
+  bool in_group = false;
+
+  for (int i = 0; i < n; ++i) {
+    int num;
+    std::cin >> num;
+
+    if (num != 0) {
+      if (!in_group) {
+        count += 1;
+        in_group = true;
+      }
+    } else {
+      in_group = false;
+    }
+  }
+
+  if (count == 0) {
+    std::cout << 0 << '\n';
+  } else if (count == 1) {
+    std::cout << 1 << '\n';
+  } else {
+    std::cout << 2 << '\n';
+  }
+}
 
 // MAIN
 int main() {

@@ -1,3 +1,4 @@
+// problem: https://codeforces.com/problemset/problem/492/A
 
 // HEADERS [Required]
 #ifndef ONLINE_JUDGE
@@ -20,7 +21,21 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 }  // namespace px
 
 // PROBLEM KEYPOINTS
-void solution() {}
+void solution() {
+  int n;
+  std::cin >> n;
+
+  int i = 0;
+  int current = 0;
+
+  while (current <= n) {
+    n -= current;
+    i += 1;
+    current = (i * (i + 1) / 2);
+  }
+
+  std::cout << i - 1 << '\n';
+}
 
 // MAIN
 int main() {
@@ -38,7 +53,7 @@ int main() {
 #endif  // ONLINE_JUDGE
 
   std::uint32_t tests = 1;
-  std::cin >> tests;  // overwrite
+  // std::cin >> tests;  // overwrite
   while (tests--) solution();
 
 #ifndef ONLINE_JUDGE

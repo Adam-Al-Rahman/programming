@@ -1,0 +1,5 @@
+[MESSAGES CONTROL]
+disable=unused-import, redefined-builtin, missing-module-docstring, missing-function-docstring, invalid-name, unused-variable
+
+[FORMAT]
+max-line-length=120

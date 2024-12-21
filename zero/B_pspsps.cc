@@ -1,3 +1,4 @@
+// problem: https://codeforces.com/contest/2049/problem/B
 
 // HEADERS [Required]
 #ifndef ONLINE_JUDGE
@@ -12,6 +13,7 @@
 #include <cstdint>  // std::int32_t, std::int16_t, std::int64_t
 #include <ios>      // std::ios_base
 #include <iostream>
+#include <string>
 #include <tuple>
 
 // ALIAS | STRUCT | CLASS | HELPER FUNCTIONS
@@ -20,7 +22,27 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 }  // namespace px
 
 // PROBLEM KEYPOINTS
-void solution() {}
+void solution() {
+  int n;
+  std::cin >> n;
+
+  std::string s;
+  std::cin >> s;
+
+  if (s[0] == 's') s[0] = '.';
+  if (s.back() == 'p') s.back() = '.';
+
+  bool found_p = false;
+  bool found_s = false;
+
+  for (char c : s) {
+    if (c == 'p') found_p = true;
+
+    if (c == 's') found_s = true;
+  }
+
+  std::cout << (found_p && found_s ? "NO" : "YES") << '\n';
+}
 
 // MAIN
 int main() {

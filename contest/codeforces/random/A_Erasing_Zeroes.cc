@@ -1,3 +1,4 @@
+// problem: https://codeforces.com/problemset/problem/1303/A
 
 // HEADERS [Required]
 #ifndef ONLINE_JUDGE
@@ -20,7 +21,27 @@ using node = std::tuple<std::int64_t, std::int64_t>;  // NOTE: {high priority, l
 }  // namespace px
 
 // PROBLEM KEYPOINTS
-void solution() {}
+void solution() {
+  std::string bin;
+  std::cin >> bin;
+
+  int i = 0;
+  for (; i < bin.size(); ++i) {
+    if (bin[i] == '1') break;
+  }
+
+  int j = bin.size() - 1;
+  for (; j >= 0; --j) {
+    if (bin[j] == '1') break;
+  }
+
+  int count = 0;
+  for (int k = i; k <= j; ++k) {
+    if (bin[k] == '0') count += 1;
+  }
+
+  std::cout << count << '\n';
+}
 
 // MAIN
 int main() {
