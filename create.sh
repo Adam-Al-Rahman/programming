@@ -30,8 +30,8 @@ if [ -z "$filename" ]; then
 fi
 
 # Create the file with .cc extension in the zero/ directory
-output_file="zero/${filename}.cc"
-cp zero/template.cc "$output_file"
+output_file="${filename}.cc"
+cp template.cc "$output_file"
 echo "File '$output_file' created successfully."
 
 # Insert data into the file if -u flag is provided
