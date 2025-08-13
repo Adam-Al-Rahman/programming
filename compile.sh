@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# Name of the source file (default: main.cpp)
-SOURCE_FILE="${1:-main.cpp}"
+# Name of the source file (default: problem.cc)
+SOURCE_FILE="${1:-problem.cc}"
 
 # Name of the output executable (default: a.out)
 OUTPUT_FILE="${2:-a.out}"
 
 # Compile with clang++ and define ONLINE_JUDGE
-clang++ -std=c++20 -D ONLINE_JUDGE "$SOURCE_FILE" -o "$OUTPUT_FILE"
+clang++ -std=c++20 "$SOURCE_FILE" -o "$OUTPUT_FILE"
 
 # Check if compilation was successful
 if [ $? -eq 0 ]; then

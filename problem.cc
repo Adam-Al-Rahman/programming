@@ -22,8 +22,8 @@ int main() {
   std::cout.tie(0);
 
 #ifndef ONLINE_JUDGE
-  (void)freopen("./zero/input.txt", "r", stdin);
-  (void)freopen("./zero/output.txt", "w", stdout);
+  (void)freopen("./input.txt", "r", stdin);
+  (void)freopen("./output.txt", "w", stdout);
 #endif  // ONLINE_JUDGE
 
   std::uint32_t tests = 1;
