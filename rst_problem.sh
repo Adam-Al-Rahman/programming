@@ -11,8 +11,12 @@ case "$lang" in
     template_file="skeleton.cc"
     output_file="problem.cc"
     ;;
+  py)
+    template_file="skeleton.py"
+    output_file="problem.py"
+    ;;
   *)
-    echo "Usage: $0 {rs|cc}"
+    echo "Usage: $0 {rs|cc|py}"
     exit 1
     ;;
 esac
