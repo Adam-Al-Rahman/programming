@@ -1,54 +1,48 @@
 use std::fs::File;
-use std::io::{self, BufRead, BufReader, BufWriter, Write};
+use std::io::{self, Read, Write, BufWriter};
 
-fn solve<R: BufRead, W: Write>(scan: &mut Scanner<R>, out: &mut W) {}
+fn solve<W: Write>(scan: &mut Scanner, out: &mut W) {
+}
 
 fn main() {
-    let input: Box<dyn BufRead> = if cfg!(debug_assertions) {
-        Box::new(BufReader::new(
-            File::open("input.txt").expect("input.txt not found"),
-        ))
+    let mut input_str = String::new();
+    if cfg!(debug_assertions) {
+        File::open("input.txt")
+            .expect("input.txt not found")
+            .read_to_string(&mut input_str)
+            .unwrap();
     } else {
-        Box::new(BufReader::new(io::stdin()))
-    };
+        io::stdin().lock().read_to_string(&mut input_str).unwrap();
+    }
 
-    let mut output: Box<dyn Write> = if cfg!(debug_assertions) {
-        Box::new(BufWriter::new(
-            File::create("output.txt").expect("cannot create output.txt"),
-        ))
+    let mut scan = Scanner::new(&input_str);
+
+    if cfg!(debug_assertions) {
+        let mut out = BufWriter::new(File::create("output.txt").expect("cannot create output.txt"));
+        run_tests(&mut scan, &mut out);
     } else {
-        Box::new(BufWriter::new(io::stdout()))
-    };
+        let mut out = BufWriter::new(io::stdout().lock());
+        run_tests(&mut scan, &mut out);
+    }
+}
 
-    let mut scan = Scanner::new(input);
-
+fn run_tests<W: Write>(scan: &mut Scanner, out: &mut W) {
     let tests: usize = scan.next();
-    for _ in 0..tests {
-        solve(&mut scan, &mut output);
-    }
+    for _ in 0..tests {  solve(scan, out); }
 }
 
-struct Scanner<R> {
-    reader: R,
-    buffer: Vec<String>,
+struct Scanner<'a> { 
+    iter: std::str::SplitAsciiWhitespace<'a> 
 }
 
-impl<R: BufRead> Scanner<R> {
-    fn new(reader: R) -> Self {
-        Self {
-            reader,
-            buffer: Vec::new(),
-        }
-    }
-
+impl<'a> Scanner<'a> {
+    fn new(s: &'a str) -> Self { Self { iter: s.split_ascii_whitespace() } }
+    
     fn next<T: std::str::FromStr>(&mut self) -> T {
-        loop {
-            if let Some(token) = self.buffer.pop() {
-                return token.parse().ok().expect("Parse error");
-            }
-            let mut input = String::new();
-            self.reader.read_line(&mut input).unwrap();
-            self.buffer = input.split_whitespace().rev().map(String::from).collect();
-        }
+        self.iter.next()
+            .expect("EOF")
+            .parse()
+            .ok()
+            .expect("Parse Error")
     }
 }

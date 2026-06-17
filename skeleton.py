@@ -4,9 +4,7 @@ import os
 # ALIAS | PRECOMPUTE | HELPER FUNCTIONS
 
 # PROBLEM KEYPOINTS
-def solution(it, out):
-    pass
-
+def solution(it, out): pass
 
 def main():
     if os.path.exists('input.txt'):
