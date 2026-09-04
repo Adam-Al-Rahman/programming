@@ -3,6 +3,7 @@ problem.py
 problem.rs
 problem.cc
 *.csv
+problem
 
 # Prerequisites
 *.d

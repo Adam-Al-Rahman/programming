@@ -27,13 +27,12 @@ fn main() {
 }
 
 fn run_tests<W: Write>(scan: &mut Scanner, out: &mut W) {
-    let tests: usize = scan.next();
+    let mut tests: usize = 1;
+    tests = scan.next(); // OVERWRITE
     for _ in 0..tests {  solve(scan, out); }
 }
 
-struct Scanner<'a> { 
-    iter: std::str::SplitAsciiWhitespace<'a> 
-}
+struct Scanner<'a> { iter: std::str::SplitAsciiWhitespace<'a> }
 
 impl<'a> Scanner<'a> {
     fn new(s: &'a str) -> Self { Self { iter: s.split_ascii_whitespace() } }
